@@ -1,23 +1,16 @@
 {
     "version": 2,
-    "builds": [
-        {
-            "src": "build/web/**",
-            "use": "@vercel/static"
-        }
-    ],
+    "buildCommand": "flutter pub get && flutter build web --release",
+    "outputDirectory": "build/web",
+    "framework": "flutter",
+    "installCommand": "git clone https://github.com/flutter/flutter.git -b stable && ./flutter/bin/flutter config --enable-web",
     "routes": [
         {
-            "src": "/(.*)",
-            "dest": "/build/web/$1"
-        },
-        {
-            "src": "/(.+\\.[a-zA-Z]+)",
-            "dest": "/build/web/$1"
+            "handle": "filesystem"
         },
         {
             "src": "/(.*)",
-            "dest": "/build/web/index.html"
+            "dest": "/index.html"
         }
     ]
 }
