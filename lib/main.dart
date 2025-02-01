@@ -68,30 +68,45 @@ class LandingPage extends StatelessWidget {
                 Container(
                   constraints: const BoxConstraints(maxHeight: 500),
                   padding: const EdgeInsets.symmetric(vertical: 20),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Expanded(
-                        child: Image.asset(
-                          'assets/images/screenshot_3.png',
-                          fit: BoxFit.contain,
-                        ),
+                  child: Center(
+                    child: Container(
+                      constraints: const BoxConstraints(maxWidth: 800),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Expanded(
+                            child: Container(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 8),
+                              child: Image.asset(
+                                'assets/images/screenshot_3.png',
+                                fit: BoxFit.contain,
+                              ),
+                            ),
+                          ),
+                          Expanded(
+                            child: Container(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 8),
+                              child: Image.asset(
+                                'assets/images/screenshot_1.png',
+                                fit: BoxFit.contain,
+                              ),
+                            ),
+                          ),
+                          Expanded(
+                            child: Container(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 8),
+                              child: Image.asset(
+                                'assets/images/screenshot_2.png',
+                                fit: BoxFit.contain,
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
-                      const SizedBox(width: 20),
-                      Expanded(
-                        child: Image.asset(
-                          'assets/images/screenshot_1.png',
-                          fit: BoxFit.contain,
-                        ),
-                      ),
-                      const SizedBox(width: 20),
-                      Expanded(
-                        child: Image.asset(
-                          'assets/images/screenshot_2.png',
-                          fit: BoxFit.contain,
-                        ),
-                      ),
-                    ],
+                    ),
                   ),
                 ),
 
