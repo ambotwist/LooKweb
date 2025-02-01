@@ -1,8 +1,8 @@
 {
     "version": 2,
-    "buildCommand": "flutter pub get && flutter build web --release",
+    "buildCommand": "export PATH=\"$PATH:$HOME/flutter/bin\" && flutter pub get && flutter build web --release",
     "outputDirectory": "build/web",
-    "installCommand": "git clone https://github.com/flutter/flutter.git -b stable && ./flutter/bin/flutter config --enable-web",
+    "installCommand": "git clone https://github.com/flutter/flutter.git && export PATH=\"$PATH:$HOME/flutter/bin\" && flutter precache && flutter config --enable-web",
     "routes": [
         {
             "handle": "filesystem"
