@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:video_player/video_player.dart';
 import 'package:flutter/services.dart';
+import 'dart:async';
 
 void main() {
   runApp(const MyApp());
@@ -78,6 +79,201 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
   }
 }
 
+class TypewriterText extends StatefulWidget {
+  final String text;
+  final TextStyle style;
+  final VoidCallback onComplete;
+  final bool isUnwriting;
+
+  const TypewriterText({
+    super.key,
+    required this.text,
+    required this.style,
+    required this.onComplete,
+    required this.isUnwriting,
+  });
+
+  @override
+  State<TypewriterText> createState() => _TypewriterTextState();
+}
+
+class _TypewriterTextState extends State<TypewriterText>
+    with SingleTickerProviderStateMixin {
+  late AnimationController _controller;
+  String _displayText = '';
+  int _charIndex = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = AnimationController(
+      duration: const Duration(milliseconds: 50),
+      vsync: this,
+    );
+
+    _controller.addListener(_onTick);
+    if (widget.isUnwriting) {
+      _charIndex = widget.text.length;
+      _displayText = widget.text;
+      _removeNextChar();
+    } else {
+      _addNextChar();
+    }
+  }
+
+  void _onTick() {
+    if (_controller.status == AnimationStatus.completed) {
+      if (widget.isUnwriting) {
+        if (_charIndex > 0) {
+          _removeNextChar();
+        } else {
+          widget.onComplete();
+        }
+      } else {
+        if (_charIndex < widget.text.length) {
+          _addNextChar();
+        } else {
+          widget.onComplete();
+        }
+      }
+    }
+  }
+
+  void _addNextChar() {
+    _controller.forward(from: 0.0);
+    setState(() {
+      _displayText = widget.text.substring(0, _charIndex + 1);
+      _charIndex++;
+    });
+  }
+
+  void _removeNextChar() {
+    _controller.forward(from: 0.0);
+    setState(() {
+      _charIndex--;
+      _displayText = widget.text.substring(0, _charIndex);
+    });
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  void didUpdateWidget(TypewriterText oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.text != widget.text ||
+        oldWidget.isUnwriting != widget.isUnwriting) {
+      if (widget.isUnwriting) {
+        _charIndex = widget.text.length;
+        _displayText = widget.text;
+        _removeNextChar();
+      } else {
+        _displayText = '';
+        _charIndex = 0;
+        _addNextChar();
+      }
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Text(
+      _displayText,
+      style: widget.style,
+    );
+  }
+}
+
+class AnimatedTitle extends StatefulWidget {
+  const AnimatedTitle({super.key});
+
+  @override
+  State<AnimatedTitle> createState() => _AnimatedTitleState();
+}
+
+class _AnimatedTitleState extends State<AnimatedTitle> {
+  final List<String> _words = [
+    'CURATED',
+    'UNIQUE',
+    'SIMPLIFIED',
+  ];
+  int _currentIndex = 0;
+  Timer? _timer;
+  bool _isUnwriting = false;
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  void _startNextWord() {
+    if (mounted) {
+      setState(() {
+        _isUnwriting = false;
+        _currentIndex = (_currentIndex + 1) % _words.length;
+      });
+    }
+  }
+
+  void _onTypeComplete() {
+    _timer?.cancel();
+    _timer = Timer(const Duration(seconds: 1), () {
+      if (mounted) {
+        setState(() {
+          _isUnwriting = true;
+        });
+      }
+    });
+  }
+
+  void _onUnwriteComplete() {
+    _timer?.cancel();
+    _timer = Timer(const Duration(milliseconds: 100), _startNextWord);
+  }
+
+  @override
+  void dispose() {
+    _timer?.cancel();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        SizedBox(
+          height: 100, // Fixed height to prevent layout shifts
+          child: TypewriterText(
+            text: _words[_currentIndex],
+            style: const TextStyle(
+              fontFamily: 'Museum',
+              fontSize: 82,
+              fontWeight: FontWeight.w800,
+              color: Colors.white,
+              letterSpacing: 1.0,
+            ),
+            onComplete: _isUnwriting ? _onUnwriteComplete : _onTypeComplete,
+            isUnwriting: _isUnwriting,
+          ),
+        ),
+        const Text(
+          'FASHION',
+          style: TextStyle(
+            fontFamily: 'Museum',
+            fontSize: 82,
+            fontWeight: FontWeight.w800,
+            color: Colors.white,
+            letterSpacing: 1.0,
+          ),
+        ),
+      ],
+    );
+  }
+}
+
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
@@ -111,7 +307,7 @@ class LandingPage extends StatelessWidget {
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 20),
             decoration: BoxDecoration(
-              color: Color.fromARGB(255, 255, 0, 85),
+              color: Colors.black,
             ),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -119,10 +315,10 @@ class LandingPage extends StatelessWidget {
                 Text(
                   'LooK',
                   style: TextStyle(
-                    fontFamily: 'Montserrat',
-                    fontSize: 64,
-                    fontWeight: FontWeight.w800,
-                    letterSpacing: -3,
+                    fontFamily: 'Museum',
+                    fontSize: 72,
+                    fontWeight: FontWeight.w600,
+                    letterSpacing: 0,
                     color: Colors.white,
                   ),
                 ),
@@ -131,11 +327,12 @@ class LandingPage extends StatelessWidget {
                     TextButton(
                       onPressed: () {},
                       child: Text(
-                        'HOW IT WORKS',
+                        'About',
                         style: TextStyle(
-                          fontFamily: 'Impact',
+                          fontFamily: 'Museum',
                           fontSize: 24,
                           color: Colors.white,
+                          fontWeight: FontWeight.w300,
                         ),
                       ),
                     ),
@@ -143,9 +340,10 @@ class LandingPage extends StatelessWidget {
                     TextButton(
                       onPressed: () {},
                       child: Text(
-                        'CONTACT',
+                        'Contact',
                         style: TextStyle(
-                          fontFamily: 'Impact',
+                          fontFamily: 'Museum',
+                          fontWeight: FontWeight.w300,
                           fontSize: 24,
                           color: Colors.white,
                         ),
@@ -164,104 +362,76 @@ class LandingPage extends StatelessWidget {
                   children: [
                     // Title and subtitle
                     Container(
-                      color: Color.fromARGB(255, 255, 0, 85),
+                      color: Colors.black,
                       width: double.infinity,
                       child: Padding(
                         padding: const EdgeInsets.only(top: 10, bottom: 30),
-                        child: Column(
-                          children: [
-                            Text(
-                              'AI-POWERED FASHION',
-                              style: TextStyle(
-                                fontFamily: 'Impact',
-                                fontSize: 48,
-                                color: Colors.white,
-                                letterSpacing: 1.0,
-                              ),
-                            ),
-                          ],
-                        ),
+                        child: const AnimatedTitle(),
                       ),
                     ),
 
                     const SizedBox(height: 40),
 
                     // Pitch section
-                    Container(
-                      constraints: const BoxConstraints(maxWidth: 600),
-                      padding: const EdgeInsets.only(bottom: 50),
-                      child: Column(
-                        children: [
-                          Text(
-                            'Discover Your Perfect Style',
-                            style: TextStyle(
-                              fontFamily: 'Montserrat',
-                              fontSize: 28,
-                              fontWeight: FontWeight.w600,
-                              color: Colors.black87,
+                    Flex(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      direction: Axis.horizontal,
+                      children: [
+                        Expanded(
+                          flex: 2,
+                          child: Container(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 40, vertical: 50),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                const SizedBox(height: 20),
+                                RichText(
+                                  textAlign: TextAlign.center,
+                                  text: TextSpan(
+                                    style: TextStyle(
+                                      fontFamily: 'Museum',
+                                      fontWeight: FontWeight.w300,
+                                      fontSize: 42,
+                                      height: 1.5,
+                                      color: Colors.black87,
+                                    ),
+                                    children: [
+                                      TextSpan(
+                                        text:
+                                            'Swipe your way to a personalized wardrobe. ',
+                                      ),
+                                      TextSpan(
+                                        text: 'LooK',
+                                        style: TextStyle(
+                                          fontFamily: 'Museum',
+                                          fontWeight: FontWeight.w800,
+                                          color: Colors.black,
+                                          fontSize: 42,
+                                          letterSpacing: -2,
+                                        ),
+                                      ),
+                                      TextSpan(
+                                        text:
+                                            ' learns your unique style preferences in real-time, delivering fashion recommendations that feel like they were handpicked just for you.',
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
                             ),
                           ),
-                          const SizedBox(height: 20),
-                          Text(
-                            'Swipe your way to a personalized wardrobe. Our AI learns your unique style preferences in real-time, delivering fashion recommendations that feel like they were handpicked just for you.',
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                              fontFamily: 'Montserrat',
-                              fontSize: 24,
-                              height: 1.5,
-                              color: Colors.black87,
-                            ),
-                          ),
-                          // const SizedBox(height: 30),
-                          // Row(
-                          //   mainAxisAlignment: MainAxisAlignment.center,
-                          //   children: [
-                          //     Icon(Icons.swipe,
-                          //         size: 24, color: Color.fromARGB(255, 255, 0, 85)),
-                          //     const SizedBox(width: 8),
-                          //     Text(
-                          //       'Swipe',
-                          //       style: TextStyle(
-                          //         fontFamily: 'Montserrat',
-                          //         fontSize: 16,
-                          //         fontWeight: FontWeight.w500,
-                          //       ),
-                          //     ),
-                          //     const SizedBox(width: 24),
-                          //     Icon(Icons.auto_awesome,
-                          //         size: 24, color: Color.fromARGB(255, 255, 0, 85)),
-                          //     const SizedBox(width: 8),
-                          //     Text(
-                          //       'Find',
-                          //       style: TextStyle(
-                          //         fontFamily: 'Montserrat',
-                          //         fontSize: 16,
-                          //         fontWeight: FontWeight.w500,
-                          //       ),
-                          //     ),
-                          //     const SizedBox(width: 24),
-                          //     Icon(Icons.shopping_bag,
-                          //         size: 24, color: Color.fromARGB(255, 255, 0, 85)),
-                          //     const SizedBox(width: 8),
-                          //     Text(
-                          //       'Buy',
-                          //       style: TextStyle(
-                          //         fontFamily: 'Montserrat',
-                          //         fontSize: 16,
-                          //         fontWeight: FontWeight.w500,
-                          //       ),
-                          //     ),
-                          //   ],
-                          // ),
-                        ],
-                      ),
+                        ),
+                        Expanded(
+                          flex: 1,
+                          child: Container(
+                              constraints: const BoxConstraints(
+                                maxHeight: 600,
+                              ),
+                              child: const VideoPlayerScreen()),
+                        ),
+                      ],
                     ),
-
-                    // const SizedBox(height: 40),
-                    // Video section (replacing screenshots)
-                    const VideoPlayerScreen(),
-
-                    // const SizedBox(height: 40),
 
                     // Footer section
                     Container(
@@ -283,7 +453,7 @@ class LandingPage extends StatelessWidget {
                               Text(
                                 'Developer: ',
                                 style: TextStyle(
-                                  fontFamily: 'Montserrat',
+                                  fontFamily: 'NeueCorpNormal',
                                   fontSize: 14,
                                   color: Colors.black54,
                                 ),
@@ -291,7 +461,7 @@ class LandingPage extends StatelessWidget {
                               Text(
                                 'AmboTwist',
                                 style: TextStyle(
-                                  fontFamily: 'Montserrat',
+                                  fontFamily: 'NeueCorpNormal',
                                   fontSize: 14,
                                   fontWeight: FontWeight.w600,
                                   color: Colors.black87,
@@ -301,7 +471,7 @@ class LandingPage extends StatelessWidget {
                               Text(
                                 'GitHub: ',
                                 style: TextStyle(
-                                  fontFamily: 'Montserrat',
+                                  fontFamily: 'NeueCorpNormal',
                                   fontSize: 14,
                                   color: Colors.black54,
                                 ),
@@ -319,7 +489,7 @@ class LandingPage extends StatelessWidget {
                                   child: Text(
                                     '@ambotwist',
                                     style: TextStyle(
-                                      fontFamily: 'Montserrat',
+                                      fontFamily: 'NeueCorpNormal',
                                       fontSize: 14,
                                       fontWeight: FontWeight.w600,
                                       color: Color.fromARGB(255, 255, 0, 85),
@@ -332,7 +502,7 @@ class LandingPage extends StatelessWidget {
                               Text(
                                 'Email: ',
                                 style: TextStyle(
-                                  fontFamily: 'Montserrat',
+                                  fontFamily: 'NeueCorpNormal',
                                   fontSize: 14,
                                   color: Colors.black54,
                                 ),
@@ -352,7 +522,7 @@ class LandingPage extends StatelessWidget {
                                   child: Text(
                                     'ambotwist@gmail.com',
                                     style: TextStyle(
-                                      fontFamily: 'Montserrat',
+                                      fontFamily: 'NeueCorpNormal',
                                       fontSize: 14,
                                       fontWeight: FontWeight.w600,
                                       color: Color.fromARGB(255, 255, 0, 85),
@@ -367,7 +537,7 @@ class LandingPage extends StatelessWidget {
                           Text(
                             '© ${DateTime.now().year} LooK. All rights reserved.',
                             style: TextStyle(
-                              fontFamily: 'Montserrat',
+                              fontFamily: 'NeueCorpNormal',
                               fontSize: 12,
                               color: Colors.black54,
                             ),
