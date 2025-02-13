@@ -149,6 +149,8 @@ flutter:
         
     - family: Museum
       fonts:
+        - asset: assets/fonts/Museum/otf/ppMuseum-Ultralight.otf
+          weight: 200
         - asset: assets/fonts/Museum/otf/PPMuseum-Light.otf
           weight: 300
         - asset: assets/fonts/Museum/otf/PPMuseum-Regular.otf
@@ -156,6 +158,29 @@ flutter:
         - asset: assets/fonts/Museum/otf/PPMuseum-Ultrabold.otf
           weight: 800
           
+
+    - family: Ofelia
+      fonts:
+        - asset: assets/fonts/Ofelia/Ofelia_Display/OfeliaDisplayTrial-Light.otf
+          weight: 300
+        - asset: assets/fonts/Ofelia/Ofelia_Display/OfeliaDisplayTrial-Bold.otf
+          weight: 700
+
+    - family: OfeliaText
+      fonts:
+        - asset: assets/fonts/Ofelia/Ofelia_Text/OfeliaTextTrial-Light.otf
+          weight: 300
+        - asset: assets/fonts/Ofelia/Ofelia_Text/OfeliaTextTrial-Bold.otf
+          weight: 700
+          
+    - family: Mattone
+      fonts:
+        - asset: assets/fonts/Mattone/desktop/Mattone-Bold.otf
+          weight: 700
+        - asset: assets/fonts/Mattone/desktop/Mattone-Regular.otf
+          weight: 400
+        - asset: assets/fonts/Mattone/desktop/Mattone-Black.otf
+          weight: 900
   #   - family: Trajan Pro
   #     fonts:
   #       - asset: fonts/TrajanPro.ttf

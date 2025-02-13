@@ -249,9 +249,9 @@ class _AnimatedTitleState extends State<AnimatedTitle> {
           child: TypewriterText(
             text: _words[_currentIndex],
             style: const TextStyle(
-              fontFamily: 'Museum',
+              fontFamily: 'Monument',
               fontSize: 82,
-              fontWeight: FontWeight.w800,
+              fontWeight: FontWeight.w700,
               color: Colors.white,
               letterSpacing: 1.0,
             ),
@@ -262,9 +262,9 @@ class _AnimatedTitleState extends State<AnimatedTitle> {
         const Text(
           'FASHION',
           style: TextStyle(
-            fontFamily: 'Museum',
+            fontFamily: 'Monument',
             fontSize: 82,
-            fontWeight: FontWeight.w800,
+            fontWeight: FontWeight.w700,
             color: Colors.white,
             letterSpacing: 1.0,
           ),
@@ -315,10 +315,10 @@ class LandingPage extends StatelessWidget {
                 Text(
                   'LooK',
                   style: TextStyle(
-                    fontFamily: 'Museum',
+                    fontFamily: 'OfeliaText',
                     fontSize: 72,
-                    fontWeight: FontWeight.w600,
-                    letterSpacing: 0,
+                    fontWeight: FontWeight.w700,
+                    letterSpacing: -4,
                     color: Colors.white,
                   ),
                 ),
@@ -330,7 +330,7 @@ class LandingPage extends StatelessWidget {
                         'About',
                         style: TextStyle(
                           fontFamily: 'Museum',
-                          fontSize: 24,
+                          fontSize: 28,
                           color: Colors.white,
                           fontWeight: FontWeight.w300,
                         ),
@@ -344,7 +344,7 @@ class LandingPage extends StatelessWidget {
                         style: TextStyle(
                           fontFamily: 'Museum',
                           fontWeight: FontWeight.w300,
-                          fontSize: 24,
+                          fontSize: 28,
                           color: Colors.white,
                         ),
                       ),
@@ -391,8 +391,8 @@ class LandingPage extends StatelessWidget {
                                   text: TextSpan(
                                     style: TextStyle(
                                       fontFamily: 'Museum',
-                                      fontWeight: FontWeight.w300,
-                                      fontSize: 42,
+                                      fontWeight: FontWeight.w200,
+                                      fontSize: 48,
                                       height: 1.5,
                                       color: Colors.black87,
                                     ),
@@ -404,11 +404,11 @@ class LandingPage extends StatelessWidget {
                                       TextSpan(
                                         text: 'LooK',
                                         style: TextStyle(
-                                          fontFamily: 'Museum',
-                                          fontWeight: FontWeight.w800,
+                                          fontFamily: 'OfeliaText',
+                                          fontWeight: FontWeight.w700,
                                           color: Colors.black,
-                                          fontSize: 42,
-                                          letterSpacing: -2,
+                                          fontSize: 48,
+                                          letterSpacing: -4,
                                         ),
                                       ),
                                       TextSpan(
@@ -463,7 +463,7 @@ class LandingPage extends StatelessWidget {
                                 style: TextStyle(
                                   fontFamily: 'NeueCorpNormal',
                                   fontSize: 14,
-                                  fontWeight: FontWeight.w600,
+                                  fontWeight: FontWeight.w400,
                                   color: Colors.black87,
                                 ),
                               ),
@@ -491,7 +491,7 @@ class LandingPage extends StatelessWidget {
                                     style: TextStyle(
                                       fontFamily: 'NeueCorpNormal',
                                       fontSize: 14,
-                                      fontWeight: FontWeight.w600,
+                                      fontWeight: FontWeight.w400,
                                       color: Color.fromARGB(255, 255, 0, 85),
                                       decoration: TextDecoration.underline,
                                     ),
@@ -524,7 +524,7 @@ class LandingPage extends StatelessWidget {
                                     style: TextStyle(
                                       fontFamily: 'NeueCorpNormal',
                                       fontSize: 14,
-                                      fontWeight: FontWeight.w600,
+                                      fontWeight: FontWeight.w400,
                                       color: Color.fromARGB(255, 255, 0, 85),
                                       decoration: TextDecoration.underline,
                                     ),
