@@ -1,3 +1,5 @@
+wwww.lookapp.online
+
 # LooK - AI-Powered Fashion Discovery
 
 LooK is a modern fashion discovery platform that uses AI to personalize your shopping experience. Think Tinder for Fashion - users swipe on items to fine-tune the AI and get tailored live recommendations.
