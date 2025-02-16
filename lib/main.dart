@@ -534,6 +534,8 @@ class LandingPage extends StatelessWidget {
                       ),
                     ),
 
+                    SizedBox(height: isMobile ? 40 : 0),
+
                     // Pitch section
                     Container(
                       width: double.infinity,
