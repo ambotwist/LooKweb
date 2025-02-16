@@ -3,6 +3,7 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:video_player/video_player.dart';
 import 'package:flutter/services.dart';
 import 'dart:async';
+import 'dart:math';
 
 void main() {
   runApp(const MyApp());
@@ -242,34 +243,73 @@ class _AnimatedTitleState extends State<AnimatedTitle> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        SizedBox(
-          height: 100, // Fixed height to prevent layout shifts
-          child: TypewriterText(
-            text: _words[_currentIndex],
-            style: const TextStyle(
-              fontFamily: 'Monument',
-              fontSize: 82,
-              fontWeight: FontWeight.w700,
-              color: Colors.white,
-              letterSpacing: 1.0,
+    return Container(
+      constraints: BoxConstraints(
+        minHeight: MediaQuery.of(context).size.height * 0.15,
+        minWidth: 200,
+      ),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Container(
+            constraints: BoxConstraints(
+              minWidth: 200,
+              maxWidth: MediaQuery.of(context).size.width,
             ),
-            onComplete: _isUnwriting ? _onUnwriteComplete : _onTypeComplete,
-            isUnwriting: _isUnwriting,
+            child: FittedBox(
+              fit: BoxFit.scaleDown,
+              child: SizedBox(
+                height: getResponsiveTextSize(context, 80),
+                width: MediaQuery.of(context).size.width * 0.8,
+                child: Center(
+                  child: TypewriterText(
+                    text: _words[_currentIndex],
+                    style: TextStyle(
+                      fontFamily: 'Monument',
+                      fontSize: getResponsiveTextSize(context, 72),
+                      fontWeight: FontWeight.w700,
+                      color: Colors.white,
+                      letterSpacing: 1.0,
+                      height: 1.0,
+                    ),
+                    onComplete:
+                        _isUnwriting ? _onUnwriteComplete : _onTypeComplete,
+                    isUnwriting: _isUnwriting,
+                  ),
+                ),
+              ),
+            ),
           ),
-        ),
-        const Text(
-          'FASHION',
-          style: TextStyle(
-            fontFamily: 'Monument',
-            fontSize: 82,
-            fontWeight: FontWeight.w700,
-            color: Colors.white,
-            letterSpacing: 1.0,
+          SizedBox(height: getResponsivePadding(context, 4)),
+          Container(
+            constraints: BoxConstraints(
+              minWidth: 200,
+              maxWidth: MediaQuery.of(context).size.width,
+            ),
+            child: FittedBox(
+              fit: BoxFit.scaleDown,
+              child: SizedBox(
+                height: getResponsiveTextSize(context, 80),
+                width: MediaQuery.of(context).size.width * 0.8,
+                child: Center(
+                  child: Text(
+                    'FASHION',
+                    style: TextStyle(
+                      fontFamily: 'Monument',
+                      fontSize: getResponsiveTextSize(context, 72),
+                      fontWeight: FontWeight.w700,
+                      color: Colors.white,
+                      letterSpacing: 1.0,
+                      height: 1.0,
+                    ),
+                  ),
+                ),
+              ),
+            ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }
@@ -294,18 +334,64 @@ class MyApp extends StatelessWidget {
   }
 }
 
+double getResponsiveTextSize(BuildContext context, double baseSize) {
+  double screenWidth = MediaQuery.of(context).size.width;
+  double scaleFactor;
+  if (screenWidth > 1600) {
+    scaleFactor = 1.2;
+  } else if (screenWidth > 1200) {
+    scaleFactor = 1.0;
+  } else if (screenWidth > 800) {
+    scaleFactor = 0.8;
+  } else {
+    scaleFactor = 0.6;
+  }
+
+  // Apply maximum sizes for different text categories
+  double size = baseSize * scaleFactor;
+  if (baseSize >= 70) {
+    // For large headings (like 72px)
+    return min(size, 85);
+  } else if (baseSize >= 40) {
+    // For medium text (like 48px, 42px)
+    return min(size, 42);
+  } else {
+    // For smaller text (like 28px and below)
+    return min(size, 32);
+  }
+}
+
+double getResponsivePadding(BuildContext context, double basePadding) {
+  double screenWidth = MediaQuery.of(context).size.width;
+  if (screenWidth > 1600) {
+    return basePadding * 1.5;
+  } else if (screenWidth > 1200) {
+    return basePadding;
+  } else if (screenWidth > 800) {
+    return basePadding * 0.7;
+  } else {
+    return basePadding * 0.5;
+  }
+}
+
 class LandingPage extends StatelessWidget {
   const LandingPage({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final double screenWidth = MediaQuery.of(context).size.width;
+    final bool isMobile = screenWidth <= 800;
+
     return Scaffold(
       backgroundColor: Colors.white,
       body: Column(
         children: [
           // Navbar
           Container(
-            padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 20),
+            padding: EdgeInsets.symmetric(
+              horizontal: getResponsivePadding(context, 40),
+              vertical: getResponsivePadding(context, 0),
+            ),
             decoration: BoxDecoration(
               color: Colors.black,
             ),
@@ -316,45 +402,46 @@ class LandingPage extends StatelessWidget {
                   'LooK',
                   style: TextStyle(
                     fontFamily: 'OfeliaText',
-                    fontSize: 72,
+                    fontSize: getResponsiveTextSize(context, 72),
                     fontWeight: FontWeight.w700,
                     letterSpacing: -4,
                     color: Colors.white,
                   ),
                 ),
-                Row(
-                  children: [
-                    TextButton(
-                      onPressed: () {},
-                      child: Text(
-                        'About',
-                        style: TextStyle(
-                          fontFamily: 'Museum',
-                          fontSize: 28,
-                          color: Colors.white,
-                          fontWeight: FontWeight.w300,
+                if (!isMobile)
+                  Row(
+                    children: [
+                      TextButton(
+                        onPressed: () {},
+                        child: Text(
+                          'About',
+                          style: TextStyle(
+                            fontFamily: 'Museum',
+                            fontSize: getResponsiveTextSize(context, 20),
+                            color: Colors.white,
+                            fontWeight: FontWeight.w200,
+                          ),
                         ),
                       ),
-                    ),
-                    const SizedBox(width: 32),
-                    TextButton(
-                      onPressed: () {},
-                      child: Text(
-                        'Contact',
-                        style: TextStyle(
-                          fontFamily: 'Museum',
-                          fontWeight: FontWeight.w300,
-                          fontSize: 28,
-                          color: Colors.white,
+                      SizedBox(width: getResponsivePadding(context, 20)),
+                      TextButton(
+                        onPressed: () {},
+                        child: Text(
+                          'Contact',
+                          style: TextStyle(
+                            fontFamily: 'Museum',
+                            fontWeight: FontWeight.w200,
+                            fontSize: getResponsiveTextSize(context, 20),
+                            color: Colors.white,
+                          ),
                         ),
                       ),
-                    ),
-                  ],
-                ),
+                    ],
+                  ),
               ],
             ),
           ),
-          // Existing content wrapped in Expanded
+
           Expanded(
             child: SingleChildScrollView(
               child: Center(
@@ -365,41 +452,211 @@ class LandingPage extends StatelessWidget {
                       color: Colors.black,
                       width: double.infinity,
                       child: Padding(
-                        padding: const EdgeInsets.only(top: 10, bottom: 30),
+                        padding: EdgeInsets.only(
+                          top: getResponsivePadding(context, 10),
+                          bottom: getResponsivePadding(context, 20),
+                        ),
                         child: const AnimatedTitle(),
                       ),
                     ),
 
-                    const SizedBox(height: 40),
+                    SizedBox(height: getResponsivePadding(context, 40)),
+
+                    Padding(
+                      padding: EdgeInsets.symmetric(
+                        horizontal: getResponsivePadding(context, 100),
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          SizedBox(height: getResponsivePadding(context, 20)),
+                          RichText(
+                            textAlign: TextAlign.center,
+                            text: TextSpan(
+                              style: TextStyle(
+                                fontFamily: 'Ofelia',
+                                fontWeight: FontWeight.w200,
+                                fontSize: getResponsiveTextSize(context, 42),
+                                height: 1.5,
+                                color: Colors.black87,
+                              ),
+                              children: [
+                                TextSpan(
+                                  text:
+                                      "Dressed for Every Moment: Whether it's a romantic date, a beach day, or a business meeting, let ",
+                                ),
+                                TextSpan(
+                                  text: 'LooK',
+                                  style: TextStyle(
+                                    fontFamily: 'OfeliaText',
+                                    fontWeight: FontWeight.w700,
+                                    color: Colors.black,
+                                    fontSize:
+                                        getResponsiveTextSize(context, 42),
+                                    letterSpacing: -4,
+                                  ),
+                                ),
+                                TextSpan(
+                                  text:
+                                      ' curate the perfect outfit for any occasion—so you always look your best.',
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
 
                     // Pitch section
+                    Container(
+                      constraints: BoxConstraints(
+                        maxWidth: 1000,
+                      ),
+                      child: Flex(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        direction: isMobile ? Axis.vertical : Axis.horizontal,
+                        children: [
+                          Expanded(
+                            flex: isMobile ? 0 : 1,
+                            child: Container(
+                              padding: EdgeInsets.only(
+                                left: getResponsivePadding(context, 40),
+                                right: getResponsivePadding(
+                                    context, isMobile ? 40 : 20),
+                                top: getResponsivePadding(context, 50),
+                                bottom: getResponsivePadding(context, 50),
+                              ),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  RichText(
+                                    textAlign: TextAlign.center,
+                                    text: TextSpan(
+                                      style: TextStyle(
+                                        fontFamily: 'Museum',
+                                        fontWeight: FontWeight.w200,
+                                        fontSize:
+                                            getResponsiveTextSize(context, 48),
+                                        height: 1.5,
+                                        color: Colors.black87,
+                                      ),
+                                      children: [
+                                        TextSpan(
+                                          text:
+                                              'Swipe your way to a personalized wardrobe. ',
+                                        ),
+                                        TextSpan(
+                                          text: 'LooK',
+                                          style: TextStyle(
+                                            fontFamily: 'OfeliaText',
+                                            fontWeight: FontWeight.w700,
+                                            color: Colors.black,
+                                            fontSize: getResponsiveTextSize(
+                                                context, 48),
+                                            letterSpacing: -4,
+                                          ),
+                                        ),
+                                        TextSpan(
+                                          text:
+                                              ' learns your unique style preferences in real-time, delivering fashion recommendations that feel like they were handpicked just for you.',
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                          Container(
+                            constraints: BoxConstraints(
+                              maxHeight: isMobile
+                                  ? MediaQuery.of(context).size.height * 0.4
+                                  : MediaQuery.of(context).size.height * 0.7,
+                              maxWidth: isMobile
+                                  ? MediaQuery.of(context).size.width * 0.9
+                                  : 400,
+                            ),
+                            padding: EdgeInsets.only(
+                              left: getResponsivePadding(
+                                  context, isMobile ? 20 : 40),
+                              right: getResponsivePadding(
+                                  context, isMobile ? 20 : 20),
+                              top: getResponsivePadding(
+                                  context, isMobile ? 20 : 40),
+                              bottom: getResponsivePadding(
+                                  context, isMobile ? 20 : 40),
+                            ),
+                            child: const VideoPlayerScreen(),
+                          ),
+                        ],
+                      ),
+                    ),
+
+                    SizedBox(height: 40),
+
+                    // Occasion section
                     Flex(
                       mainAxisAlignment: MainAxisAlignment.center,
-                      direction: Axis.horizontal,
+                      direction: isMobile ? Axis.vertical : Axis.horizontal,
                       children: [
                         Expanded(
-                          flex: 2,
+                          flex: isMobile ? 0 : 1,
                           child: Container(
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 40, vertical: 50),
+                            constraints: BoxConstraints(
+                              maxHeight: isMobile
+                                  ? MediaQuery.of(context).size.height * 0.4
+                                  : MediaQuery.of(context).size.height * 0.6,
+                              maxWidth: isMobile
+                                  ? MediaQuery.of(context).size.width * 0.9
+                                  : 400,
+                            ),
+                            padding: EdgeInsets.only(
+                              left: getResponsivePadding(
+                                  context, isMobile ? 20 : 40),
+                              right: getResponsivePadding(
+                                  context, isMobile ? 20 : 10),
+                              top: getResponsivePadding(
+                                  context, isMobile ? 20 : 40),
+                              bottom: getResponsivePadding(
+                                  context, isMobile ? 20 : 40),
+                            ),
+                            child: Image.asset(
+                              'assets/images/occasion_framed.png',
+                              fit: BoxFit.contain,
+                            ),
+                          ),
+                        ),
+                        SizedBox(width: getResponsivePadding(context, 40)),
+                        Expanded(
+                          flex: isMobile ? 0 : 1,
+                          child: Container(
+                            padding: EdgeInsets.only(
+                              left: getResponsivePadding(context, 10),
+                              right: getResponsivePadding(context, 40),
+                              top: getResponsivePadding(context, 50),
+                              bottom: getResponsivePadding(context, 50),
+                            ),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
-                                const SizedBox(height: 20),
+                                SizedBox(
+                                    height: getResponsivePadding(context, 20)),
                                 RichText(
                                   textAlign: TextAlign.center,
                                   text: TextSpan(
                                     style: TextStyle(
                                       fontFamily: 'Museum',
                                       fontWeight: FontWeight.w200,
-                                      fontSize: 48,
+                                      fontSize:
+                                          getResponsiveTextSize(context, 42),
                                       height: 1.5,
                                       color: Colors.black87,
                                     ),
                                     children: [
                                       TextSpan(
                                         text:
-                                            'Swipe your way to a personalized wardrobe. ',
+                                            "Dressed for Every Moment: Whether it's a romantic date, a beach day, or a business meeting, let ",
                                       ),
                                       TextSpan(
                                         text: 'LooK',
@@ -407,13 +664,14 @@ class LandingPage extends StatelessWidget {
                                           fontFamily: 'OfeliaText',
                                           fontWeight: FontWeight.w700,
                                           color: Colors.black,
-                                          fontSize: 48,
+                                          fontSize: getResponsiveTextSize(
+                                              context, 42),
                                           letterSpacing: -4,
                                         ),
                                       ),
                                       TextSpan(
                                         text:
-                                            ' learns your unique style preferences in real-time, delivering fashion recommendations that feel like they were handpicked just for you.',
+                                            ' curate the perfect outfit for any occasion—so you always look your best.',
                                       ),
                                     ],
                                   ),
@@ -421,14 +679,6 @@ class LandingPage extends StatelessWidget {
                               ],
                             ),
                           ),
-                        ),
-                        Expanded(
-                          flex: 1,
-                          child: Container(
-                              constraints: const BoxConstraints(
-                                maxHeight: 600,
-                              ),
-                              child: const VideoPlayerScreen()),
                         ),
                       ],
                     ),
