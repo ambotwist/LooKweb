@@ -601,7 +601,7 @@ class LandingPage extends StatelessWidget {
                             Container(
                               constraints: BoxConstraints(
                                 maxHeight: isMobile
-                                    ? MediaQuery.of(context).size.height * 0.4
+                                    ? MediaQuery.of(context).size.height * 0.6
                                     : MediaQuery.of(context).size.height * 0.7,
                                 maxWidth: isMobile
                                     ? MediaQuery.of(context).size.width * 0.9
@@ -677,7 +677,9 @@ class LandingPage extends StatelessWidget {
                     //   ),
                     // ),
 
-                    SizedBox(height: isMobile ? 20 : 40),
+                    SizedBox(
+                        height:
+                            isMobile ? 0 : getResponsivePadding(context, 40)),
 
                     // Occasion section
                     Container(
@@ -814,6 +816,9 @@ class LandingPage extends StatelessWidget {
                       ),
                     ),
 
+                    SizedBox(
+                        height:
+                            isMobile ? 40 : getResponsivePadding(context, 20)),
                     // Footer section
                     Container(
                       width: double.infinity,
