@@ -147,7 +147,7 @@ flutter:
         
     - family: Museum
       fonts:
-        - asset: assets/fonts/Museum/otf/ppMuseum-Ultralight.otf
+        - asset: assets/fonts/Museum/otf/PPMuseum-Ultralight.otf
           weight: 200
         - asset: assets/fonts/Museum/otf/PPMuseum-Light.otf
           weight: 300
