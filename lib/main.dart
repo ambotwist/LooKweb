@@ -567,7 +567,7 @@ class LandingPage extends StatelessWidget {
                                           fontFamily: 'Museum',
                                           fontWeight: FontWeight.w200,
                                           fontSize: getResponsiveTextSize(
-                                              context, 36),
+                                              context, 42),
                                           height: 1.5,
                                           color: Colors.black87,
                                         ),
@@ -583,7 +583,7 @@ class LandingPage extends StatelessWidget {
                                               fontWeight: FontWeight.w700,
                                               color: Colors.black,
                                               fontSize: getResponsiveTextSize(
-                                                  context, 36),
+                                                  context, 42),
                                               letterSpacing: -4,
                                             ),
                                           ),
@@ -680,120 +680,138 @@ class LandingPage extends StatelessWidget {
                     SizedBox(height: isMobile ? 20 : 40),
 
                     // Occasion section
-                    Flex(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      direction: isMobile ? Axis.vertical : Axis.horizontal,
-                      children: [
-                        if (!isMobile) ...[
-                          Expanded(
-                            flex: isMobile ? 0 : 1,
-                            child: Container(
-                              constraints: BoxConstraints(
-                                maxHeight: isMobile
-                                    ? MediaQuery.of(context).size.height * 0.4
-                                    : MediaQuery.of(context).size.height * 0.6,
-                                maxWidth: isMobile
-                                    ? MediaQuery.of(context).size.width * 0.9
-                                    : 400,
-                              ),
-                              padding: EdgeInsets.only(
-                                left: getResponsivePadding(
-                                    context, isMobile ? 20 : 40),
-                                right: getResponsivePadding(
-                                    context, isMobile ? 20 : 10),
-                                top: getResponsivePadding(
-                                    context, isMobile ? 20 : 40),
-                                bottom: getResponsivePadding(
-                                    context, isMobile ? 20 : 40),
-                              ),
-                              child: Image.asset(
-                                'assets/images/occasion_framed.png',
-                                fit: BoxFit.contain,
-                              ),
-                            ),
-                          ),
-                          SizedBox(width: getResponsivePadding(context, 40)),
-                        ],
-                        Expanded(
-                          flex: isMobile ? 0 : 1,
-                          child: Container(
-                            padding: EdgeInsets.only(
-                              left: getResponsivePadding(context, 10),
-                              right: getResponsivePadding(context, 40),
-                              top: getResponsivePadding(context, 50),
-                              bottom: getResponsivePadding(context, 50),
-                            ),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                SizedBox(
-                                    height: getResponsivePadding(context, 20)),
-                                RichText(
-                                  textAlign: TextAlign.center,
-                                  text: TextSpan(
-                                    style: TextStyle(
-                                      fontFamily: 'Museum',
-                                      fontWeight: FontWeight.w200,
-                                      fontSize:
-                                          getResponsiveTextSize(context, 36),
-                                      height: 1.5,
-                                      color: Colors.black87,
-                                    ),
-                                    children: [
-                                      TextSpan(
-                                        text:
-                                            "Dressed for Every Moment: Whether it's a romantic date, a beach day, or a business meeting, let ",
-                                      ),
-                                      TextSpan(
-                                        text: 'LooK',
-                                        style: TextStyle(
-                                          fontFamily: 'OfeliaText',
-                                          fontWeight: FontWeight.w700,
-                                          color: Colors.black,
-                                          fontSize: getResponsiveTextSize(
-                                              context, 42),
-                                          letterSpacing: -4,
-                                        ),
-                                      ),
-                                      TextSpan(
-                                        text:
-                                            ' curate the perfect outfit for any occasion—so you always look your best.',
-                                      ),
-                                    ],
+                    Container(
+                      width: double.infinity,
+                      alignment: Alignment.center,
+                      child: Container(
+                        constraints: BoxConstraints(
+                          maxWidth: 1200,
+                        ),
+                        child: Flex(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          direction: isMobile ? Axis.vertical : Axis.horizontal,
+                          children: [
+                            if (!isMobile) ...[
+                              Expanded(
+                                flex: isMobile ? 0 : 1,
+                                child: Container(
+                                  constraints: BoxConstraints(
+                                    maxHeight: isMobile
+                                        ? MediaQuery.of(context).size.height *
+                                            0.4
+                                        : MediaQuery.of(context).size.height *
+                                            0.6,
+                                    maxWidth: isMobile
+                                        ? MediaQuery.of(context).size.width *
+                                            0.9
+                                        : 400,
+                                  ),
+                                  padding: EdgeInsets.only(
+                                    left: getResponsivePadding(
+                                        context, isMobile ? 20 : 40),
+                                    right: getResponsivePadding(
+                                        context, isMobile ? 20 : 0),
+                                    top: getResponsivePadding(
+                                        context, isMobile ? 20 : 40),
+                                    bottom: getResponsivePadding(
+                                        context, isMobile ? 20 : 40),
+                                  ),
+                                  child: Image.asset(
+                                    'assets/images/occasion_framed.png',
+                                    fit: BoxFit.contain,
                                   ),
                                 ),
-                              ],
+                              ),
+                              SizedBox(
+                                  width: getResponsivePadding(context, 10)),
+                            ],
+                            Expanded(
+                              flex: isMobile ? 0 : 1,
+                              child: Container(
+                                padding: EdgeInsets.only(
+                                  left: getResponsivePadding(context, 40),
+                                  right: getResponsivePadding(
+                                      context, isMobile ? 40 : 20),
+                                  top: getResponsivePadding(context, 50),
+                                  bottom: getResponsivePadding(context, 50),
+                                ),
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    SizedBox(
+                                        height:
+                                            getResponsivePadding(context, 20)),
+                                    RichText(
+                                      textAlign: TextAlign.center,
+                                      text: TextSpan(
+                                        style: TextStyle(
+                                          fontFamily: 'Museum',
+                                          fontWeight: FontWeight.w200,
+                                          fontSize: getResponsiveTextSize(
+                                              context, 42),
+                                          height: 1.5,
+                                          color: Colors.black87,
+                                        ),
+                                        children: [
+                                          TextSpan(
+                                            text:
+                                                "Dressed for Every Moment: Whether it's a romantic date, a beach day, or a business meeting, let ",
+                                          ),
+                                          TextSpan(
+                                            text: 'LooK',
+                                            style: TextStyle(
+                                              fontFamily: 'OfeliaText',
+                                              fontWeight: FontWeight.w700,
+                                              color: Colors.black,
+                                              fontSize: getResponsiveTextSize(
+                                                  context, 42),
+                                              letterSpacing: -4,
+                                            ),
+                                          ),
+                                          TextSpan(
+                                            text:
+                                                ' curate the perfect outfit for any occasion—so you always look your best.',
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
                             ),
-                          ),
+                            if (isMobile) ...[
+                              SizedBox(
+                                  height: getResponsivePadding(context, 40)),
+                              Container(
+                                constraints: BoxConstraints(
+                                  maxHeight: isMobile
+                                      ? MediaQuery.of(context).size.height * 0.4
+                                      : MediaQuery.of(context).size.height *
+                                          0.6,
+                                  maxWidth: isMobile
+                                      ? MediaQuery.of(context).size.width * 0.9
+                                      : 400,
+                                ),
+                                padding: EdgeInsets.only(
+                                  left: getResponsivePadding(
+                                      context, isMobile ? 20 : 40),
+                                  right: getResponsivePadding(
+                                      context, isMobile ? 20 : 0),
+                                  top: getResponsivePadding(
+                                      context, isMobile ? 20 : 40),
+                                  bottom: getResponsivePadding(
+                                      context, isMobile ? 20 : 40),
+                                ),
+                                child: Image.asset(
+                                  'assets/images/occasion_framed.png',
+                                  fit: BoxFit.contain,
+                                ),
+                              ),
+                            ],
+                          ],
                         ),
-                        if (isMobile) ...[
-                          SizedBox(height: getResponsivePadding(context, 40)),
-                          Container(
-                            constraints: BoxConstraints(
-                              maxHeight: isMobile
-                                  ? MediaQuery.of(context).size.height * 0.4
-                                  : MediaQuery.of(context).size.height * 0.6,
-                              maxWidth: isMobile
-                                  ? MediaQuery.of(context).size.width * 0.9
-                                  : 400,
-                            ),
-                            padding: EdgeInsets.only(
-                              left: getResponsivePadding(
-                                  context, isMobile ? 20 : 40),
-                              right: getResponsivePadding(
-                                  context, isMobile ? 20 : 10),
-                              top: getResponsivePadding(
-                                  context, isMobile ? 20 : 40),
-                              bottom: getResponsivePadding(
-                                  context, isMobile ? 20 : 40),
-                            ),
-                            child: Image.asset(
-                              'assets/images/occasion_framed.png',
-                              fit: BoxFit.contain,
-                            ),
-                          ),
-                        ],
-                      ],
+                      ),
                     ),
 
                     // Footer section
