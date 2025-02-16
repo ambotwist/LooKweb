@@ -1,4 +1,4 @@
-wwww.lookapp.online
+www.lookapp.online
 
 # LooK - AI-Powered Fashion Discovery
 
