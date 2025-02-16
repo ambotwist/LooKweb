@@ -267,7 +267,7 @@ class _AnimatedTitleState extends State<AnimatedTitle> {
                     text: _words[_currentIndex],
                     style: TextStyle(
                       fontFamily: 'Monument',
-                      fontSize: getResponsiveTextSize(context, 62),
+                      fontSize: getResponsiveTextSize(context, 92),
                       fontWeight: FontWeight.w700,
                       color: Colors.white,
                       letterSpacing: 1.0,
@@ -297,7 +297,7 @@ class _AnimatedTitleState extends State<AnimatedTitle> {
                     'FASHION',
                     style: TextStyle(
                       fontFamily: 'Monument',
-                      fontSize: getResponsiveTextSize(context, 62),
+                      fontSize: getResponsiveTextSize(context, 92),
                       fontWeight: FontWeight.w700,
                       color: Colors.white,
                       letterSpacing: 1.0,
@@ -337,11 +337,9 @@ class MyApp extends StatelessWidget {
 double getResponsiveTextSize(BuildContext context, double baseSize) {
   double screenWidth = MediaQuery.of(context).size.width;
   double scaleFactor;
-  if (screenWidth > 1600) {
-    scaleFactor = 1.2;
-  } else if (screenWidth > 1200) {
-    scaleFactor = 1.0;
-  } else if (screenWidth > 800) {
+  bool isMobile = screenWidth <= 800;
+
+  if (screenWidth > 800) {
     scaleFactor = 0.8;
   } else {
     scaleFactor = 0.6;
@@ -349,15 +347,21 @@ double getResponsiveTextSize(BuildContext context, double baseSize) {
 
   // Apply maximum sizes for different text categories
   double size = baseSize * scaleFactor;
-  if (baseSize >= 70) {
+  if (baseSize == 92) {
+    // Special case for animated title section
+    return isMobile ? min(size, 38) : min(size, 120);
+  } else if (baseSize >= 70) {
     // For large headings (like 72px)
-    return min(size, 85);
+    return isMobile ? min(size, 62) : min(size, 85);
   } else if (baseSize >= 40) {
     // For medium text (like 48px, 42px)
-    return min(size, 36);
+    return isMobile ? min(size, 36) : min(size, 42);
+  } else if (baseSize == 28) {
+    // Specific limit for navbar menu items
+    return min(size, 28);
   } else {
     // For smaller text (like 28px and below)
-    return min(size, 24);
+    return isMobile ? min(size, 24) : min(size, 32);
   }
 }
 
@@ -411,7 +415,7 @@ class LandingPage extends StatelessWidget {
                         'About',
                         style: TextStyle(
                           fontFamily: 'Museum',
-                          fontSize: getResponsiveTextSize(context, 18),
+                          fontSize: getResponsiveTextSize(context, 28),
                           color: Colors.white,
                           fontWeight: FontWeight.w200,
                         ),
@@ -425,7 +429,7 @@ class LandingPage extends StatelessWidget {
                         'Contact',
                         style: TextStyle(
                           fontFamily: 'Museum',
-                          fontSize: getResponsiveTextSize(context, 18),
+                          fontSize: getResponsiveTextSize(context, 28),
                           color: Colors.white,
                           fontWeight: FontWeight.w200,
                         ),
@@ -487,7 +491,7 @@ class LandingPage extends StatelessWidget {
                           'About',
                           style: TextStyle(
                             fontFamily: 'Museum',
-                            fontSize: getResponsiveTextSize(context, 18),
+                            fontSize: getResponsiveTextSize(context, 28),
                             color: Colors.white,
                             fontWeight: FontWeight.w200,
                           ),
@@ -501,7 +505,7 @@ class LandingPage extends StatelessWidget {
                           style: TextStyle(
                             fontFamily: 'Museum',
                             fontWeight: FontWeight.w200,
-                            fontSize: getResponsiveTextSize(context, 18),
+                            fontSize: getResponsiveTextSize(context, 28),
                             color: Colors.white,
                           ),
                         ),
@@ -673,41 +677,43 @@ class LandingPage extends StatelessWidget {
                     //   ),
                     // ),
 
-                    SizedBox(height: 40),
+                    SizedBox(height: isMobile ? 20 : 40),
 
                     // Occasion section
                     Flex(
                       mainAxisAlignment: MainAxisAlignment.center,
                       direction: isMobile ? Axis.vertical : Axis.horizontal,
                       children: [
-                        Expanded(
-                          flex: isMobile ? 0 : 1,
-                          child: Container(
-                            constraints: BoxConstraints(
-                              maxHeight: isMobile
-                                  ? MediaQuery.of(context).size.height * 0.4
-                                  : MediaQuery.of(context).size.height * 0.6,
-                              maxWidth: isMobile
-                                  ? MediaQuery.of(context).size.width * 0.9
-                                  : 400,
-                            ),
-                            padding: EdgeInsets.only(
-                              left: getResponsivePadding(
-                                  context, isMobile ? 20 : 40),
-                              right: getResponsivePadding(
-                                  context, isMobile ? 20 : 10),
-                              top: getResponsivePadding(
-                                  context, isMobile ? 20 : 40),
-                              bottom: getResponsivePadding(
-                                  context, isMobile ? 20 : 40),
-                            ),
-                            child: Image.asset(
-                              'assets/images/occasion_framed.png',
-                              fit: BoxFit.contain,
+                        if (!isMobile) ...[
+                          Expanded(
+                            flex: isMobile ? 0 : 1,
+                            child: Container(
+                              constraints: BoxConstraints(
+                                maxHeight: isMobile
+                                    ? MediaQuery.of(context).size.height * 0.4
+                                    : MediaQuery.of(context).size.height * 0.6,
+                                maxWidth: isMobile
+                                    ? MediaQuery.of(context).size.width * 0.9
+                                    : 400,
+                              ),
+                              padding: EdgeInsets.only(
+                                left: getResponsivePadding(
+                                    context, isMobile ? 20 : 40),
+                                right: getResponsivePadding(
+                                    context, isMobile ? 20 : 10),
+                                top: getResponsivePadding(
+                                    context, isMobile ? 20 : 40),
+                                bottom: getResponsivePadding(
+                                    context, isMobile ? 20 : 40),
+                              ),
+                              child: Image.asset(
+                                'assets/images/occasion_framed.png',
+                                fit: BoxFit.contain,
+                              ),
                             ),
                           ),
-                        ),
-                        SizedBox(width: getResponsivePadding(context, 40)),
+                          SizedBox(width: getResponsivePadding(context, 40)),
+                        ],
                         Expanded(
                           flex: isMobile ? 0 : 1,
                           child: Container(
@@ -745,7 +751,7 @@ class LandingPage extends StatelessWidget {
                                           fontWeight: FontWeight.w700,
                                           color: Colors.black,
                                           fontSize: getResponsiveTextSize(
-                                              context, 36),
+                                              context, 42),
                                           letterSpacing: -4,
                                         ),
                                       ),
@@ -760,6 +766,33 @@ class LandingPage extends StatelessWidget {
                             ),
                           ),
                         ),
+                        if (isMobile) ...[
+                          SizedBox(height: getResponsivePadding(context, 40)),
+                          Container(
+                            constraints: BoxConstraints(
+                              maxHeight: isMobile
+                                  ? MediaQuery.of(context).size.height * 0.4
+                                  : MediaQuery.of(context).size.height * 0.6,
+                              maxWidth: isMobile
+                                  ? MediaQuery.of(context).size.width * 0.9
+                                  : 400,
+                            ),
+                            padding: EdgeInsets.only(
+                              left: getResponsivePadding(
+                                  context, isMobile ? 20 : 40),
+                              right: getResponsivePadding(
+                                  context, isMobile ? 20 : 10),
+                              top: getResponsivePadding(
+                                  context, isMobile ? 20 : 40),
+                              bottom: getResponsivePadding(
+                                  context, isMobile ? 20 : 40),
+                            ),
+                            child: Image.asset(
+                              'assets/images/occasion_framed.png',
+                              fit: BoxFit.contain,
+                            ),
+                          ),
+                        ],
                       ],
                     ),
 
@@ -777,92 +810,201 @@ class LandingPage extends StatelessWidget {
                       padding: const EdgeInsets.symmetric(vertical: 24),
                       child: Column(
                         children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                'Developer: ',
-                                style: TextStyle(
-                                  fontFamily: 'NeueCorpNormal',
-                                  fontSize: 14,
-                                  color: Colors.black54,
-                                ),
+                          if (isMobile)
+                            Padding(
+                              padding: EdgeInsets.symmetric(
+                                horizontal: getResponsivePadding(context, 20),
                               ),
-                              Text(
-                                'AmboTwist',
-                                style: TextStyle(
-                                  fontFamily: 'NeueCorpNormal',
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w400,
-                                  color: Colors.black87,
-                                ),
+                              child: Column(
+                                children: [
+                                  Row(
+                                    children: [
+                                      Text(
+                                        'Developer: ',
+                                        style: TextStyle(
+                                          fontFamily: 'NeueCorpNormal',
+                                          fontSize: 14,
+                                          color: Colors.black54,
+                                        ),
+                                      ),
+                                      Text(
+                                        'AmboTwist',
+                                        style: TextStyle(
+                                          fontFamily: 'NeueCorpNormal',
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.w400,
+                                          color: Colors.black87,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  const SizedBox(height: 12),
+                                  Row(
+                                    children: [
+                                      Text(
+                                        'GitHub: ',
+                                        style: TextStyle(
+                                          fontFamily: 'NeueCorpNormal',
+                                          fontSize: 14,
+                                          color: Colors.black54,
+                                        ),
+                                      ),
+                                      MouseRegion(
+                                        cursor: SystemMouseCursors.click,
+                                        child: GestureDetector(
+                                          onTap: () async {
+                                            final Uri url = Uri.parse(
+                                                'https://github.com/ambotwist');
+                                            if (await canLaunchUrl(url)) {
+                                              await launchUrl(url);
+                                            }
+                                          },
+                                          child: Text(
+                                            '@ambotwist',
+                                            style: TextStyle(
+                                              fontFamily: 'NeueCorpNormal',
+                                              fontSize: 14,
+                                              fontWeight: FontWeight.w400,
+                                              color: Color.fromARGB(
+                                                  255, 255, 0, 85),
+                                              decoration:
+                                                  TextDecoration.underline,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  const SizedBox(height: 12),
+                                  Row(
+                                    children: [
+                                      Text(
+                                        'Email: ',
+                                        style: TextStyle(
+                                          fontFamily: 'NeueCorpNormal',
+                                          fontSize: 14,
+                                          color: Colors.black54,
+                                        ),
+                                      ),
+                                      MouseRegion(
+                                        cursor: SystemMouseCursors.click,
+                                        child: GestureDetector(
+                                          onTap: () async {
+                                            final Uri emailLaunchUri = Uri(
+                                              scheme: 'mailto',
+                                              path: 'ambotwist@gmail.com',
+                                            );
+                                            if (await canLaunchUrl(
+                                                emailLaunchUri)) {
+                                              await launchUrl(emailLaunchUri);
+                                            }
+                                          },
+                                          child: Text(
+                                            'ambotwist@gmail.com',
+                                            style: TextStyle(
+                                              fontFamily: 'NeueCorpNormal',
+                                              fontSize: 14,
+                                              fontWeight: FontWeight.w400,
+                                              color: Color.fromARGB(
+                                                  255, 255, 0, 85),
+                                              decoration:
+                                                  TextDecoration.underline,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ],
                               ),
-                              const SizedBox(width: 24),
-                              Text(
-                                'GitHub: ',
-                                style: TextStyle(
-                                  fontFamily: 'NeueCorpNormal',
-                                  fontSize: 14,
-                                  color: Colors.black54,
+                            )
+                          else
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  'Developer: ',
+                                  style: TextStyle(
+                                    fontFamily: 'NeueCorpNormal',
+                                    fontSize: 14,
+                                    color: Colors.black54,
+                                  ),
                                 ),
-                              ),
-                              MouseRegion(
-                                cursor: SystemMouseCursors.click,
-                                child: GestureDetector(
-                                  onTap: () async {
-                                    final Uri url = Uri.parse(
-                                        'https://github.com/ambotwist');
-                                    if (await canLaunchUrl(url)) {
-                                      await launchUrl(url);
-                                    }
-                                  },
-                                  child: Text(
-                                    '@ambotwist',
-                                    style: TextStyle(
-                                      fontFamily: 'NeueCorpNormal',
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.w400,
-                                      color: Color.fromARGB(255, 255, 0, 85),
-                                      decoration: TextDecoration.underline,
+                                Text(
+                                  'AmboTwist',
+                                  style: TextStyle(
+                                    fontFamily: 'NeueCorpNormal',
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w400,
+                                    color: Colors.black87,
+                                  ),
+                                ),
+                                const SizedBox(width: 24),
+                                Text(
+                                  'GitHub: ',
+                                  style: TextStyle(
+                                    fontFamily: 'NeueCorpNormal',
+                                    fontSize: 14,
+                                    color: Colors.black54,
+                                  ),
+                                ),
+                                MouseRegion(
+                                  cursor: SystemMouseCursors.click,
+                                  child: GestureDetector(
+                                    onTap: () async {
+                                      final Uri url = Uri.parse(
+                                          'https://github.com/ambotwist');
+                                      if (await canLaunchUrl(url)) {
+                                        await launchUrl(url);
+                                      }
+                                    },
+                                    child: Text(
+                                      '@ambotwist',
+                                      style: TextStyle(
+                                        fontFamily: 'NeueCorpNormal',
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.w400,
+                                        color: Color.fromARGB(255, 255, 0, 85),
+                                        decoration: TextDecoration.underline,
+                                      ),
                                     ),
                                   ),
                                 ),
-                              ),
-                              const SizedBox(width: 24),
-                              Text(
-                                'Email: ',
-                                style: TextStyle(
-                                  fontFamily: 'NeueCorpNormal',
-                                  fontSize: 14,
-                                  color: Colors.black54,
+                                const SizedBox(width: 24),
+                                Text(
+                                  'Email: ',
+                                  style: TextStyle(
+                                    fontFamily: 'NeueCorpNormal',
+                                    fontSize: 14,
+                                    color: Colors.black54,
+                                  ),
                                 ),
-                              ),
-                              MouseRegion(
-                                cursor: SystemMouseCursors.click,
-                                child: GestureDetector(
-                                  onTap: () async {
-                                    final Uri emailLaunchUri = Uri(
-                                      scheme: 'mailto',
-                                      path: 'ambotwist@gmail.com',
-                                    );
-                                    if (await canLaunchUrl(emailLaunchUri)) {
-                                      await launchUrl(emailLaunchUri);
-                                    }
-                                  },
-                                  child: Text(
-                                    'ambotwist@gmail.com',
-                                    style: TextStyle(
-                                      fontFamily: 'NeueCorpNormal',
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.w400,
-                                      color: Color.fromARGB(255, 255, 0, 85),
-                                      decoration: TextDecoration.underline,
+                                MouseRegion(
+                                  cursor: SystemMouseCursors.click,
+                                  child: GestureDetector(
+                                    onTap: () async {
+                                      final Uri emailLaunchUri = Uri(
+                                        scheme: 'mailto',
+                                        path: 'ambotwist@gmail.com',
+                                      );
+                                      if (await canLaunchUrl(emailLaunchUri)) {
+                                        await launchUrl(emailLaunchUri);
+                                      }
+                                    },
+                                    child: Text(
+                                      'ambotwist@gmail.com',
+                                      style: TextStyle(
+                                        fontFamily: 'NeueCorpNormal',
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.w400,
+                                        color: Color.fromARGB(255, 255, 0, 85),
+                                        decoration: TextDecoration.underline,
+                                      ),
                                     ),
                                   ),
                                 ),
-                              ),
-                            ],
-                          ),
+                              ],
+                            ),
                           const SizedBox(height: 8),
                           Text(
                             '© ${DateTime.now().year} LooK. All rights reserved.',
