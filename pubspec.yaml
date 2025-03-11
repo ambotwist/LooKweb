@@ -36,6 +36,7 @@ dependencies:
   cupertino_icons: ^1.0.8
   url_launcher: ^6.2.4
   video_player: ^2.8.2
+  flutter_svg: ^2.0.9
 
 dev_dependencies:
   flutter_test:
@@ -61,8 +62,11 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
-    - assets/images/occasion_framed.png
+    - assets/images/homepage_image_row.png
+    - assets/images/website_home_image.png
     - assets/videos/Comp_1.mp4
+    - assets/icons/Download_on_the_app_store.svg
+    - assets/icons/get_it_on_google_play.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images
@@ -71,6 +75,33 @@ flutter:
   # https://flutter.dev/to/asset-from-package
 
   fonts:
+    - family: Satoshi
+      fonts:
+        - asset: assets/fonts/Satoshi/Fonts/OTF/Satoshi-Light.otf
+          weight: 300
+        - asset: assets/fonts/Satoshi/Fonts/OTF/Satoshi-LightItalic.otf
+          weight: 300
+          style: italic
+        - asset: assets/fonts/Satoshi/Fonts/OTF/Satoshi-Regular.otf
+          weight: 400
+        - asset: assets/fonts/Satoshi/Fonts/OTF/Satoshi-Italic.otf
+          weight: 400
+          style: italic
+        - asset: assets/fonts/Satoshi/Fonts/OTF/Satoshi-Medium.otf
+          weight: 500
+        - asset: assets/fonts/Satoshi/Fonts/OTF/Satoshi-MediumItalic.otf
+          weight: 500
+          style: italic
+        - asset: assets/fonts/Satoshi/Fonts/OTF/Satoshi-Bold.otf
+          weight: 700
+        - asset: assets/fonts/Satoshi/Fonts/OTF/Satoshi-BoldItalic.otf
+          weight: 700
+          style: italic
+        - asset: assets/fonts/Satoshi/Fonts/OTF/Satoshi-Black.otf
+          weight: 900
+        - asset: assets/fonts/Satoshi/Fonts/OTF/Satoshi-BlackItalic.otf
+          weight: 900
+          style: italic
     - family: Montserrat
       fonts:
         - asset: assets/fonts/Montserrat/static/Montserrat-Thin.ttf
