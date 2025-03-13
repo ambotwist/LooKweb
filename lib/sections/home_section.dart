@@ -20,15 +20,51 @@ double getResponsiveFontSize(
   return calculatedSize.clamp(minSize, maxSize);
 }
 
-class HomeSection extends StatelessWidget {
+class HomeSection extends StatefulWidget {
   final List<String> menuItems;
   final List<VoidCallback> onPressedCallbacks;
+  final ScrollController scrollController;
 
   const HomeSection({
     super.key,
     required this.menuItems,
     required this.onPressedCallbacks,
+    required this.scrollController,
   });
+
+  @override
+  State<HomeSection> createState() => _HomeSectionState();
+}
+
+class _HomeSectionState extends State<HomeSection> {
+  double _scrollIndicatorOpacity = 1.0;
+
+  @override
+  void initState() {
+    super.initState();
+    // Add listener to scroll controller
+    widget.scrollController.addListener(_scrollListener);
+  }
+
+  @override
+  void dispose() {
+    // Remove listener when widget is disposed
+    widget.scrollController.removeListener(_scrollListener);
+    super.dispose();
+  }
+
+  void _scrollListener() {
+    // Calculate opacity based on scroll position
+    // Fade out completely by 100 pixels of scrolling
+    final double opacity = 1.0 - (widget.scrollController.offset / 100.0);
+
+    // Update state only if opacity has changed
+    if (opacity != _scrollIndicatorOpacity && opacity >= 0) {
+      setState(() {
+        _scrollIndicatorOpacity = opacity.clamp(0.0, 1.0);
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +75,9 @@ class HomeSection extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           // App bar at the top
-          AppBar(menuItems: menuItems, onPressedCallbacks: onPressedCallbacks),
+          AppBar(
+              menuItems: widget.menuItems,
+              onPressedCallbacks: widget.onPressedCallbacks),
           // Main content
           LayoutBuilder(builder: (context, constraints) {
             // Mobile layout
@@ -54,6 +92,34 @@ class HomeSection extends StatelessWidget {
                     child: MobileHomePageTitleSection(),
                   ),
                   HomePageImageSection(),
+                  // Scroll indicator with fade effect
+                  AnimatedOpacity(
+                    opacity: _scrollIndicatorOpacity,
+                    duration: const Duration(milliseconds: 300),
+                    child: Column(
+                      children: [
+                        Text(
+                          'Scroll down to learn more',
+                          style: TextStyle(
+                            fontSize: getResponsiveFontSize(
+                              context,
+                              baseSize: 24,
+                              minSize: 18,
+                              maxSize: 24,
+                            ),
+                            fontWeight: FontWeight.w300,
+                            height: 1.2,
+                            color: Colors.grey.shade800,
+                          ),
+                        ),
+                        Icon(
+                          Icons.keyboard_arrow_down_rounded,
+                          size: 40,
+                          color: Colors.grey.shade800,
+                        ),
+                      ],
+                    ),
+                  ),
                 ],
               );
             }
@@ -68,6 +134,37 @@ class HomeSection extends StatelessWidget {
                   child: HomePageTitleSection(),
                 ),
                 HomePageImageSection(),
+                // Scroll indicator with fade effect
+                Align(
+                  alignment: Alignment.center,
+                  child: AnimatedOpacity(
+                    opacity: _scrollIndicatorOpacity,
+                    duration: const Duration(milliseconds: 300),
+                    child: Column(
+                      children: [
+                        Text(
+                          'Scroll down to learn more',
+                          style: TextStyle(
+                            fontSize: getResponsiveFontSize(
+                              context,
+                              baseSize: 24,
+                              minSize: 18,
+                              maxSize: 24,
+                            ),
+                            fontWeight: FontWeight.w300,
+                            height: 1.2,
+                            color: Colors.grey.shade800,
+                          ),
+                        ),
+                        Icon(
+                          Icons.keyboard_arrow_down_rounded,
+                          size: 40,
+                          color: Colors.grey.shade800,
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
               ],
             );
           }),
@@ -199,26 +296,6 @@ class MobileHomePageTitleSection extends StatelessWidget {
                   child: Image.asset('assets/icons/get_it_on_google_play.png'),
                 )),
           ],
-        ),
-        const SizedBox(height: 20),
-        Text(
-          'Scroll down to learn more',
-          style: TextStyle(
-            fontSize: getResponsiveFontSize(
-              context,
-              baseSize: 24,
-              minSize: 18,
-              maxSize: 24,
-            ),
-            fontWeight: FontWeight.w300,
-            height: 1.2,
-            color: Colors.grey.shade800,
-          ),
-        ),
-        Icon(
-          Icons.keyboard_arrow_down_rounded,
-          size: 40,
-          color: Colors.grey.shade800,
         ),
         const SizedBox(height: 20),
       ],

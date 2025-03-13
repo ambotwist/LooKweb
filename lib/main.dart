@@ -72,6 +72,7 @@ class _HomePageState extends State<HomePage> {
         key: _sectionKeys[0],
         menuItems: menuItems,
         onPressedCallbacks: onPressedCallbacks,
+        scrollController: _scrollController,
       ),
       HowItWorksSection(key: _sectionKeys[1]),
       FeaturesSection(key: _sectionKeys[2]),
