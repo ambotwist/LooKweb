@@ -120,6 +120,22 @@ class MobileHomePageTitleSection extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
+        Text(
+          'LooK',
+          style: TextStyle(
+            fontSize: getResponsiveFontSize(
+              context,
+              baseSize: 72,
+              minSize: 62,
+              maxSize: 72,
+            ),
+            fontWeight: FontWeight.w700,
+            height: 1.1,
+            fontFamily: 'Ofelia',
+            color: AppTheme.lightTheme.colorScheme.secondary,
+          ),
+        ),
+        const SizedBox(height: 40),
         RichText(
           textAlign: TextAlign.center,
           text: TextSpan(
@@ -146,16 +162,16 @@ class MobileHomePageTitleSection extends StatelessWidget {
             ],
           ),
         ),
-        const SizedBox(height: 20),
+        const SizedBox(height: 30),
         Text(
           'Find clothing tailored to you instantly with our AI-powered App that learns from your style.',
           textAlign: TextAlign.center,
           style: TextStyle(
             fontSize: getResponsiveFontSize(
               context,
-              baseSize: 24,
-              minSize: 18,
-              maxSize: 24,
+              baseSize: 26,
+              minSize: 22,
+              maxSize: 26,
             ),
             fontWeight: FontWeight.w300,
             height: 1.2,
@@ -182,7 +198,28 @@ class MobileHomePageTitleSection extends StatelessWidget {
                   child: Image.asset('assets/icons/get_it_on_google_play.png'),
                 )),
           ],
-        )
+        ),
+        const SizedBox(height: 20),
+        Text(
+          'Scroll down to learn more',
+          style: TextStyle(
+            fontSize: getResponsiveFontSize(
+              context,
+              baseSize: 24,
+              minSize: 18,
+              maxSize: 24,
+            ),
+            fontWeight: FontWeight.w300,
+            height: 1.2,
+            color: Colors.grey.shade800,
+          ),
+        ),
+        Icon(
+          Icons.keyboard_arrow_down_rounded,
+          size: 40,
+          color: Colors.grey.shade800,
+        ),
+        const SizedBox(height: 20),
       ],
     );
   }
