@@ -33,47 +33,57 @@ class HomeSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: MediaQuery.of(context).size.height,
-      width: MediaQuery.of(context).size.width,
+      width: double.infinity,
       color: AppTheme.lightTheme.colorScheme.onPrimary,
       child: Column(
+        mainAxisSize: MainAxisSize.min,
         children: [
           // App bar at the top
-          SizedBox(
-            height: 80,
-            child: LayoutBuilder(
-              builder: (context, constraints) {
-                // For smaller screens
-                if (constraints.maxWidth < 800) {
-                  return SmallAppBar(
-                      menuItems: menuItems,
-                      onPressedCallbacks: onPressedCallbacks);
-                }
-
-                // For larger screens
-                return BigAppBar(
-                    menuItems: menuItems,
-                    onPressedCallbacks: onPressedCallbacks);
-              },
-            ),
-          ),
+          AppBar(menuItems: menuItems, onPressedCallbacks: onPressedCallbacks),
           // Main content
-          Expanded(
-            child: Padding(
-              padding: const EdgeInsets.only(top: 60),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(left: 50),
-                    child: HomePageTitleSection(),
-                  ),
-                  HomePageImageSection(),
-                ],
+          Column(
+            mainAxisSize: MainAxisSize.max,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(top: 100.0, left: 40.0),
+                child: HomePageTitleSection(),
               ),
-            ),
+              HomePageImageSection(),
+            ],
           ),
         ],
+      ),
+    );
+  }
+}
+
+class AppBar extends StatelessWidget {
+  const AppBar({
+    super.key,
+    required this.menuItems,
+    required this.onPressedCallbacks,
+  });
+
+  final List<String> menuItems;
+  final List<VoidCallback> onPressedCallbacks;
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: 80,
+      child: LayoutBuilder(
+        builder: (context, constraints) {
+          // For smaller screens
+          if (constraints.maxWidth < 800) {
+            return SmallAppBar(
+                menuItems: menuItems, onPressedCallbacks: onPressedCallbacks);
+          }
+
+          // For larger screens
+          return BigAppBar(
+              menuItems: menuItems, onPressedCallbacks: onPressedCallbacks);
+        },
       ),
     );
   }
@@ -86,24 +96,24 @@ class HomePageTitleSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.start,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        SizedBox(
-          width: MediaQuery.of(context).size.width > 600
-              ? 600
-              : MediaQuery.of(context).size.width * 0.9,
-          child: RichText(
+    return SizedBox(
+      width: MediaQuery.of(context).size.width > 1200
+          ? MediaQuery.of(context).size.width * 0.4
+          : 600,
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          RichText(
             text: TextSpan(
               text: 'Fashion tailored ',
               style: TextStyle(
                 fontFamily: 'Museum',
                 fontSize: getResponsiveFontSize(
                   context,
-                  baseSize: 48,
-                  minSize: 32,
-                  maxSize: 56,
+                  baseSize: 42,
+                  minSize: 40,
+                  maxSize: 48,
                 ),
                 height: 1.1,
               ),
@@ -119,37 +129,30 @@ class HomePageTitleSection extends StatelessWidget {
               ],
             ),
           ),
-        ),
-        const SizedBox(height: 20),
-        SizedBox(
-          width: MediaQuery.of(context).size.width > 600
-              ? 600
-              : MediaQuery.of(context).size.width * 0.9,
-          child: Text(
+          const SizedBox(height: 30),
+          Text(
             'Find clothing tailored to you instantly with our AI-powered App that learns from your style.',
             style: TextStyle(
               fontSize: getResponsiveFontSize(
                 context,
-                baseSize: 26,
-                minSize: 18,
+                baseSize: 28,
+                minSize: 24,
                 maxSize: 32,
               ),
               fontWeight: FontWeight.w300,
               height: 1.2,
             ),
           ),
-        ),
-        const SizedBox(height: 20),
-        SizedBox(
-          height: 70,
-          child: Row(
+          const SizedBox(height: 30),
+          Row(
+            mainAxisSize: MainAxisSize.min,
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               IconButton(
                   onPressed: () {},
                   icon: SizedBox(
                     height: 70,
-                    width: MediaQuery.of(context).size.width > 400 ? 160 : 120,
+                    width: 160,
                     child: SvgPicture.asset(
                         'assets/icons/Download_on_the_app_store.svg'),
                   )),
@@ -157,14 +160,14 @@ class HomePageTitleSection extends StatelessWidget {
               IconButton(
                   onPressed: () {},
                   icon: SizedBox(
-                    height: MediaQuery.of(context).size.width > 400 ? 70 : 50,
+                    height: 53,
                     child:
                         Image.asset('assets/icons/get_it_on_google_play.png'),
                   )),
             ],
-          ),
-        )
-      ],
+          )
+        ],
+      ),
     );
   }
 }
@@ -176,33 +179,12 @@ class HomePageImageSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: MediaQuery.of(context).size.width > 900
-          ? MediaQuery.of(context).size.height > 700
-              ? Image.asset(
-                  'assets/images/homepage_image_row.png',
-                  fit: BoxFit.fitHeight,
-                  alignment: Alignment.centerLeft,
-                )
-              : const SizedBox.shrink()
-          : Padding(
-              padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
-              child: MediaQuery.of(context).size.width > 500
-                  ? MediaQuery.of(context).size.height > 700
-                      ? Image.asset(
-                          'assets/images/homepage_image_small.png',
-                          fit: BoxFit.contain,
-                          alignment: Alignment.center,
-                        )
-                      : const SizedBox.shrink()
-                  : MediaQuery.of(context).size.height > 800
-                      ? Image.asset(
-                          'assets/images/homepage_image_tiny.png',
-                          fit: BoxFit.contain,
-                          alignment: Alignment.center,
-                        )
-                      : const SizedBox.shrink(),
-            ),
-    );
+    return SizedBox(
+        height: MediaQuery.of(context).size.height * 0.6,
+        child: Image.asset(
+          'assets/images/homepage_image_row.png',
+          fit: BoxFit.fitHeight,
+          alignment: Alignment.centerLeft,
+        ));
   }
 }
