@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:website/theme/app_theme.dart';
+import 'package:website/utils/screen_utils.dart';
 
 class FeaturesSection extends StatelessWidget {
   const FeaturesSection({super.key});
@@ -6,70 +8,67 @@ class FeaturesSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: MediaQuery.of(context).size.height,
-      width: MediaQuery.of(context).size.width,
-      color: Theme.of(context).colorScheme.background,
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 40.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              'Features',
-              style: Theme.of(context).textTheme.headlineLarge,
-            ),
-            const SizedBox(height: 40),
-            Wrap(
-              spacing: 30,
-              runSpacing: 30,
-              alignment: WrapAlignment.center,
-              children: [
-                _buildFeatureCard(context, Icons.speed, 'Fast',
-                    'Lightning quick performance'),
-                _buildFeatureCard(context, Icons.security, 'Secure',
-                    'Your data is protected'),
-                _buildFeatureCard(context, Icons.phone_iphone, 'Mobile',
-                    'Works on all devices'),
-                _buildFeatureCard(context, Icons.settings, 'Customizable',
-                    'Make it your own'),
-              ],
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget _buildFeatureCard(
-      BuildContext context, IconData icon, String title, String description) {
-    return SizedBox(
-      width: 250,
-      child: Card(
-        elevation: 4,
+        height: MediaQuery.of(context).size.height > 700
+            ? getFullScreenSectionHeight(context)
+            : getFullScreenSectionHeight(context) * 1.1,
+        width: MediaQuery.of(context).size.width,
+        color: AppTheme.lightTheme.colorScheme.onPrimary,
         child: Padding(
-          padding: const EdgeInsets.all(20.0),
+          padding:
+              const EdgeInsets.only(top: 100, left: 60, right: 60, bottom: 60),
           child: Column(
             children: [
-              Icon(
-                icon,
-                size: 50,
-                color: Theme.of(context).colorScheme.primary,
+              Center(
+                child: RichText(
+                  text: TextSpan(
+                    text: 'Looking for something specific?\nTry our ',
+                    style: Theme.of(context)
+                        .textTheme
+                        .responsiveHeadlineLarge(context)
+                        .copyWith(
+                          fontFamily: 'Satoshi',
+                          fontWeight: FontWeight.w900,
+                        ),
+                    children: <TextSpan>[
+                      TextSpan(
+                        text: 'SmartSearch',
+                        style: TextStyle(
+                          color: const Color.fromARGB(255, 255, 0, 85),
+                        ),
+                      ),
+                      TextSpan(
+                        text: '.',
+                      ),
+                    ],
+                  ),
+                ),
               ),
-              const SizedBox(height: 15),
-              Text(
-                title,
-                style: Theme.of(context).textTheme.titleLarge,
+              SizedBox(
+                height: MediaQuery.of(context).size.height < 700
+                    ? 40
+                    : MediaQuery.of(context).size.height * 0.075,
               ),
-              const SizedBox(height: 10),
-              Text(
-                description,
-                textAlign: TextAlign.center,
-                style: Theme.of(context).textTheme.bodyMedium,
+              Expanded(
+                child: Align(
+                  alignment: Alignment.topCenter,
+                  child: MediaQuery.of(context).size.width > 700
+                      ? Image.asset(
+                          'assets/images/smartsearch_example.png',
+                          fit: BoxFit.contain,
+                        )
+                      : MediaQuery.of(context).size.width > 500
+                          ? Image.asset(
+                              'assets/images/smartsearch_example_small.png',
+                              fit: BoxFit.contain,
+                            )
+                          : Image.asset(
+                              'assets/images/smartsearch_example_tiny.png',
+                              fit: BoxFit.contain,
+                            ),
+                ),
               ),
             ],
           ),
-        ),
-      ),
-    );
+        ));
   }
 }

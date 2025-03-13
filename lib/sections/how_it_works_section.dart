@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:website/theme/app_theme.dart';
+import 'package:website/utils/screen_utils.dart';
 
 class HowItWorksSection extends StatelessWidget {
   const HowItWorksSection({super.key});
@@ -6,27 +8,87 @@ class HowItWorksSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: MediaQuery.of(context).size.height,
+      height: MediaQuery.of(context).size.height > 700
+          ? getFullScreenSectionHeight(context) * 3 * 0.9
+          : getFullScreenSectionHeight(context) * 3,
       width: MediaQuery.of(context).size.width,
-      color: Theme.of(context).colorScheme.surface,
+      color: AppTheme.lightTheme.colorScheme.primary,
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 40.0),
+        padding: const EdgeInsets.only(top: 60),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
               'How It Works',
-              style: Theme.of(context).textTheme.headlineLarge,
+              style: AppTheme.lightTheme.textTheme.howItWorkTitle(context),
             ),
-            const SizedBox(height: 40),
+            const SizedBox(height: 100),
+            Onboarding(),
+            if (MediaQuery.of(context).size.height < 700)
+              const SizedBox(height: 40),
+            Swipe(),
+            if (MediaQuery.of(context).size.height < 700)
+              const SizedBox(height: 40),
+            Shop(),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class Onboarding extends StatelessWidget {
+  const Onboarding({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: getFullScreenSectionHeight(context) * 0.8,
+      child: Padding(
+        padding: const EdgeInsets.only(
+          left: 100,
+        ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                _buildStep(
-                    context, '1', 'Sign Up', 'Create your account in seconds'),
-                _buildStep(context, '2', 'Configure', 'Set your preferences'),
-                _buildStep(
-                    context, '3', 'Enjoy', 'Start using LooK right away'),
+                Expanded(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Step 1: Personalize',
+                        style: AppTheme.lightTheme.textTheme
+                            .howItWorkStep(context),
+                      ),
+                      const SizedBox(height: 20),
+                      Text(
+                        'Take a quick quiz to let us know your style and preferences 💫',
+                        style: AppTheme.lightTheme.textTheme
+                            .howItWorkExplanation(context),
+                      ),
+                    ],
+                  ),
+                ),
+                Expanded(
+                  flex: 2,
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                    child: Container(
+                      constraints: BoxConstraints(
+                        maxHeight: getFullScreenSectionHeight(context) * 0.7,
+                      ),
+                      child: Image.asset(
+                        'assets/images/onboarding_example.png',
+                        fit: BoxFit.contain,
+                      ),
+                    ),
+                  ),
+                ),
               ],
             ),
           ],
@@ -34,37 +96,142 @@ class HowItWorksSection extends StatelessWidget {
       ),
     );
   }
+}
 
-  Widget _buildStep(
-      BuildContext context, String number, String title, String description) {
-    return Card(
-      elevation: 4,
+class Swipe extends StatelessWidget {
+  const Swipe({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: getFullScreenSectionHeight(context) * 0.7,
       child: Padding(
-        padding: const EdgeInsets.all(20.0),
-        child: Column(
+        padding: const EdgeInsets.only(
+          right: 60,
+        ),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            CircleAvatar(
-              radius: 25,
-              backgroundColor: Theme.of(context).colorScheme.primary,
-              child: Text(
-                number,
-                style: const TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 20,
+            Expanded(
+              flex: 2,
+              child: Container(
+                constraints: BoxConstraints(
+                  maxHeight: getFullScreenSectionHeight(context) * 0.7,
+                ),
+                child: Image.asset(
+                  'assets/images/swipe_example.png',
+                  fit: BoxFit.contain,
                 ),
               ),
             ),
-            const SizedBox(height: 15),
-            Text(
-              title,
-              style: Theme.of(context).textTheme.titleLarge,
+            const SizedBox(width: 40),
+            Expanded(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Step 2: Discover',
+                    style: AppTheme.lightTheme.textTheme.howItWorkStep(context),
+                  ),
+                  const SizedBox(height: 40),
+                  Text(
+                    'Like what you see? ',
+                    style: AppTheme.lightTheme.textTheme
+                        .howItWorkExplanation(context)
+                        .copyWith(fontWeight: FontWeight.bold),
+                  ),
+                  Text(
+                    'Swipe right to like 💚',
+                    style: AppTheme.lightTheme.textTheme
+                        .howItWorkExplanation(context),
+                  ),
+                  const SizedBox(height: 20),
+                  Text(
+                    'Not your style?',
+                    style: AppTheme.lightTheme.textTheme
+                        .howItWorkExplanation(context)
+                        .copyWith(fontWeight: FontWeight.bold),
+                  ),
+                  Text(
+                    'Swipe left to pass ❌',
+                    style: AppTheme.lightTheme.textTheme
+                        .howItWorkExplanation(context),
+                  ),
+                  if (MediaQuery.of(context).size.width > 1000)
+                    const SizedBox(height: 60),
+                  if (MediaQuery.of(context).size.width > 1000 &&
+                      MediaQuery.of(context).size.height > 700)
+                    Text(
+                      'Our Machine Learning algorithm will learn from your style and tailor recommendations to your tastes.',
+                      style: AppTheme.lightTheme.textTheme
+                          .howItWorkExplanation(context)
+                          .copyWith(fontFamily: 'Satoshi'),
+                    ),
+                ],
+              ),
             ),
-            const SizedBox(height: 10),
-            Text(
-              description,
-              textAlign: TextAlign.center,
-              style: Theme.of(context).textTheme.bodyMedium,
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class Shop extends StatelessWidget {
+  const Shop({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: getFullScreenSectionHeight(context) * 0.7,
+      child: Padding(
+        padding: const EdgeInsets.only(
+          left: 100,
+        ),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Expanded(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Step 3: Shop',
+                    style: AppTheme.lightTheme.textTheme.howItWorkStep(context),
+                  ),
+                  const SizedBox(height: 20),
+                  Text(
+                    'Found something you fancy? 😍',
+                    style: AppTheme.lightTheme.textTheme
+                        .howItWorkExplanation(context),
+                  ),
+                  const SizedBox(height: 20),
+                  Text(
+                    'Swipe up to favorite or order it via our direct checkout!',
+                    style: AppTheme.lightTheme.textTheme
+                        .howItWorkExplanation(context),
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(width: 40),
+            Expanded(
+              flex: 2,
+              child: Container(
+                constraints: BoxConstraints(
+                  maxHeight: getFullScreenSectionHeight(context) * 0.7,
+                ),
+                child: Image.asset(
+                  'assets/images/favorite&checkout.png',
+                  fit: BoxFit.contain,
+                ),
+              ),
             ),
           ],
         ),

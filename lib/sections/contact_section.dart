@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:website/theme/app_theme.dart';
+import 'package:website/utils/screen_utils.dart';
 
 class ContactSection extends StatelessWidget {
   const ContactSection({super.key});
@@ -6,26 +8,30 @@ class ContactSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: MediaQuery.of(context).size.height,
-      width: MediaQuery.of(context).size.width,
-      color: Theme.of(context).colorScheme.background,
+      width: double.infinity,
+      color: AppTheme.lightTheme.colorScheme.onPrimary,
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 40.0),
+        padding: const EdgeInsets.symmetric(vertical: 100.0, horizontal: 40.0),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisSize: MainAxisSize.min,
           children: [
             Text(
               'Contact Us',
-              style: Theme.of(context).textTheme.headlineLarge,
+              style:
+                  Theme.of(context).textTheme.responsiveHeadlineLarge(context),
+              textAlign: TextAlign.center,
             ),
             const SizedBox(height: 40),
-            SizedBox(
-              width: 600,
+            ConstrainedBox(
+              constraints: BoxConstraints(
+                maxWidth: 600,
+              ),
               child: Card(
                 elevation: 4,
                 child: Padding(
                   padding: const EdgeInsets.all(24.0),
                   child: Column(
+                    mainAxisSize: MainAxisSize.min,
                     children: [
                       TextField(
                         decoration: InputDecoration(
@@ -63,15 +69,15 @@ class ContactSection extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 40),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
+            Wrap(
+              spacing: 40,
+              runSpacing: 30,
+              alignment: WrapAlignment.center,
               children: [
                 _buildContactInfo(
                     context, Icons.email, 'Email', 'contact@look.com'),
-                const SizedBox(width: 40),
                 _buildContactInfo(
                     context, Icons.phone, 'Phone', '+1 (123) 456-7890'),
-                const SizedBox(width: 40),
                 _buildContactInfo(context, Icons.location_on, 'Address',
                     '123 LooK Street, City'),
               ],
@@ -85,6 +91,7 @@ class ContactSection extends StatelessWidget {
   Widget _buildContactInfo(
       BuildContext context, IconData icon, String title, String detail) {
     return Column(
+      mainAxisSize: MainAxisSize.min,
       children: [
         Icon(
           icon,

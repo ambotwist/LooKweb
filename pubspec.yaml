@@ -63,8 +63,18 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     - assets/images/homepage_image_row.png
+    - assets/images/homepage_image_small.png
+    - assets/images/homepage_image_tiny.png
     - assets/images/website_home_image.png
-    - assets/videos/Comp_1.mp4
+    - assets/images/swipe_example.png
+    - assets/images/onboarding_example.png
+    - assets/images/checkout_example.png
+    - assets/images/smartsearch_example.png
+    - assets/images/smartsearch_example_small.png
+    - assets/images/smartsearch_example_tiny.png
+    - assets/images/search.png
+    - assets/images/features.png
+    - assets/images/favorite&checkout.png
     - assets/icons/Download_on_the_app_store.svg
     - assets/icons/get_it_on_google_play.png
 

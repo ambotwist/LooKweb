@@ -5,9 +5,6 @@ import 'package:website/sections/features_section.dart';
 import 'package:website/sections/home_section.dart';
 import 'package:website/sections/how_it_works_section.dart';
 import 'package:website/widgets/app_bar_drawer.dart';
-import 'package:website/widgets/big_app_bar.dart';
-import 'package:website/widgets/page_controller_widget.dart';
-import 'package:website/widgets/small_app_bar.dart';
 import 'theme/app_theme.dart';
 
 void main() {
@@ -36,17 +33,18 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  late final PageController _pageController;
+  late final ScrollController _scrollController;
+  final List<GlobalKey> _sectionKeys = List.generate(5, (_) => GlobalKey());
 
   @override
   void initState() {
     super.initState();
-    _pageController = PageController();
+    _scrollController = ScrollController();
   }
 
   @override
   void dispose() {
-    _pageController.dispose();
+    _scrollController.dispose();
     super.dispose();
   }
 
@@ -62,54 +60,55 @@ class _HomePageState extends State<HomePage> {
 
     // Create callbacks to scroll to each section
     final List<VoidCallback> onPressedCallbacks = [
-      () => _scrollToPage(1), // How It Works (index 1)
-      () => _scrollToPage(2), // Features (index 2)
-      () => _scrollToPage(3), // FAQ (index 3)
-      () => _scrollToPage(4), // Contact (index 4)
+      () => _scrollToSection(1), // How It Works (index 1)
+      () => _scrollToSection(2), // Features (index 2)
+      () => _scrollToSection(3), // FAQ (index 3)
+      () => _scrollToSection(4), // Contact (index 4)
     ];
 
-    // Create sections
+    // Create sections with keys for scrolling
     final List<Widget> sections = [
-      const HomeSection(),
-      const HowItWorksSection(),
-      const FeaturesSection(),
-      const FAQSection(),
-      const ContactSection(),
+      HomeSection(
+        key: _sectionKeys[0],
+        menuItems: menuItems,
+        onPressedCallbacks: onPressedCallbacks,
+      ),
+      HowItWorksSection(key: _sectionKeys[1]),
+      FeaturesSection(key: _sectionKeys[2]),
+      FAQSection(key: _sectionKeys[3]),
+      ContactSection(key: _sectionKeys[4]),
     ];
 
     return Scaffold(
-      appBar: PreferredSize(
-        preferredSize: const Size.fromHeight(80),
-        child: LayoutBuilder(
-          builder: (context, constraints) {
-            // For smaller screens
-            if (constraints.maxWidth < 800) {
-              return SmallAppBar(
-                  menuItems: menuItems, onPressedCallbacks: onPressedCallbacks);
-            }
-
-            // For larger screens
-            return BigAppBar(
-                menuItems: menuItems, onPressedCallbacks: onPressedCallbacks);
-          },
-        ),
-      ),
       endDrawer: AppBarDrawer(
           menuItems: menuItems, onPressedCallbacks: onPressedCallbacks),
-      body: FullPageScroller(
-        pageController: _pageController,
-        sections: sections,
-        sectionTitles: ['Home', ...menuItems],
-        onPressedCallbacks: [() {}, ...onPressedCallbacks],
+      body: SingleChildScrollView(
+        controller: _scrollController,
+        physics: const ClampingScrollPhysics(), // Prevents bouncing effect
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: sections,
+        ),
       ),
     );
   }
 
-  void _scrollToPage(int page) {
-    _pageController.animateToPage(
-      page,
-      duration: const Duration(milliseconds: 300),
-      curve: Curves.easeInOut,
-    );
+  void _scrollToSection(int index) {
+    // Need to use post-frame callback to ensure rendering is complete
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (_sectionKeys[index].currentContext != null) {
+        final RenderBox renderBox =
+            _sectionKeys[index].currentContext!.findRenderObject() as RenderBox;
+        final sectionPosition = renderBox.localToGlobal(Offset.zero).dy;
+
+        // No need to subtract app bar height anymore
+        _scrollController.animateTo(
+          sectionPosition,
+          duration: const Duration(milliseconds: 300),
+          curve: Curves.easeInOut,
+        );
+      }
+    });
   }
 }
