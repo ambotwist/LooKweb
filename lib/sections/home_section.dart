@@ -41,17 +41,36 @@ class HomeSection extends StatelessWidget {
           // App bar at the top
           AppBar(menuItems: menuItems, onPressedCallbacks: onPressedCallbacks),
           // Main content
-          Column(
-            mainAxisSize: MainAxisSize.max,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(top: 100.0, left: 40.0),
-                child: HomePageTitleSection(),
-              ),
-              HomePageImageSection(),
-            ],
-          ),
+          LayoutBuilder(builder: (context, constraints) {
+            // Mobile layout
+            if (constraints.maxWidth < 600) {
+              return Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(
+                        top: 60.0, left: 20.0, right: 20.0),
+                    child: MobileHomePageTitleSection(),
+                  ),
+                  HomePageImageSection(),
+                ],
+              );
+            }
+
+            // Desktop/tablet layout (unchanged)
+            return Column(
+              mainAxisSize: MainAxisSize.max,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(top: 100.0, left: 40.0),
+                  child: HomePageTitleSection(),
+                ),
+                HomePageImageSection(),
+              ],
+            );
+          }),
         ],
       ),
     );
@@ -89,6 +108,87 @@ class AppBar extends StatelessWidget {
   }
 }
 
+// Mobile-specific title section
+class MobileHomePageTitleSection extends StatelessWidget {
+  const MobileHomePageTitleSection({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        RichText(
+          textAlign: TextAlign.center,
+          text: TextSpan(
+            text: 'Fashion tailored ',
+            style: TextStyle(
+              fontFamily: 'Museum',
+              fontSize: getResponsiveFontSize(
+                context,
+                baseSize: 42,
+                minSize: 32,
+                maxSize: 42,
+              ),
+              height: 1.1,
+            ),
+            children: <TextSpan>[
+              TextSpan(
+                text: 'uniquely',
+                style: TextStyle(),
+              ),
+              TextSpan(
+                text: ' to you',
+                style: TextStyle(),
+              ),
+            ],
+          ),
+        ),
+        const SizedBox(height: 20),
+        Text(
+          'Find clothing tailored to you instantly with our AI-powered App that learns from your style.',
+          textAlign: TextAlign.center,
+          style: TextStyle(
+            fontSize: getResponsiveFontSize(
+              context,
+              baseSize: 24,
+              minSize: 18,
+              maxSize: 24,
+            ),
+            fontWeight: FontWeight.w300,
+            height: 1.2,
+          ),
+        ),
+        const SizedBox(height: 30),
+        Row(
+          mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            IconButton(
+                onPressed: () {},
+                icon: SizedBox(
+                  height: 60,
+                  width: 140,
+                  child: SvgPicture.asset(
+                      'assets/icons/Download_on_the_app_store.svg'),
+                )),
+            const SizedBox(width: 10),
+            IconButton(
+                onPressed: () {},
+                icon: SizedBox(
+                  height: 45,
+                  child: Image.asset('assets/icons/get_it_on_google_play.png'),
+                )),
+          ],
+        )
+      ],
+    );
+  }
+}
+
+// Keep the original HomePageTitleSection for desktop/tablet
 class HomePageTitleSection extends StatelessWidget {
   const HomePageTitleSection({
     super.key,
@@ -179,6 +279,12 @@ class HomePageImageSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // Mobile-specific adjustments
+    if (MediaQuery.of(context).size.width < 600) {
+      return Container();
+    }
+
+    // Keep original behavior for desktop/tablet
     return SizedBox(
         height: MediaQuery.of(context).size.height * 0.6,
         child: Image.asset(

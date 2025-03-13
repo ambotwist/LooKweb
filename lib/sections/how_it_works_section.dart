@@ -17,7 +17,7 @@ class HowItWorksSection extends StatelessWidget {
           ),
           child: Padding(
             padding:
-                const EdgeInsets.symmetric(vertical: 100.0, horizontal: 40.0),
+                const EdgeInsets.symmetric(vertical: 50.0, horizontal: 40.0),
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
@@ -26,18 +26,206 @@ class HowItWorksSection extends StatelessWidget {
                   style: AppTheme.lightTheme.textTheme.howItWorkTitle(context),
                 ),
                 const SizedBox(height: 100),
-                Onboarding(),
-                if (MediaQuery.of(context).size.height < 700)
-                  const SizedBox(height: 40),
-                Swipe(),
-                if (MediaQuery.of(context).size.height < 700)
-                  const SizedBox(height: 40),
-                Shop(),
+                LayoutBuilder(builder: (context, constraints) {
+                  if (constraints.maxWidth < 600) {
+                    return Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        MobileOnboarding(),
+                        const SizedBox(height: 50),
+                        Divider(
+                          color: AppTheme.lightTheme.colorScheme.onPrimary,
+                        ),
+                        const SizedBox(height: 50),
+                        MobileSwipe(),
+                        const SizedBox(height: 50),
+                        Divider(
+                          color: AppTheme.lightTheme.colorScheme.onPrimary,
+                        ),
+                        const SizedBox(height: 50),
+                        MobileShop(),
+                      ],
+                    );
+                  }
+
+                  return Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Onboarding(),
+                      if (MediaQuery.of(context).size.height < 700)
+                        const SizedBox(height: 40),
+                      Swipe(),
+                      if (MediaQuery.of(context).size.height < 700)
+                        const SizedBox(height: 40),
+                      Shop(),
+                    ],
+                  );
+                }),
               ],
             ),
           ),
         ),
       ),
+    );
+  }
+}
+
+class MobileOnboarding extends StatelessWidget {
+  const MobileOnboarding({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Text(
+              'Step 1: Personalize',
+              style: AppTheme.lightTheme.textTheme.howItWorkStep(context),
+              textAlign: TextAlign.center,
+            ),
+            const SizedBox(height: 20),
+            Text(
+              'Take a quick quiz to let us know your style and preferences 💫',
+              style:
+                  AppTheme.lightTheme.textTheme.howItWorkExplanation(context),
+              textAlign: TextAlign.center,
+            ),
+          ],
+        ),
+        const SizedBox(height: 30),
+        Container(
+          constraints: BoxConstraints(
+            maxHeight: 400,
+          ),
+          child: Image.asset(
+            'assets/images/onboarding_example.png',
+            fit: BoxFit.contain,
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class MobileSwipe extends StatelessWidget {
+  const MobileSwipe({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Text(
+              'Step 2: Discover',
+              style: AppTheme.lightTheme.textTheme.howItWorkStep(context),
+              textAlign: TextAlign.center,
+            ),
+            const SizedBox(height: 20),
+            Text(
+              'Like what you see?',
+              style: AppTheme.lightTheme.textTheme
+                  .howItWorkExplanation(context)
+                  .copyWith(fontWeight: FontWeight.bold),
+              textAlign: TextAlign.center,
+            ),
+            Text(
+              'Swipe right to like 💚',
+              style:
+                  AppTheme.lightTheme.textTheme.howItWorkExplanation(context),
+              textAlign: TextAlign.center,
+            ),
+            const SizedBox(height: 20),
+            Text(
+              'Not your style?',
+              style: AppTheme.lightTheme.textTheme
+                  .howItWorkExplanation(context)
+                  .copyWith(fontWeight: FontWeight.bold),
+              textAlign: TextAlign.center,
+            ),
+            Text(
+              'Swipe left to pass ❌',
+              style:
+                  AppTheme.lightTheme.textTheme.howItWorkExplanation(context),
+              textAlign: TextAlign.center,
+            ),
+          ],
+        ),
+        const SizedBox(height: 30),
+        Container(
+          constraints: BoxConstraints(
+            maxHeight: 400,
+          ),
+          child: Image.asset(
+            'assets/images/swipe_example.png',
+            fit: BoxFit.contain,
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class MobileShop extends StatelessWidget {
+  const MobileShop({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Text(
+              'Step 3: Shop',
+              style: AppTheme.lightTheme.textTheme.howItWorkStep(context),
+              textAlign: TextAlign.center,
+            ),
+            const SizedBox(height: 20),
+            Text(
+              'Found something you fancy? 😍',
+              style:
+                  AppTheme.lightTheme.textTheme.howItWorkExplanation(context),
+              textAlign: TextAlign.center,
+            ),
+            const SizedBox(height: 20),
+            Text(
+              'Swipe up to favorite or order it via our direct checkout!',
+              style:
+                  AppTheme.lightTheme.textTheme.howItWorkExplanation(context),
+              textAlign: TextAlign.center,
+            ),
+          ],
+        ),
+        const SizedBox(height: 30),
+        Container(
+          constraints: BoxConstraints(
+            maxHeight: 400,
+          ),
+          child: Image.asset(
+            'assets/images/favorite&checkout.png',
+            fit: BoxFit.contain,
+          ),
+        ),
+      ],
     );
   }
 }
