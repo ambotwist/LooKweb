@@ -8,28 +8,34 @@ class HowItWorksSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: MediaQuery.of(context).size.height > 700
-          ? getFullScreenSectionHeight(context) * 3 * 0.9
-          : getFullScreenSectionHeight(context) * 3,
-      width: MediaQuery.of(context).size.width,
+      width: double.infinity,
       color: AppTheme.lightTheme.colorScheme.primary,
-      child: Padding(
-        padding: const EdgeInsets.only(top: 60),
-        child: Column(
-          children: [
-            Text(
-              'How It Works',
-              style: AppTheme.lightTheme.textTheme.howItWorkTitle(context),
+      child: Center(
+        child: ConstrainedBox(
+          constraints: BoxConstraints(
+            maxWidth: 1200,
+          ),
+          child: Padding(
+            padding:
+                const EdgeInsets.symmetric(vertical: 100.0, horizontal: 40.0),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(
+                  'How It Works',
+                  style: AppTheme.lightTheme.textTheme.howItWorkTitle(context),
+                ),
+                const SizedBox(height: 100),
+                Onboarding(),
+                if (MediaQuery.of(context).size.height < 700)
+                  const SizedBox(height: 40),
+                Swipe(),
+                if (MediaQuery.of(context).size.height < 700)
+                  const SizedBox(height: 40),
+                Shop(),
+              ],
             ),
-            const SizedBox(height: 100),
-            Onboarding(),
-            if (MediaQuery.of(context).size.height < 700)
-              const SizedBox(height: 40),
-            Swipe(),
-            if (MediaQuery.of(context).size.height < 700)
-              const SizedBox(height: 40),
-            Shop(),
-          ],
+          ),
         ),
       ),
     );
