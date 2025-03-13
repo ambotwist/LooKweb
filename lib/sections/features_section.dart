@@ -17,30 +17,29 @@ class FeaturesSection extends StatelessWidget {
           padding:
               const EdgeInsets.only(top: 100, left: 60, right: 60, bottom: 60),
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Center(
-                child: RichText(
-                  text: TextSpan(
-                    text: 'Looking for something specific?\nTry our ',
-                    style: Theme.of(context)
-                        .textTheme
-                        .responsiveHeadlineLarge(context)
-                        .copyWith(
-                          fontFamily: 'Satoshi',
-                          fontWeight: FontWeight.w900,
-                        ),
-                    children: <TextSpan>[
-                      TextSpan(
-                        text: 'SmartSearch',
-                        style: TextStyle(
-                          color: const Color.fromARGB(255, 255, 0, 85),
-                        ),
+              RichText(
+                text: TextSpan(
+                  text: 'Looking for something specific?\nTry our ',
+                  style: Theme.of(context)
+                      .textTheme
+                      .responsiveHeadlineMedium(context)
+                      .copyWith(
+                        fontFamily: 'Satoshi',
+                        fontWeight: FontWeight.w900,
                       ),
-                      TextSpan(
-                        text: '.',
+                  children: <TextSpan>[
+                    TextSpan(
+                      text: 'SmartSearch',
+                      style: TextStyle(
+                        color: const Color.fromARGB(255, 255, 0, 85),
                       ),
-                    ],
-                  ),
+                    ),
+                    TextSpan(
+                      text: '.',
+                    ),
+                  ],
                 ),
               ),
               SizedBox(
