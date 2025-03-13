@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:website/theme/app_theme.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class ContactSection extends StatelessWidget {
   const ContactSection({super.key});
@@ -28,10 +29,20 @@ class ContactSection extends StatelessWidget {
               runSpacing: 30,
               alignment: WrapAlignment.center,
               children: [
-                _buildContactInfo(
-                    context, Icons.email, 'Email', 'ambotwist@gmail.com'),
-                _buildContactInfo(
-                    context, Icons.phone, 'Phone', '+41 76 577 60 38'),
+                _buildClickableContactInfo(
+                  context,
+                  Icons.email,
+                  'Email',
+                  'ambotwist@gmail.com',
+                  'mailto:ambotwist@gmail.com',
+                ),
+                _buildClickableContactInfo(
+                  context,
+                  Icons.phone,
+                  'Phone',
+                  '+41 76 577 60 38',
+                  'tel:+41765776038',
+                ),
               ],
             ),
           ],
@@ -40,6 +51,48 @@ class ContactSection extends StatelessWidget {
     );
   }
 
+  Widget _buildClickableContactInfo(BuildContext context, IconData icon,
+      String title, String detail, String url) {
+    return InkWell(
+      onTap: () => _launchUrl(url),
+      borderRadius: BorderRadius.circular(8),
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Icon(
+              icon,
+              size: 30,
+              color: Theme.of(context).colorScheme.primary,
+            ),
+            const SizedBox(height: 8),
+            Text(
+              title,
+              style: Theme.of(context).textTheme.titleMedium,
+            ),
+            const SizedBox(height: 4),
+            Text(
+              detail,
+              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                    decoration: TextDecoration.underline,
+                    color: Theme.of(context).colorScheme.primary,
+                  ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Future<void> _launchUrl(String urlString) async {
+    final Uri url = Uri.parse(urlString);
+    if (!await launchUrl(url)) {
+      throw Exception('Could not launch $url');
+    }
+  }
+
+  // Keep the original method for reference
   Widget _buildContactInfo(
       BuildContext context, IconData icon, String title, String detail) {
     return Column(

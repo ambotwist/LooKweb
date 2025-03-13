@@ -131,6 +131,7 @@ class MobileHomePageTitleSection extends StatelessWidget {
             ),
             fontWeight: FontWeight.w700,
             height: 1.1,
+            letterSpacing: -2,
             fontFamily: 'Ofelia',
             color: AppTheme.lightTheme.colorScheme.secondary,
           ),

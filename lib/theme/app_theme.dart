@@ -86,7 +86,7 @@ class AppTheme {
       colorScheme: ColorScheme.light(
         primary: Colors.black,
         onPrimary: Colors.white,
-        secondary: const Color.fromARGB(255, 210, 15, 80),
+        secondary: const Color.fromARGB(255, 255, 0, 85),
         onSecondary: Colors.white,
         surface: Colors.white,
         onSurface: Colors.black,
