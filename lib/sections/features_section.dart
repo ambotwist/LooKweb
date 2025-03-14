@@ -46,22 +46,24 @@ class FeaturesSection extends StatelessWidget {
               constraints: BoxConstraints(
                 minHeight: 500,
                 maxHeight: 750,
-                maxWidth: 1200,
               ),
-              child: MediaQuery.of(context).size.width > 700
-                  ? Image.asset(
-                      'assets/images/smartsearch_example.png',
-                      fit: BoxFit.contain,
-                    )
-                  : MediaQuery.of(context).size.width > 500
-                      ? Image.asset(
-                          'assets/images/smartsearch_example_small.png',
-                          fit: BoxFit.contain,
-                        )
-                      : Image.asset(
-                          'assets/images/smartsearch_example_tiny.png',
-                          fit: BoxFit.contain,
-                        ),
+              child: Align(
+                alignment: Alignment.topCenter,
+                child: MediaQuery.of(context).size.width > 700
+                    ? Image.asset(
+                        'assets/images/smartsearch_example.png',
+                        fit: BoxFit.contain,
+                      )
+                    : MediaQuery.of(context).size.width > 500
+                        ? Image.asset(
+                            'assets/images/smartsearch_example_small.png',
+                            fit: BoxFit.contain,
+                          )
+                        : Image.asset(
+                            'assets/images/smartsearch_example_tiny.png',
+                            fit: BoxFit.contain,
+                          ),
+              ),
             ),
           ),
         ],
