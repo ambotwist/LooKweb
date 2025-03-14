@@ -23,10 +23,6 @@
         content="LooK - AI-Powered Fashion Discovery. Swipe your way to a personalized wardrobe with real-time style recommendations.">
     <meta name="keywords" content="fashion, AI, personalization, style, shopping">
 
-    <!-- Performance optimizations -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
     <!-- iOS meta tags & icons -->
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
@@ -39,29 +35,23 @@
     <title>LooK - AI-Powered Fashion Discovery</title>
     <link rel="manifest" href="manifest.json">
 
-    <script>
-        // The value below is injected by flutter build, do not touch.
-        var serviceWorkerVersion = '{{flutter_service_worker_version}}';
-    </script>
     <!-- This script adds the flutter initialization JS code -->
     <script src="flutter.js" defer></script>
 </head>
 
 <body>
     <script>
-        window.addEventListener('load', function (ev) {
-            // Download main.dart.js
-            _flutter.loader.load({
-                serviceWorker: {
-                    serviceWorkerVersion: serviceWorkerVersion,
-                },
-                onEntrypointLoaded: async function (engineInitializer) {
-                    const appRunner = await engineInitializer.initializeEngine({
-                        useColorEmoji: true
-                    });
-                    await appRunner.runApp();
-                }
-            });
+        {{flutter_js}}
+        {{flutter_build_config}}
+
+        _flutter.loader.load({
+            onEntrypointLoaded: async function (engineInitializer) {
+                const appRunner = await engineInitializer.initializeEngine({
+                    useColorEmoji: true
+                });
+
+                await appRunner.runApp();
+            }
         });
     </script>
 </body>

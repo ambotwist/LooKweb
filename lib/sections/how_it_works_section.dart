@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:website/theme/app_theme.dart';
 import 'package:website/utils/screen_utils.dart';
-import 'package:website/widgets/lazy_load_image.dart';
 
 class HowItWorksSection extends StatelessWidget {
   const HowItWorksSection({super.key});
@@ -53,11 +52,15 @@ class HowItWorksSection extends StatelessWidget {
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       Onboarding(),
-                      if (MediaQuery.of(context).size.height < 700)
-                        const SizedBox(height: 40),
+                      SizedBox(
+                        height:
+                            MediaQuery.of(context).size.height > 700 ? 60 : 20,
+                      ),
                       Swipe(),
-                      if (MediaQuery.of(context).size.height < 700)
-                        const SizedBox(height: 40),
+                      SizedBox(
+                        height:
+                            MediaQuery.of(context).size.height > 700 ? 60 : 20,
+                      ),
                       Shop(),
                     ],
                   );
@@ -105,8 +108,8 @@ class MobileOnboarding extends StatelessWidget {
           constraints: BoxConstraints(
             maxHeight: 400,
           ),
-          child: LazyLoadImage(
-            imagePath: 'assets/images/onboarding_example.png',
+          child: Image.asset(
+            'assets/images/onboarding_example.png',
             fit: BoxFit.contain,
           ),
         ),
@@ -170,8 +173,8 @@ class MobileSwipe extends StatelessWidget {
           constraints: BoxConstraints(
             maxHeight: 400,
           ),
-          child: LazyLoadImage(
-            imagePath: 'assets/images/swipe_example.png',
+          child: Image.asset(
+            'assets/images/swipe_example.png',
             fit: BoxFit.contain,
           ),
         ),
@@ -202,7 +205,14 @@ class MobileShop extends StatelessWidget {
             ),
             const SizedBox(height: 20),
             Text(
-              'Checkout directly in the app 🛍️',
+              'Found something you fancy? 😍',
+              style:
+                  AppTheme.lightTheme.textTheme.howItWorkExplanation(context),
+              textAlign: TextAlign.center,
+            ),
+            const SizedBox(height: 20),
+            Text(
+              'Swipe up to favorite or order it via our direct checkout!',
               style:
                   AppTheme.lightTheme.textTheme.howItWorkExplanation(context),
               textAlign: TextAlign.center,
@@ -214,8 +224,8 @@ class MobileShop extends StatelessWidget {
           constraints: BoxConstraints(
             maxHeight: 400,
           ),
-          child: LazyLoadImage(
-            imagePath: 'assets/images/checkout_example.png',
+          child: Image.asset(
+            'assets/images/favorite&checkout.png',
             fit: BoxFit.contain,
           ),
         ),
@@ -231,47 +241,57 @@ class Onboarding extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: getFullScreenSectionHeight(context) * 0.7,
-      child: Padding(
-        padding: const EdgeInsets.only(
-          left: 100,
-        ),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Expanded(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'Step 1: Personalize',
-                    style: AppTheme.lightTheme.textTheme.howItWorkStep(context),
-                  ),
-                  const SizedBox(height: 20),
-                  Text(
-                    'Take a quick quiz to let us know your style and preferences 💫',
-                    style: AppTheme.lightTheme.textTheme
-                        .howItWorkExplanation(context),
-                  ),
-                ],
-              ),
-            ),
-            Expanded(
-              flex: 2,
-              child: Container(
-                constraints: BoxConstraints(
-                  maxHeight: getFullScreenSectionHeight(context) * 0.7,
-                ),
-                child: LazyLoadImage(
-                  imagePath: 'assets/images/onboarding_example.png',
-                  fit: BoxFit.contain,
+    return ConstrainedBox(
+      constraints: BoxConstraints(
+        minHeight: 400,
+        maxHeight: 750,
+      ),
+      child: SizedBox(
+        height: getFullScreenSectionHeight(context) * 0.7,
+        child: Padding(
+          padding: const EdgeInsets.only(
+            left: 100,
+          ),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Expanded(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Step 1: Personalize',
+                      style:
+                          AppTheme.lightTheme.textTheme.howItWorkStep(context),
+                    ),
+                    const SizedBox(height: 20),
+                    Text(
+                      'Take a quick quiz to let us know your style and preferences 💫',
+                      style: AppTheme.lightTheme.textTheme
+                          .howItWorkExplanation(context),
+                    ),
+                  ],
                 ),
               ),
-            ),
-            const SizedBox(width: 40),
-          ],
+              Expanded(
+                flex: 2,
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  child: Container(
+                    constraints: BoxConstraints(
+                      minHeight: 500,
+                      maxHeight: 750,
+                    ),
+                    child: Image.asset(
+                      'assets/images/onboarding_example.png',
+                      fit: BoxFit.contain,
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -285,75 +305,83 @@ class Swipe extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: getFullScreenSectionHeight(context) * 0.7,
-      child: Padding(
-        padding: const EdgeInsets.only(
-          right: 60,
-        ),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Expanded(
-              flex: 2,
-              child: Container(
-                constraints: BoxConstraints(
-                  maxHeight: getFullScreenSectionHeight(context) * 0.7,
-                ),
-                child: LazyLoadImage(
-                  imagePath: 'assets/images/swipe_example.png',
-                  fit: BoxFit.contain,
+    return ConstrainedBox(
+      constraints: BoxConstraints(
+        minHeight: 500,
+        maxHeight: 750,
+      ),
+      child: SizedBox(
+        height: getFullScreenSectionHeight(context) * 0.7,
+        child: Padding(
+          padding: const EdgeInsets.only(
+            right: 60,
+          ),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Expanded(
+                flex: 2,
+                child: Container(
+                  constraints: BoxConstraints(
+                    minHeight: 500,
+                    maxHeight: 750,
+                  ),
+                  child: Image.asset(
+                    'assets/images/swipe_example.png',
+                    fit: BoxFit.contain,
+                  ),
                 ),
               ),
-            ),
-            const SizedBox(width: 40),
-            Expanded(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'Step 2: Discover',
-                    style: AppTheme.lightTheme.textTheme.howItWorkStep(context),
-                  ),
-                  const SizedBox(height: 40),
-                  Text(
-                    'Like what you see? ',
-                    style: AppTheme.lightTheme.textTheme
-                        .howItWorkExplanation(context)
-                        .copyWith(fontWeight: FontWeight.bold),
-                  ),
-                  Text(
-                    'Swipe right to like 💚',
-                    style: AppTheme.lightTheme.textTheme
-                        .howItWorkExplanation(context),
-                  ),
-                  const SizedBox(height: 20),
-                  Text(
-                    'Not your style?',
-                    style: AppTheme.lightTheme.textTheme
-                        .howItWorkExplanation(context)
-                        .copyWith(fontWeight: FontWeight.bold),
-                  ),
-                  Text(
-                    'Swipe left to pass ❌',
-                    style: AppTheme.lightTheme.textTheme
-                        .howItWorkExplanation(context),
-                  ),
-                  if (MediaQuery.of(context).size.width > 1000)
-                    const SizedBox(height: 60),
-                  if (MediaQuery.of(context).size.width > 1000 &&
-                      MediaQuery.of(context).size.height > 700)
+              const SizedBox(width: 40),
+              Expanded(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
                     Text(
-                      'Our Machine Learning algorithm will learn from your style and tailor recommendations to your tastes.',
+                      'Step 2: Discover',
+                      style:
+                          AppTheme.lightTheme.textTheme.howItWorkStep(context),
+                    ),
+                    const SizedBox(height: 40),
+                    Text(
+                      'Like what you see? ',
                       style: AppTheme.lightTheme.textTheme
                           .howItWorkExplanation(context)
-                          .copyWith(fontFamily: 'Satoshi'),
+                          .copyWith(fontWeight: FontWeight.bold),
                     ),
-                ],
+                    Text(
+                      'Swipe right to like 💚',
+                      style: AppTheme.lightTheme.textTheme
+                          .howItWorkExplanation(context),
+                    ),
+                    const SizedBox(height: 20),
+                    Text(
+                      'Not your style?',
+                      style: AppTheme.lightTheme.textTheme
+                          .howItWorkExplanation(context)
+                          .copyWith(fontWeight: FontWeight.bold),
+                    ),
+                    Text(
+                      'Swipe left to pass ❌',
+                      style: AppTheme.lightTheme.textTheme
+                          .howItWorkExplanation(context),
+                    ),
+                    if (MediaQuery.of(context).size.width > 1000)
+                      const SizedBox(height: 60),
+                    if (MediaQuery.of(context).size.width > 1000 &&
+                        MediaQuery.of(context).size.height > 800)
+                      Text(
+                        'Our Machine Learning algorithm will learn from your style and tailor recommendations to your tastes.',
+                        style: AppTheme.lightTheme.textTheme
+                            .howItWorkExplanation(context)
+                            .copyWith(fontFamily: 'Satoshi'),
+                      ),
+                  ],
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
@@ -367,52 +395,61 @@ class Shop extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: getFullScreenSectionHeight(context) * 0.7,
-      child: Padding(
-        padding: const EdgeInsets.only(
-          left: 100,
-        ),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Expanded(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'Step 3: Shop',
-                    style: AppTheme.lightTheme.textTheme.howItWorkStep(context),
-                  ),
-                  const SizedBox(height: 20),
-                  Text(
-                    'Found something you fancy? 😍',
-                    style: AppTheme.lightTheme.textTheme
-                        .howItWorkExplanation(context),
-                  ),
-                  const SizedBox(height: 20),
-                  Text(
-                    'Swipe up to favorite or order it via our direct checkout!',
-                    style: AppTheme.lightTheme.textTheme
-                        .howItWorkExplanation(context),
-                  ),
-                ],
-              ),
-            ),
-            Expanded(
-              flex: 2,
-              child: Container(
-                constraints: BoxConstraints(
-                  maxHeight: getFullScreenSectionHeight(context) * 0.7,
-                ),
-                child: LazyLoadImage(
-                  imagePath: 'assets/images/checkout_example.png',
-                  fit: BoxFit.contain,
+    return ConstrainedBox(
+      constraints: BoxConstraints(
+        minHeight: 500,
+        maxHeight: 750,
+      ),
+      child: SizedBox(
+        height: getFullScreenSectionHeight(context) * 0.7,
+        child: Padding(
+          padding: const EdgeInsets.only(
+            left: 100,
+          ),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Expanded(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Step 3: Shop',
+                      style:
+                          AppTheme.lightTheme.textTheme.howItWorkStep(context),
+                    ),
+                    const SizedBox(height: 20),
+                    Text(
+                      'Found something you fancy? 😍',
+                      style: AppTheme.lightTheme.textTheme
+                          .howItWorkExplanation(context),
+                    ),
+                    const SizedBox(height: 20),
+                    Text(
+                      'Swipe up to favorite or order it via our direct checkout!',
+                      style: AppTheme.lightTheme.textTheme
+                          .howItWorkExplanation(context),
+                    ),
+                  ],
                 ),
               ),
-            ),
-          ],
+              const SizedBox(width: 40),
+              Expanded(
+                flex: 2,
+                child: Container(
+                  constraints: BoxConstraints(
+                    minHeight: 500,
+                    maxHeight: 750,
+                  ),
+                  child: Image.asset(
+                    'assets/images/favorite&checkout.png',
+                    fit: BoxFit.contain,
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

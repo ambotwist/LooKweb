@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:website/theme/app_theme.dart';
 import 'package:website/widgets/big_app_bar.dart';
-import 'package:website/widgets/lazy_load_image.dart';
 import 'package:website/widgets/small_app_bar.dart';
 
 double getResponsiveFontSize(
@@ -93,7 +92,7 @@ class _HomeSectionState extends State<HomeSection> {
                     child: MobileHomePageTitleSection(),
                   ),
                   HomePageImageSection(),
-                  // Scroll indicator with fade effect
+                  // Scroll indicator with fade effect - only on mobile
                   AnimatedOpacity(
                     opacity: _scrollIndicatorOpacity,
                     duration: const Duration(milliseconds: 300),
@@ -125,7 +124,7 @@ class _HomeSectionState extends State<HomeSection> {
               );
             }
 
-            // Desktop/tablet layout (unchanged)
+            // Desktop/tablet layout - without scroll indicator
             return Column(
               mainAxisSize: MainAxisSize.max,
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -135,37 +134,6 @@ class _HomeSectionState extends State<HomeSection> {
                   child: HomePageTitleSection(),
                 ),
                 HomePageImageSection(),
-                // Scroll indicator with fade effect
-                Align(
-                  alignment: Alignment.center,
-                  child: AnimatedOpacity(
-                    opacity: _scrollIndicatorOpacity,
-                    duration: const Duration(milliseconds: 300),
-                    child: Column(
-                      children: [
-                        Text(
-                          'Scroll down to learn more',
-                          style: TextStyle(
-                            fontSize: getResponsiveFontSize(
-                              context,
-                              baseSize: 24,
-                              minSize: 18,
-                              maxSize: 24,
-                            ),
-                            fontWeight: FontWeight.w300,
-                            height: 1.2,
-                            color: Colors.grey.shade800,
-                          ),
-                        ),
-                        Icon(
-                          Icons.keyboard_arrow_down_rounded,
-                          size: 40,
-                          color: Colors.grey.shade800,
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
               ],
             );
           }),
@@ -294,10 +262,7 @@ class MobileHomePageTitleSection extends StatelessWidget {
                 onPressed: () {},
                 icon: SizedBox(
                   height: 45,
-                  child: LazyLoadImage(
-                    imagePath: 'assets/icons/get_it_on_google_play.png',
-                    fit: BoxFit.contain,
-                  ),
+                  child: Image.asset('assets/icons/get_it_on_google_play.png'),
                 )),
           ],
         ),
@@ -380,10 +345,8 @@ class HomePageTitleSection extends StatelessWidget {
                   onPressed: () {},
                   icon: SizedBox(
                     height: 53,
-                    child: LazyLoadImage(
-                      imagePath: 'assets/icons/get_it_on_google_play.png',
-                      fit: BoxFit.contain,
-                    ),
+                    child:
+                        Image.asset('assets/icons/get_it_on_google_play.png'),
                   )),
             ],
           )
@@ -405,34 +368,19 @@ class HomePageImageSection extends StatelessWidget {
       return const SizedBox.shrink(); // More efficient than Container()
     }
 
-    // Keep original behavior for desktop/tablet but use lazy loading
-    return SizedBox(
-        height: MediaQuery.of(context).size.height * 0.6,
-        child: LazyLoadImage(
-          imagePath: 'assets/images/homepage_image_row.png',
-          fit: BoxFit.fitHeight,
-          alignment: Alignment.centerLeft,
-          placeholder: Container(
-            color: Colors.grey[100],
-            child: Center(
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  CircularProgressIndicator(
-                    color: AppTheme.lightTheme.colorScheme.secondary,
-                  ),
-                  const SizedBox(height: 16),
-                  Text(
-                    'Loading image...',
-                    style: TextStyle(
-                      color: Colors.grey[600],
-                      fontSize: 14,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ));
+    // Keep original behavior for desktop/tablet
+    return Container(
+      constraints: BoxConstraints(
+        minHeight: 400,
+        maxHeight: 750,
+      ),
+      child: SizedBox(
+          height: MediaQuery.of(context).size.height * 0.55,
+          child: Image.asset(
+            'assets/images/homepage_image_row.png',
+            fit: BoxFit.fitHeight,
+            alignment: Alignment.centerLeft,
+          )),
+    );
   }
 }
