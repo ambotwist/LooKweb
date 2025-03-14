@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:website/theme/app_theme.dart';
 import 'package:website/utils/screen_utils.dart';
+import 'package:website/widgets/lazy_load_image.dart';
 
 class FeaturesSection extends StatelessWidget {
   const FeaturesSection({super.key});
@@ -51,17 +52,19 @@ class FeaturesSection extends StatelessWidget {
                 child: Align(
                   alignment: Alignment.topCenter,
                   child: MediaQuery.of(context).size.width > 700
-                      ? Image.asset(
-                          'assets/images/smartsearch_example.png',
+                      ? LazyLoadImage(
+                          imagePath: 'assets/images/smartsearch_example.png',
                           fit: BoxFit.contain,
                         )
                       : MediaQuery.of(context).size.width > 500
-                          ? Image.asset(
-                              'assets/images/smartsearch_example_small.png',
+                          ? LazyLoadImage(
+                              imagePath:
+                                  'assets/images/smartsearch_example_small.png',
                               fit: BoxFit.contain,
                             )
-                          : Image.asset(
-                              'assets/images/smartsearch_example_tiny.png',
+                          : LazyLoadImage(
+                              imagePath:
+                                  'assets/images/smartsearch_example_tiny.png',
                               fit: BoxFit.contain,
                             ),
                 ),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:website/theme/app_theme.dart';
 import 'package:website/utils/screen_utils.dart';
+import 'package:website/widgets/lazy_load_image.dart';
 
 class HowItWorksSection extends StatelessWidget {
   const HowItWorksSection({super.key});
@@ -104,8 +105,8 @@ class MobileOnboarding extends StatelessWidget {
           constraints: BoxConstraints(
             maxHeight: 400,
           ),
-          child: Image.asset(
-            'assets/images/onboarding_example.png',
+          child: LazyLoadImage(
+            imagePath: 'assets/images/onboarding_example.png',
             fit: BoxFit.contain,
           ),
         ),
@@ -169,8 +170,8 @@ class MobileSwipe extends StatelessWidget {
           constraints: BoxConstraints(
             maxHeight: 400,
           ),
-          child: Image.asset(
-            'assets/images/swipe_example.png',
+          child: LazyLoadImage(
+            imagePath: 'assets/images/swipe_example.png',
             fit: BoxFit.contain,
           ),
         ),
@@ -201,14 +202,7 @@ class MobileShop extends StatelessWidget {
             ),
             const SizedBox(height: 20),
             Text(
-              'Found something you fancy? 😍',
-              style:
-                  AppTheme.lightTheme.textTheme.howItWorkExplanation(context),
-              textAlign: TextAlign.center,
-            ),
-            const SizedBox(height: 20),
-            Text(
-              'Swipe up to favorite or order it via our direct checkout!',
+              'Checkout directly in the app 🛍️',
               style:
                   AppTheme.lightTheme.textTheme.howItWorkExplanation(context),
               textAlign: TextAlign.center,
@@ -220,8 +214,8 @@ class MobileShop extends StatelessWidget {
           constraints: BoxConstraints(
             maxHeight: 400,
           ),
-          child: Image.asset(
-            'assets/images/favorite&checkout.png',
+          child: LazyLoadImage(
+            imagePath: 'assets/images/checkout_example.png',
             fit: BoxFit.contain,
           ),
         ),
@@ -238,53 +232,45 @@ class Onboarding extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: getFullScreenSectionHeight(context) * 0.8,
+      height: getFullScreenSectionHeight(context) * 0.7,
       child: Padding(
         padding: const EdgeInsets.only(
           left: 100,
         ),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Expanded(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'Step 1: Personalize',
-                        style: AppTheme.lightTheme.textTheme
-                            .howItWorkStep(context),
-                      ),
-                      const SizedBox(height: 20),
-                      Text(
-                        'Take a quick quiz to let us know your style and preferences 💫',
-                        style: AppTheme.lightTheme.textTheme
-                            .howItWorkExplanation(context),
-                      ),
-                    ],
+            Expanded(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Step 1: Personalize',
+                    style: AppTheme.lightTheme.textTheme.howItWorkStep(context),
                   ),
-                ),
-                Expanded(
-                  flex: 2,
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 20),
-                    child: Container(
-                      constraints: BoxConstraints(
-                        maxHeight: getFullScreenSectionHeight(context) * 0.7,
-                      ),
-                      child: Image.asset(
-                        'assets/images/onboarding_example.png',
-                        fit: BoxFit.contain,
-                      ),
-                    ),
+                  const SizedBox(height: 20),
+                  Text(
+                    'Take a quick quiz to let us know your style and preferences 💫',
+                    style: AppTheme.lightTheme.textTheme
+                        .howItWorkExplanation(context),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
+            Expanded(
+              flex: 2,
+              child: Container(
+                constraints: BoxConstraints(
+                  maxHeight: getFullScreenSectionHeight(context) * 0.7,
+                ),
+                child: LazyLoadImage(
+                  imagePath: 'assets/images/onboarding_example.png',
+                  fit: BoxFit.contain,
+                ),
+              ),
+            ),
+            const SizedBox(width: 40),
           ],
         ),
       ),
@@ -314,8 +300,8 @@ class Swipe extends StatelessWidget {
                 constraints: BoxConstraints(
                   maxHeight: getFullScreenSectionHeight(context) * 0.7,
                 ),
-                child: Image.asset(
-                  'assets/images/swipe_example.png',
+                child: LazyLoadImage(
+                  imagePath: 'assets/images/swipe_example.png',
                   fit: BoxFit.contain,
                 ),
               ),
@@ -388,7 +374,7 @@ class Shop extends StatelessWidget {
           left: 100,
         ),
         child: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Expanded(
               child: Column(
@@ -414,15 +400,14 @@ class Shop extends StatelessWidget {
                 ],
               ),
             ),
-            const SizedBox(width: 40),
             Expanded(
               flex: 2,
               child: Container(
                 constraints: BoxConstraints(
                   maxHeight: getFullScreenSectionHeight(context) * 0.7,
                 ),
-                child: Image.asset(
-                  'assets/images/favorite&checkout.png',
+                child: LazyLoadImage(
+                  imagePath: 'assets/images/checkout_example.png',
                   fit: BoxFit.contain,
                 ),
               ),

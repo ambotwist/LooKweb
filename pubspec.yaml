@@ -35,8 +35,8 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.8
   url_launcher: ^6.3.1
-  video_player: ^2.8.2
   flutter_svg: ^2.0.9
+  visibility_detector: ^0.4.0+2
 
 dev_dependencies:
   flutter_test:
@@ -112,80 +112,7 @@ flutter:
         - asset: assets/fonts/Satoshi/Fonts/OTF/Satoshi-BlackItalic.otf
           weight: 900
           style: italic
-    - family: Montserrat
-      fonts:
-        - asset: assets/fonts/Montserrat/static/Montserrat-Thin.ttf
-          weight: 100
-        - asset: assets/fonts/Montserrat/static/Montserrat-ThinItalic.ttf
-          weight: 100
-          style: italic
-        - asset: assets/fonts/Montserrat/static/Montserrat-ExtraLight.ttf
-          weight: 200
-        - asset: assets/fonts/Montserrat/static/Montserrat-ExtraLightItalic.ttf
-          weight: 200
-          style: italic
-        - asset: assets/fonts/Montserrat/static/Montserrat-Light.ttf
-          weight: 300
-        - asset: assets/fonts/Montserrat/static/Montserrat-LightItalic.ttf
-          weight: 300
-          style: italic
-        - asset: assets/fonts/Montserrat/static/Montserrat-Regular.ttf
-          weight: 400
-        - asset: assets/fonts/Montserrat/static/Montserrat-Italic.ttf
-          weight: 400
-          style: italic
-        - asset: assets/fonts/Montserrat/static/Montserrat-Medium.ttf
-          weight: 500
-        - asset: assets/fonts/Montserrat/static/Montserrat-MediumItalic.ttf
-          weight: 500
-          style: italic
-        - asset: assets/fonts/Montserrat/static/Montserrat-SemiBold.ttf
-          weight: 600
-        - asset: assets/fonts/Montserrat/static/Montserrat-SemiBoldItalic.ttf
-          weight: 600
-          style: italic
-        - asset: assets/fonts/Montserrat/static/Montserrat-Bold.ttf
-          weight: 700
-        - asset: assets/fonts/Montserrat/static/Montserrat-BoldItalic.ttf
-          weight: 700
-          style: italic
-        - asset: assets/fonts/Montserrat/static/Montserrat-ExtraBold.ttf
-          weight: 800
-        - asset: assets/fonts/Montserrat/static/Montserrat-ExtraBoldItalic.ttf
-          weight: 800
-          style: italic
-        - asset: assets/fonts/Montserrat/static/Montserrat-Black.ttf
-          weight: 900
-        - asset: assets/fonts/Montserrat/static/Montserrat-BlackItalic.ttf
-          weight: 900
-          style: italic
-    - family: Monument
-      fonts:
-        - asset: assets/fonts/Monument/PPMonumentExtended-Regular.otf
-          weight: 400
-        - asset: assets/fonts/Monument/PPMonumentExtended-RegularItalic.otf
-          weight: 400
-          style: italic
-        - asset: assets/fonts/Monument/PPMonumentExtended-Light.otf
-          weight: 300
-        - asset: assets/fonts/Monument/PPMonumentExtended-LightItalic.otf
-          weight: 300
-          style: italic
-        - asset: assets/fonts/Monument/PPMonumentExtended-Black.otf
-          weight: 900
-        - asset: assets/fonts/Monument/PPMonumentExtended-BlackItalic.otf
-          weight: 900
-          style: italic
-    - family: Neue_CorpCompact
-      fonts:
-        - asset: assets/fonts/Neue_Corp/PPNeueCorp-CompactMedium.otf
-    - family: NeueCorpNormal
-      fonts:
-        - asset: assets/fonts/Neue_Corp/PPNeueCorp-NormalMedium.otf
-    - family: NeueCorpExtended
-      fonts:
-        - asset: assets/fonts/Neue_Corp/PPNeueCorp-ExtendedMedium.otf
-        
+          
     - family: Museum
       fonts:
         - asset: assets/fonts/Museum/otf/PPMuseum-Ultralight.otf
@@ -197,7 +124,6 @@ flutter:
         - asset: assets/fonts/Museum/otf/PPMuseum-Ultrabold.otf
           weight: 800
           
-
     - family: Ofelia
       fonts:
         - asset: assets/fonts/Ofelia/Ofelia_Display/OfeliaDisplayTrial-Light.otf

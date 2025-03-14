@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <!--
+        If you are serving your web app in a path other than the root, change the
+        href value below to reflect the base path you are serving from.
+
+        The path provided below has to start and end with a slash "/" in order for
+        it to work correctly.
+
+        For more details:
+        * https://developer.mozilla.org/en-US/docs/Web/HTML/Element/base
+
+        This is a placeholder for base href that will be replaced by the value of
+        the `--base-href` argument provided to `flutter build`.
+    -->
+    <base href="$FLUTTER_BASE_HREF">
+
+    <meta charset="UTF-8">
+    <meta content="IE=Edge" http-equiv="X-UA-Compatible">
+    <meta name="description"
+        content="LooK - AI-Powered Fashion Discovery. Swipe your way to a personalized wardrobe with real-time style recommendations.">
+    <meta name="keywords" content="fashion, AI, personalization, style, shopping">
+
+    <!-- Performance optimizations -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <!-- iOS meta tags & icons -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="LooK">
+    <link rel="apple-touch-icon" href="icons/Icon-192.png">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="favicon.png" />
+
+    <title>LooK - AI-Powered Fashion Discovery</title>
+    <link rel="manifest" href="manifest.json">
+
+    <script>
+        // The value below is injected by flutter build, do not touch.
+        // In debug mode, this will be null
+        // In production mode, this will be replaced with the actual version
+        var serviceWorkerVersion = '{{flutter_service_worker_version}}';
+
+        // Fallback for debug mode
+        if (serviceWorkerVersion === '{{' + 'flutter_service_worker_version' + '}}') {
+            console.log('Debug mode detected, using null service worker version');
+            serviceWorkerVersion = null;
+        }
+    </script>
+    <!-- This script adds the flutter initialization JS code -->
+    <script src="flutter.js" defer></script>
+</head>
+
+<body>
+    <script>
+        window.addEventListener('load', function (ev) {
+            // Detect if we're in debug or production mode
+            var isDebugMode = serviceWorkerVersion === null;
+
+            // Initialize Flutter
+            var entrypoint = {
+                serviceWorker: {
+                    serviceWorkerVersion: serviceWorkerVersion,
+                },
+                onEntrypointLoaded: function (engineInitializer) {
+                    if (isDebugMode) {
+                        // Debug mode - use the simpler initialization for compatibility
+                        engineInitializer.initializeEngine().then(function (appRunner) {
+                            appRunner.runApp();
+                        });
+                    } else {
+                        // Production mode - use the modern async/await pattern
+                        (async function () {
+                            const appRunner = await engineInitializer.initializeEngine({
+                                useColorEmoji: true
+                            });
+                            await appRunner.runApp();
+                        })();
+                    }
+                }
+            };
+
+            // Use the appropriate loader method
+            if (isDebugMode) {
+                _flutter.loader.loadEntrypoint(entrypoint);
+            } else {
+                _flutter.loader.load(entrypoint);
+            }
+        });
+    </script>
+</body>
+
+</html>

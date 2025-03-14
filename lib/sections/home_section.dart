@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:website/theme/app_theme.dart';
 import 'package:website/widgets/big_app_bar.dart';
+import 'package:website/widgets/lazy_load_image.dart';
 import 'package:website/widgets/small_app_bar.dart';
 
 double getResponsiveFontSize(
@@ -293,7 +294,10 @@ class MobileHomePageTitleSection extends StatelessWidget {
                 onPressed: () {},
                 icon: SizedBox(
                   height: 45,
-                  child: Image.asset('assets/icons/get_it_on_google_play.png'),
+                  child: LazyLoadImage(
+                    imagePath: 'assets/icons/get_it_on_google_play.png',
+                    fit: BoxFit.contain,
+                  ),
                 )),
           ],
         ),
@@ -376,8 +380,10 @@ class HomePageTitleSection extends StatelessWidget {
                   onPressed: () {},
                   icon: SizedBox(
                     height: 53,
-                    child:
-                        Image.asset('assets/icons/get_it_on_google_play.png'),
+                    child: LazyLoadImage(
+                      imagePath: 'assets/icons/get_it_on_google_play.png',
+                      fit: BoxFit.contain,
+                    ),
                   )),
             ],
           )
@@ -394,18 +400,39 @@ class HomePageImageSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Mobile-specific adjustments
+    // Mobile-specific adjustments - explicitly return empty container without loading any image
     if (MediaQuery.of(context).size.width < 600) {
-      return Container();
+      return const SizedBox.shrink(); // More efficient than Container()
     }
 
-    // Keep original behavior for desktop/tablet
+    // Keep original behavior for desktop/tablet but use lazy loading
     return SizedBox(
         height: MediaQuery.of(context).size.height * 0.6,
-        child: Image.asset(
-          'assets/images/homepage_image_row.png',
+        child: LazyLoadImage(
+          imagePath: 'assets/images/homepage_image_row.png',
           fit: BoxFit.fitHeight,
           alignment: Alignment.centerLeft,
+          placeholder: Container(
+            color: Colors.grey[100],
+            child: Center(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  CircularProgressIndicator(
+                    color: AppTheme.lightTheme.colorScheme.secondary,
+                  ),
+                  const SizedBox(height: 16),
+                  Text(
+                    'Loading image...',
+                    style: TextStyle(
+                      color: Colors.grey[600],
+                      fontSize: 14,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
         ));
   }
 }
