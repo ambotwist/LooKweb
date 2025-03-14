@@ -4,7 +4,7 @@
     "start_url": ".",
     "display": "standalone",
     "background_color": "#FFFFFF",
-    "theme_color": "#FF0055",
+    "theme_color": "#000000",
     "description": "AI-powered fashion discovery platform that personalizes your shopping experience.",
     "orientation": "portrait-primary",
     "prefer_related_applications": false,
