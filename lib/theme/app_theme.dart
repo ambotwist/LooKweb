@@ -11,6 +11,8 @@ extension CustomTextTheme on TextTheme {
           maxSize: 64,
         ),
         fontWeight: FontWeight.normal,
+        fontFamily: 'Museum',
+        fontStyle: FontStyle.italic,
       );
 
   TextStyle howItWorkStep(BuildContext context) => TextStyle(

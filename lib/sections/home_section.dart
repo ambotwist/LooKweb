@@ -187,7 +187,7 @@ class MobileHomePageTitleSection extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Text(
-          'LooK',
+          'tiba',
           style: TextStyle(
             fontSize: getResponsiveFontSize(
               context,
@@ -197,9 +197,8 @@ class MobileHomePageTitleSection extends StatelessWidget {
             ),
             fontWeight: FontWeight.w700,
             height: 1.1,
-            letterSpacing: -2,
-            fontFamily: 'Ofelia',
-            color: AppTheme.lightTheme.colorScheme.secondary,
+            fontFamily: 'Martina',
+            color: AppTheme.lightTheme.colorScheme.primary,
           ),
         ),
         const SizedBox(height: 40),

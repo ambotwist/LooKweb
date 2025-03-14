@@ -91,31 +91,6 @@ class ContactSection extends StatelessWidget {
       throw Exception('Could not launch $url');
     }
   }
-
-  // Keep the original method for reference
-  Widget _buildContactInfo(
-      BuildContext context, IconData icon, String title, String detail) {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        Icon(
-          icon,
-          size: 30,
-          color: Theme.of(context).colorScheme.primary,
-        ),
-        const SizedBox(height: 8),
-        Text(
-          title,
-          style: Theme.of(context).textTheme.titleMedium,
-        ),
-        const SizedBox(height: 4),
-        Text(
-          detail,
-          style: Theme.of(context).textTheme.bodyMedium,
-        ),
-      ],
-    );
-  }
 }
 
 class TextFields extends StatelessWidget {

@@ -22,15 +22,14 @@ class BigAppBar extends StatelessWidget {
         SizedBox(
           width: 200,
           child: Padding(
-            padding: const EdgeInsets.only(left: 24.0),
+            padding: const EdgeInsets.only(left: 40.0),
             child: Text(
-              'LooK',
+              'tiba',
               style: TextStyle(
                 color: AppTheme.lightTheme.colorScheme.primary,
                 fontSize: 42,
-                fontWeight: FontWeight.w600,
-                fontFamily: 'Ofelia',
-                letterSpacing: -1,
+                fontWeight: FontWeight.w700,
+                fontFamily: 'Martina',
               ),
             ),
           ),
