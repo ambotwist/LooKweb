@@ -261,7 +261,7 @@ class Onboarding extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'Step 1: Personalize',
+                      '1: Personalize',
                       style:
                           AppTheme.lightTheme.textTheme.howItWorkStep(context),
                     ),
@@ -283,9 +283,12 @@ class Onboarding extends StatelessWidget {
                       minHeight: 500,
                       maxHeight: 750,
                     ),
-                    child: Image.asset(
-                      'assets/images/onboarding_example.png',
-                      fit: BoxFit.contain,
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 60),
+                      child: Image.asset(
+                        'assets/images/onboarding_example.png',
+                        fit: BoxFit.contain,
+                      ),
                     ),
                   ),
                 ),
@@ -339,7 +342,7 @@ class Swipe extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'Step 2: Discover',
+                      '2: Discover',
                       style:
                           AppTheme.lightTheme.textTheme.howItWorkStep(context),
                     ),
@@ -415,7 +418,7 @@ class Shop extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'Step 3: Shop',
+                      '3: Shop',
                       style:
                           AppTheme.lightTheme.textTheme.howItWorkStep(context),
                     ),
