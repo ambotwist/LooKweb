@@ -17,7 +17,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'tiba',
+      title: 'look',
       debugShowCheckedModeBanner: false,
       theme: AppTheme.lightTheme,
       home: const HomePage(),

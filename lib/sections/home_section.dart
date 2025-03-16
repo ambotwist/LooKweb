@@ -187,7 +187,7 @@ class MobileHomePageTitleSection extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Text(
-          'tiba',
+          'look',
           style: TextStyle(
             fontSize: getResponsiveFontSize(
               context,

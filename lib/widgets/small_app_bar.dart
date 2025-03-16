@@ -21,7 +21,7 @@ class SmallAppBar extends StatelessWidget {
       title: Padding(
         padding: const EdgeInsets.only(left: 16.0),
         child: Text(
-          'tiba',
+          'look',
           style: TextStyle(
             color: AppTheme.lightTheme.colorScheme.onPrimary,
             fontSize: 42,

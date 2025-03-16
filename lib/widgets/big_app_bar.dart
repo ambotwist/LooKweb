@@ -24,7 +24,7 @@ class BigAppBar extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsets.only(left: 40.0),
             child: Text(
-              'tiba',
+              'look',
               style: TextStyle(
                 color: AppTheme.lightTheme.colorScheme.primary,
                 fontSize: 42,
