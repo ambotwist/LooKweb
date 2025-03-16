@@ -1,6 +1,6 @@
 {
-    "name": "LooK - AI-Powered Fashion Discovery",
-    "short_name": "LooK",
+    "name": "look - AI-Powered Fashion Discovery",
+    "short_name": "look",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#FFFFFF",

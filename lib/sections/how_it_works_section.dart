@@ -17,7 +17,7 @@ class HowItWorksSection extends StatelessWidget {
           ),
           child: MediaQuery.of(context).size.width > 700
               ? Padding(
-                padding: const EdgeInsets.only(top: 60.0),
+                padding: const EdgeInsets.symmetric(vertical: 60.0),
                 child: Column(
                     children: [
                       Text(
@@ -63,7 +63,7 @@ class HowItWorksSection extends StatelessWidget {
                           ),
               )
           : Padding(
-            padding: const EdgeInsets.only(top: 40.0),
+            padding: const EdgeInsets.symmetric(vertical: 40.0),
             child: Column(
                 children: [
                   Text(

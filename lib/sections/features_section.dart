@@ -9,7 +9,7 @@ class FeaturesSection extends StatelessWidget {
     return Container(
       width: double.infinity,
       padding: const EdgeInsets.symmetric(
-        vertical: 100.0,
+        vertical: 60.0,
         horizontal: 60.0,
       ),
       child: Column(
