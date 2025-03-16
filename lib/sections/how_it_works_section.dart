@@ -15,62 +15,80 @@ class HowItWorksSection extends StatelessWidget {
           constraints: BoxConstraints(
             maxWidth: 1200,
           ),
-          child: Padding(
-            padding:
-                const EdgeInsets.symmetric(vertical: 50.0, horizontal: 40.0),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Text(
-                  'How It Works',
+          child: MediaQuery.of(context).size.width > 700
+              ? Padding(
+                padding: const EdgeInsets.only(top: 60.0),
+                child: Column(
+                    children: [
+                      Text(
+                        'How It Works',
                   style: AppTheme.lightTheme.textTheme.howItWorkTitle(context),
                 ),
-                const SizedBox(height: 100),
-                LayoutBuilder(builder: (context, constraints) {
-                  if (constraints.maxWidth < 600) {
-                    return Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        MobileOnboarding(),
-                        const SizedBox(height: 50),
-                        Divider(
-                          color: AppTheme.lightTheme.colorScheme.onPrimary,
-                        ),
-                        const SizedBox(height: 50),
-                        MobileSwipe(),
-                        const SizedBox(height: 50),
-                        Divider(
-                          color: AppTheme.lightTheme.colorScheme.onPrimary,
-                        ),
-                        const SizedBox(height: 50),
-                        MobileShop(),
-                      ],
-                    );
-                  }
-
-                  return Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Onboarding(),
-                      SizedBox(
-                        height:
-                            MediaQuery.of(context).size.height > 700 ? 60 : 20,
-                      ),
-                      Swipe(),
-                      SizedBox(
-                        height:
-                            MediaQuery.of(context).size.height > 700 ? 60 : 20,
-                      ),
-                      Shop(),
-                    ],
-                  );
-                }),
-              ],
-            ),
+                const SizedBox(height: 40),
+                SizedBox(
+                  width: MediaQuery.of(context).size.width * 0.5,
+                  child: Text(
+                    'Our Machine Learning algorithm will learn from your style and tailor recommendations to your tastes.',              
+                    style: TextStyle(
+                      color: AppTheme.lightTheme.colorScheme.onPrimary,
+                      fontSize: getResponsiveFontSize(context, baseSize: 30, minSize: 22, maxSize: 34),
+                      fontWeight: FontWeight.w200,
+                      fontFamily: 'Museum',
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+                const SizedBox(height: 80),
+                const StepRow(
+                  stepNumber: 1,
+                  stepText: 'Personalize',
+                  stepExplanation: 'Take a quick quiz to let us know your style and preferences 💫',
+                  stepImagePath: 'assets/images/onboarding_example.png',
+                ),
+                const SizedBox(height: 60),
+                const StepRow(
+                  stepNumber: 2,
+                  stepText: 'Discover',
+                  stepExplanation: 'Like what you see?\nSwipe right to like 💚\n\nNot your style?\nSwipe left to pass ❌',
+                  stepImagePath: 'assets/images/swipe_example.png',
+                ),
+                const SizedBox(height: 60),
+                const StepRow(
+                  stepNumber: 3,
+                  stepText: 'Shop',
+                  stepExplanation: 'Found something you fancy? 😍\nSwipe up to favorite or order it via our direct checkout!',
+                  stepImagePath: 'assets/images/favorite&checkout.png',
+                ),
+                            ],
+                          ),
+              )
+          : Padding(
+            padding: const EdgeInsets.only(top: 40.0),
+            child: Column(
+                children: [
+                  Text(
+                    'How It Works',
+                    style: AppTheme.lightTheme.textTheme.howItWorkTitle(context),
+                  ),
+                  const SizedBox(height: 60),
+                  const MobileOnboarding(),
+                  _mobileDivider(),
+                  const MobileSwipe(),
+                  _mobileDivider(),
+                  const MobileShop(),
+                ],
+              ),
           ),
         ),
       ),
     );
+  }
+
+  Padding _mobileDivider() {
+    return Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 30.0, vertical: 30.0),
+                  child: Divider(color: AppTheme.lightTheme.colorScheme.onPrimary),
+                );
   }
 }
 
@@ -234,70 +252,83 @@ class MobileShop extends StatelessWidget {
   }
 }
 
-class Onboarding extends StatelessWidget {
-  const Onboarding({
+class StepRow extends StatelessWidget {
+  final int stepNumber;
+  final String stepText;
+  final String stepExplanation;
+  final String stepImagePath;
+
+  const StepRow({
     super.key,
+    required this.stepNumber,
+    required this.stepText,
+    required this.stepExplanation,
+    required this.stepImagePath,
   });
 
   @override
   Widget build(BuildContext context) {
-    return ConstrainedBox(
-      constraints: BoxConstraints(
-        minHeight: 400,
-        maxHeight: 750,
-      ),
-      child: SizedBox(
-        height: getFullScreenSectionHeight(context) * 0.7,
-        child: Padding(
-          padding: const EdgeInsets.only(
-            left: 100,
-          ),
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        
+        return Padding(
+          padding: const EdgeInsets.only(left: 60),
           child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Expanded(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      '1: Personalize',
-                      style:
-                          AppTheme.lightTheme.textTheme.howItWorkStep(context),
-                    ),
-                    const SizedBox(height: 20),
-                    Text(
-                      'Take a quick quiz to let us know your style and preferences 💫',
-                      style: AppTheme.lightTheme.textTheme
-                          .howItWorkExplanation(context),
-                    ),
-                  ],
-                ),
-              ),
-              Expanded(
-                flex: 2,
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20),
-                  child: Container(
-                    constraints: BoxConstraints(
-                      minHeight: 500,
-                      maxHeight: 750,
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 60),
-                      child: Image.asset(
-                        'assets/images/onboarding_example.png',
-                        fit: BoxFit.contain,
-                      ),
-                    ),
-                  ),
-                ),
-              ),
+            children: stepNumber % 2 != 0 
+            ? [
+              _explanationSection(context, stepNumber, stepText, stepExplanation),
+              const SizedBox(width: 40),
+              _imageSection(context, stepImagePath),
+            ]
+            : [
+              _imageSection(context, stepImagePath),
+              const SizedBox(width: 40),
+              _explanationSection(context, stepNumber, stepText, stepExplanation),
             ],
           ),
-        ),
+        );
+      },
+    );
+  }
+
+  Container _explanationSection(BuildContext context, int stepNumber,
+      String stepText, String stepExplanation) {
+    return Container(
+      width: MediaQuery.of(context).size.width * 0.25,
+      constraints: BoxConstraints(
+        maxWidth: 350,
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            '$stepNumber: $stepText',
+            style: AppTheme.lightTheme.textTheme.howItWorkStep(context),
+          ),
+          const SizedBox(height: 20),
+          Text(
+            stepExplanation,
+            style: AppTheme.lightTheme.textTheme.howItWorkExplanation(context),
+          ),
+        ],
       ),
     );
+  }
+
+  Container _imageSection(BuildContext context, String imagePath) {
+    return Container(
+              width: MediaQuery.of(context).size.width * 0.5,
+              constraints: BoxConstraints(
+                maxWidth: 750,
+                maxHeight: 750,
+              ),
+              child: Image.asset(
+                imagePath,
+                fit: BoxFit.contain,
+              ),
+            );
   }
 }
 
@@ -316,8 +347,16 @@ class Swipe extends StatelessWidget {
       child: SizedBox(
         height: getFullScreenSectionHeight(context) * 0.7,
         child: Padding(
-          padding: const EdgeInsets.only(
-            right: 60,
+          padding: MediaQuery.of(context).size.width > 1000
+              ? const EdgeInsets.only(
+                  right: 100,
+                )
+              : MediaQuery.of(context).size.width > 800
+                  ? const EdgeInsets.only(
+                      right: 60,
+                    )
+                  : const EdgeInsets.only(
+                      right: 20,
           ),
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -335,7 +374,7 @@ class Swipe extends StatelessWidget {
                   ),
                 ),
               ),
-              const SizedBox(width: 40),
+              Spacer(),
               Expanded(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,

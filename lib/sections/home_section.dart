@@ -370,7 +370,7 @@ class HomePageImageSection extends StatelessWidget {
     // Keep original behavior for desktop/tablet
     return Container(
       constraints: BoxConstraints(
-        minHeight: 400,
+        minHeight: 500,
         maxHeight: 750,
       ),
       child: SizedBox(
