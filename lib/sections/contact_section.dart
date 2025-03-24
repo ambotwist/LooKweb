@@ -33,8 +33,8 @@ class ContactSection extends StatelessWidget {
                   context,
                   Icons.email,
                   'Email',
-                  'ambotwist@gmail.com',
-                  'mailto:ambotwist@gmail.com',
+                  'contact@lookapp.co.uk',
+                  'mailto:contact@lookapp.co.uk',
                 ),
                 _buildClickableContactInfo(
                   context,

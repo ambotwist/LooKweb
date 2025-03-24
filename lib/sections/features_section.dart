@@ -44,7 +44,7 @@ class FeaturesSection extends StatelessWidget {
             child: MediaQuery.of(context).size.width > 700
                 ? ConstrainedBox(
                   constraints: BoxConstraints(
-                    maxWidth: 1200,
+                    maxWidth: 1000,
                   ),
                   child: Image.asset(
                       'assets/images/smartsearch_example.png',

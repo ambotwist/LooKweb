@@ -31,7 +31,7 @@ class HowItWorksSection extends StatelessWidget {
                     'Our Machine Learning algorithm will learn from your style and tailor recommendations to your tastes.',              
                     style: TextStyle(
                       color: AppTheme.lightTheme.colorScheme.onPrimary,
-                      fontSize: getResponsiveFontSize(context, baseSize: 30, minSize: 22, maxSize: 34),
+                      fontSize: getResponsiveFontSize(context, baseSize: 30, minSize: 22, maxSize: 30),
                       fontWeight: FontWeight.w200,
                       fontFamily: 'Museum',
                     ),
@@ -321,8 +321,8 @@ class StepRow extends StatelessWidget {
     return Container(
               width: MediaQuery.of(context).size.width * 0.5,
               constraints: BoxConstraints(
-                maxWidth: 750,
-                maxHeight: 750,
+                maxWidth: 650,
+                maxHeight: 650,
               ),
               child: Image.asset(
                 imagePath,

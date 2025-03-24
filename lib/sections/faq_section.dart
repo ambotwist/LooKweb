@@ -70,7 +70,7 @@ class _FAQSectionState extends State<FAQSection> {
               ),
             ),
             const SizedBox(height: 60),
-            FAQContactSection()
+            // FAQContactSection()
           ],
         ),
       ),
@@ -104,7 +104,7 @@ class _FAQSectionState extends State<FAQSection> {
                   context,
                   baseSize: 24,
                   minSize: 18,
-                  maxSize: 28,
+                  maxSize: 24,
                 ),
               ),
         ),
@@ -125,7 +125,7 @@ class _FAQSectionState extends State<FAQSection> {
                         context,
                         baseSize: 20,
                         minSize: 16,
-                        maxSize: 24,
+                        maxSize: 20,
                       ),
                     ),
               ),
@@ -168,10 +168,10 @@ class FAQContactSection extends StatelessWidget {
               horizontal: 20.0,
               vertical: 10.0,
             ),
-            child: Text(
-              "Contact Us",
-              style: TextStyle(
-                fontSize: getResponsiveFontSize(
+            child:  Text(
+                "Contact Us",
+                style: TextStyle(
+                  fontSize: getResponsiveFontSize(
                   context,
                   baseSize: 24,
                   minSize: 18,

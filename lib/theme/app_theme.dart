@@ -21,7 +21,7 @@ extension CustomTextTheme on TextTheme {
           context,
           baseSize: 42,
           minSize: 24,
-          maxSize: 48,
+          maxSize: 42,
         ),
         fontWeight: FontWeight.w600,
       );
