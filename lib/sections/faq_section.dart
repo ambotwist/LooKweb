@@ -3,7 +3,14 @@ import 'package:website/utils/screen_utils.dart';
 import 'package:website/theme/app_theme.dart';
 
 class FAQSection extends StatefulWidget {
-  const FAQSection({super.key});
+  final ScrollController scrollController;
+  final GlobalKey contactSectionKey;
+
+  const FAQSection({
+    super.key,
+    required this.scrollController,
+    required this.contactSectionKey,
+  });
 
   @override
   State<FAQSection> createState() => _FAQSectionState();
@@ -15,6 +22,16 @@ class _FAQSectionState extends State<FAQSection> {
     4, // Number of FAQ items
     (_) => ExpansionTileController(),
   );
+
+  void _scrollToContact() {
+    final RenderBox renderBox = widget.contactSectionKey.currentContext!.findRenderObject() as RenderBox;
+    final position = renderBox.localToGlobal(Offset.zero);
+    widget.scrollController.animateTo(
+      position.dy - 100, // Offset to account for any headers
+      duration: const Duration(milliseconds: 500),
+      curve: Curves.easeInOut,
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -70,7 +87,7 @@ class _FAQSectionState extends State<FAQSection> {
               ),
             ),
             const SizedBox(height: 60),
-            // FAQContactSection()
+            FAQContactSection(scrollToContact: _scrollToContact)
           ],
         ),
       ),
@@ -138,8 +155,11 @@ class _FAQSectionState extends State<FAQSection> {
 }
 
 class FAQContactSection extends StatelessWidget {
+  final VoidCallback scrollToContact;
+
   const FAQContactSection({
     super.key,
+    required this.scrollToContact,
   });
 
   @override
@@ -162,20 +182,23 @@ class FAQContactSection extends StatelessWidget {
         ),
         const SizedBox(height: 20),
         ElevatedButton(
-          onPressed: () {},
+          onPressed: scrollToContact,
           child: Padding(
             padding: const EdgeInsets.symmetric(
               horizontal: 20.0,
               vertical: 10.0,
             ),
-            child:  Text(
+            child: TextButton(
+              onPressed: scrollToContact,
+              child: Text(
                 "Contact Us",
                 style: TextStyle(
                   fontSize: getResponsiveFontSize(
-                  context,
-                  baseSize: 24,
-                  minSize: 18,
-                  maxSize: 28,
+                    context,
+                    baseSize: 24,
+                    minSize: 18,
+                    maxSize: 28,
+                  ),
                 ),
               ),
             ),
