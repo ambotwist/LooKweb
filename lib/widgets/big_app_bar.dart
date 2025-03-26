@@ -47,6 +47,8 @@ class BigAppBar extends StatelessWidget {
                     text: menuItems[2], onPressed: onPressedCallbacks[2]),
                 AppBarItem(
                     text: menuItems[3], onPressed: onPressedCallbacks[3]),
+                AppBarItem(
+                    text: menuItems[4], onPressed: onPressedCallbacks[4]),
               ],
             ),
           ),

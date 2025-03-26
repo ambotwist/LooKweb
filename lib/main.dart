@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:website/sections/contact_section.dart';
 import 'package:website/sections/faq_section.dart';
 import 'package:website/sections/features_section.dart';
+import 'package:website/sections/for_brands_section.dart';
 import 'package:website/sections/home_section.dart';
 import 'package:website/sections/how_it_works_section.dart';
 import 'package:website/widgets/app_bar_drawer.dart';
@@ -34,7 +35,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   late final ScrollController _scrollController;
-  final List<GlobalKey> _sectionKeys = List.generate(5, (_) => GlobalKey());
+  final List<GlobalKey> _sectionKeys = List.generate(6, (_) => GlobalKey());
 
   @override
   void initState() {
@@ -55,6 +56,7 @@ class _HomePageState extends State<HomePage> {
       'How It Works',
       'Features',
       'FAQ',
+      'For Brands',
       'Contact'
     ];
 
@@ -63,7 +65,8 @@ class _HomePageState extends State<HomePage> {
       () => _scrollToSection(1), // How It Works (index 1)
       () => _scrollToSection(2), // Features (index 2)
       () => _scrollToSection(3), // FAQ (index 3)
-      () => _scrollToSection(4), // Contact (index 4)
+      () => _scrollToSection(4), // For Brands (index 4)
+      () => _scrollToSection(5), // Contact (index 5)
     ];
 
     // Create sections with keys for scrolling
@@ -77,7 +80,8 @@ class _HomePageState extends State<HomePage> {
       HowItWorksSection(key: _sectionKeys[1]),
       FeaturesSection(key: _sectionKeys[2]),
       FAQSection(key: _sectionKeys[3]),
-      ContactSection(key: _sectionKeys[4]),
+      ForBrandsSection(key: _sectionKeys[4]),
+      ContactSection(key: _sectionKeys[5]),
     ];
 
     return Scaffold(
