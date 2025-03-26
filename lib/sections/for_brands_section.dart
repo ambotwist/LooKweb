@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:website/utils/screen_utils.dart';
 import 'package:website/theme/app_theme.dart';
 
@@ -393,7 +394,7 @@ class _ForBrandsSectionState extends State<ForBrandsSection> {
           ),
           const SizedBox(height: 20),
           Text(
-            'Contact us at partners@lookapp.co.uk or sign up below',
+            'Contact us at partners@lookapp.co.uk',
             style: Theme.of(context).textTheme.bodyLarge?.copyWith(
               color: Colors.white,
               fontSize: getResponsiveFontSize(
@@ -407,7 +408,9 @@ class _ForBrandsSectionState extends State<ForBrandsSection> {
           ),
           const SizedBox(height: 30),
           ElevatedButton(
-            onPressed: () {},
+            onPressed: () {
+              launchUrl(Uri.parse('mailto:partners@lookapp.co.uk'));
+            },
             style: ElevatedButton.styleFrom(
               backgroundColor: Colors.white,
               padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 15),

@@ -20,7 +20,7 @@ class BigAppBar extends StatelessWidget {
       surfaceTintColor: Colors.white,
       actions: [
         SizedBox(
-          width: 200,
+          width: 150,
           child: Padding(
             padding: const EdgeInsets.only(left: 40.0),
             child: Text(
@@ -47,24 +47,26 @@ class BigAppBar extends StatelessWidget {
                     text: menuItems[2], onPressed: onPressedCallbacks[2]),
                 AppBarItem(
                     text: menuItems[3], onPressed: onPressedCallbacks[3]),
-                AppBarItem(
-                    text: menuItems[4], onPressed: onPressedCallbacks[4]),
+                // AppBarItem(
+                //     text: menuItems[4], onPressed: onPressedCallbacks[4]),
               ],
             ),
           ),
         ),
         SizedBox(
-          width: 200,
+          width: 150,
           child: Padding(
             padding: const EdgeInsets.only(right: 50.0),
             child: TextButton(
-              onPressed: () {},
+              onPressed: () {
+                onPressedCallbacks[4]();
+              },
               style: TextButton.styleFrom(
                 backgroundColor: AppTheme.lightTheme.colorScheme.primary,
                 foregroundColor: AppTheme.lightTheme.colorScheme.onPrimary,
               ),
               child: Text(
-                'Download App',
+                'Contact',
                 style: TextStyle(
                   color: AppTheme.lightTheme.colorScheme.onPrimary,
                   fontSize: 16,
