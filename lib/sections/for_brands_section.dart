@@ -108,18 +108,69 @@ class _ForBrandsSectionState extends State<ForBrandsSection> {
   }
 
   Widget _buildSectionHeading(BuildContext context, String text) {
-    return Text(
-      text,
-      style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-        color: Theme.of(context).colorScheme.primary,
-        fontWeight: FontWeight.bold,
-        fontSize: getResponsiveFontSize(
-          context,
-          baseSize: 28,
-          minSize: 22,
-          maxSize: 28,
+    final RegExp lookPattern = RegExp(r'\blook\b', caseSensitive: false);
+    final List<InlineSpan> spans = [];
+    
+    int lastMatchEnd = 0;
+    for (final match in lookPattern.allMatches(text)) {
+      if (match.start > lastMatchEnd) {
+        spans.add(
+          TextSpan(
+            text: text.substring(lastMatchEnd, match.start),
+            style: Theme.of(context).textTheme.headlineMedium?.copyWith(
+              color: Theme.of(context).colorScheme.primary,
+              fontWeight: FontWeight.bold,
+              fontSize: getResponsiveFontSize(
+                context,
+                baseSize: 28,
+                minSize: 22,
+                maxSize: 28,
+              ),
+            ),
+          ),
+        );
+      }
+      
+      spans.add(
+        TextSpan(
+          text: text.substring(match.start, match.end),
+          style: Theme.of(context).textTheme.headlineMedium?.copyWith(
+            color: Theme.of(context).colorScheme.primary,
+            fontWeight: FontWeight.bold,
+            fontFamily: 'Martina',
+            fontSize: getResponsiveFontSize(
+              context,
+              baseSize: 28,
+              minSize: 22,
+              maxSize: 28,
+            ),
+          ),
         ),
-      ),
+      );
+      
+      lastMatchEnd = match.end;
+    }
+    
+    if (lastMatchEnd < text.length) {
+      spans.add(
+        TextSpan(
+          text: text.substring(lastMatchEnd),
+          style: Theme.of(context).textTheme.headlineMedium?.copyWith(
+            color: Theme.of(context).colorScheme.primary,
+            fontWeight: FontWeight.bold,
+            fontSize: getResponsiveFontSize(
+              context,
+              baseSize: 28,
+              minSize: 22,
+              maxSize: 28,
+            ),
+          ),
+        ),
+      );
+    }
+    
+    return RichText(
+      text: TextSpan(children: spans),
     );
   }
 
