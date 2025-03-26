@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:website/theme/app_theme.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class ContactSection extends StatefulWidget {
   const ContactSection({super.key});
@@ -31,56 +32,41 @@ class _ContactSectionState extends State<ContactSection> {
     return Container(
       width: double.infinity,
       color: AppTheme.lightTheme.colorScheme.onPrimary,
-      child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 100.0, horizontal: 40.0),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Text(
-              'Contact Us',
-              style:
-                  Theme.of(context).textTheme.responsiveHeadlineLarge(context),
-              textAlign: TextAlign.center,
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 100.0, horizontal: 40.0),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(
+                  'Contact Us',
+                  style:
+                      Theme.of(context).textTheme.responsiveHeadlineLarge(context),
+                  textAlign: TextAlign.center,
+                ),
+                const SizedBox(height: 40),
+                ContactForm(
+                  formKey: _formKey,
+                  nameController: _nameController,
+                  lastNameController: _lastNameController,
+                  emailController: _emailController,
+                  messageController: _messageController,
+                  selectedTopic: _selectedTopic,
+                  onTopicChanged: (value) {
+                    setState(() {
+                      _selectedTopic = value;
+                    });
+                  },
+                  onSubmit: _submitForm,
+                ),
+                const SizedBox(height: 40),
+              ],
             ),
-            const SizedBox(height: 40),
-            ContactForm(
-              formKey: _formKey,
-              nameController: _nameController,
-              lastNameController: _lastNameController,
-              emailController: _emailController,
-              messageController: _messageController,
-              selectedTopic: _selectedTopic,
-              onTopicChanged: (value) {
-                setState(() {
-                  _selectedTopic = value;
-                });
-              },
-              onSubmit: _submitForm,
-            ),
-            const SizedBox(height: 40),
-            // Wrap(
-            //   spacing: 40,
-            //   runSpacing: 30,
-            //   alignment: WrapAlignment.center,
-            //   children: [
-            //     _buildClickableContactInfo(
-            //       context,
-            //       Icons.email,
-            //       'Email',
-            //       'contact@lookapp.co.uk',
-            //       'mailto:contact@lookapp.co.uk',
-            //     ),
-            //     // _buildClickableContactInfo(
-            //     //   context,
-            //     //   Icons.phone,
-            //     //   'Phone',
-            //     //   '+41 76 577 60 38',
-            //     //   'tel:+41765776038',
-            //     // ),
-            //   ],
-            // ),
-          ],
-        ),
+          ),
+          const Footer(),
+        ],
       ),
     );
   }
@@ -155,6 +141,319 @@ ${_messageController.text}
     if (!await launchUrl(url)) {
       throw Exception('Could not launch $url');
     }
+  }
+}
+
+class Footer extends StatelessWidget {
+  const Footer({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: double.infinity,
+      color: AppTheme.lightTheme.colorScheme.primary,
+      padding: const EdgeInsets.symmetric(vertical: 40.0, horizontal: 40.0),
+      child: Column(
+        children: [
+          // Logo and social media row
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              // App logo section
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    children: [
+                      Image.asset(
+                        'assets/images/logo.png',
+                        height: 40,
+                      ),
+                      const SizedBox(width: 10),
+                      Text(
+                        'look',
+                        style: TextStyle(
+                          fontSize: 32,
+                          fontWeight: FontWeight.w700,
+                          fontFamily: 'Martina',
+                          color: Colors.white,
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 10),
+                  Text(
+                    'AI-Powered Fashion Discovery',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 14,
+                    ),
+                  ),
+                  const SizedBox(height: 15),
+                  Text(
+                    'Download our app',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 14,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  const SizedBox(height: 10),
+                  Row(
+                    children: [
+                      InkWell(
+                        onTap: () {
+                          launchUrl(Uri.parse('https://apps.apple.com/app/lookapp'));
+                        },
+                        child: SizedBox(
+                          height: 40,
+                          child: SvgPicture.asset(
+                            'assets/icons/Download_on_the_app_store.svg',
+                            colorFilter: const ColorFilter.mode(Colors.white, BlendMode.srcIn),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(width: 10),
+                      InkWell(
+                        onTap: () {
+                          launchUrl(Uri.parse('https://play.google.com/store/apps/details?id=com.lookapp'));
+                        },
+                        child: SizedBox(
+                          height: 40,
+                          child: Image.asset(
+                            'assets/icons/get_it_on_google_play.png',
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+              
+              // Links section on larger screens
+              if (MediaQuery.of(context).size.width >= 768)
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    _buildFooterLinkColumn(
+                      'Navigation',
+                      ['Home', 'How It Works', 'Features', 'FAQ', 'Contact Us'],
+                    ),
+                    const SizedBox(width: 60),
+                    _buildFooterLinkColumn(
+                      'Legal',
+                      ['Terms & Conditions', 'Privacy Policy', 'Cookie Policy'],
+                    ),
+                    const SizedBox(width: 60),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Contact',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 16,
+                          ),
+                        ),
+                        const SizedBox(height: 15),
+                        _buildContactItem(
+                          Icons.email_outlined,
+                          'contact@lookapp.co.uk',
+                          'mailto:contact@lookapp.co.uk',
+                        ),
+                        const SizedBox(height: 10),
+                        Row(
+                          children: [
+                            _buildSocialIcon(Icons.facebook, 'https://facebook.com'),
+                            const SizedBox(width: 15),
+                            _buildSocialIcon(Icons.abc, 'https://x.com'), // Using 'X' icon
+                            const SizedBox(width: 15),
+                            _buildSocialIcon(Icons.photo_camera, 'https://instagram.com'), // Using camera icon for Instagram
+                            const SizedBox(width: 15),
+                            _buildSocialIcon(Icons.music_note, 'https://tiktok.com'), // Using music note icon for TikTok
+                          ],
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+            ],
+          ),
+          
+          // Footer links for mobile screens
+          if (MediaQuery.of(context).size.width < 768) ...[
+            const SizedBox(height: 30),
+            Column(
+              children: [
+                _buildAccordionMenu('Navigation', ['Home', 'How It Works', 'Features', 'FAQ', 'Contact Us']),
+                _buildAccordionMenu('Legal', ['Terms & Conditions', 'Privacy Policy', 'Cookie Policy']),
+                const SizedBox(height: 15),
+                Column(
+                  children: [
+                    Text(
+                      'Contact',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 16,
+                      ),
+                    ),
+                    const SizedBox(height: 15),
+                    _buildContactItem(
+                      Icons.email_outlined,
+                      'contact@lookapp.co.uk',
+                      'mailto:contact@lookapp.co.uk',
+                    ),
+                    const SizedBox(height: 15),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        _buildSocialIcon(Icons.facebook, 'https://facebook.com'),
+                        const SizedBox(width: 15),
+                        _buildSocialIcon(Icons.abc, 'https://x.com'),
+                        const SizedBox(width: 15),
+                        _buildSocialIcon(Icons.photo_camera, 'https://instagram.com'), // Using camera icon for Instagram
+                        const SizedBox(width: 15),
+                        _buildSocialIcon(Icons.music_note, 'https://tiktok.com'), // Using music note icon for TikTok
+                      ],
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ],
+          
+          const SizedBox(height: 40),
+          Divider(color: Colors.white.withOpacity(0.2), thickness: 1),
+          const SizedBox(height: 20),
+          
+          // Copyright
+          Text(
+            '© ${DateTime.now().year} LooK App. All rights reserved.',
+            style: TextStyle(
+              color: Colors.white.withOpacity(0.8),
+              fontSize: 14,
+            ),
+            textAlign: TextAlign.center,
+          ),
+        ],
+      ),
+    );
+  }
+  
+  Widget _buildFooterLinkColumn(String title, List<String> links) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          title,
+          style: TextStyle(
+            color: Colors.white,
+            fontWeight: FontWeight.bold,
+            fontSize: 16,
+          ),
+        ),
+        const SizedBox(height: 15),
+        ...links.map((link) => Padding(
+          padding: const EdgeInsets.only(bottom: 10),
+          child: InkWell(
+            onTap: () {},
+            child: Text(
+              link,
+              style: TextStyle(
+                color: Colors.white.withOpacity(0.8),
+                fontSize: 14,
+              ),
+            ),
+          ),
+        )).toList(),
+      ],
+    );
+  }
+  
+  Widget _buildAccordionMenu(String title, List<String> items) {
+    return Theme(
+      data: ThemeData(
+        dividerColor: Colors.transparent,
+        colorScheme: ColorScheme.dark(
+          primary: Colors.white,
+        ),
+      ),
+      child: ExpansionTile(
+        title: Text(
+          title,
+          style: TextStyle(
+            color: Colors.white,
+            fontWeight: FontWeight.bold,
+            fontSize: 16,
+          ),
+        ),
+        iconColor: Colors.white,
+        collapsedIconColor: Colors.white,
+        children: items.map((item) => 
+          ListTile(
+            dense: true,
+            title: Text(
+              item,
+              style: TextStyle(
+                color: Colors.white.withOpacity(0.8),
+                fontSize: 14,
+              ),
+            ),
+            onTap: () {},
+          )
+        ).toList(),
+      ),
+    );
+  }
+  
+  Widget _buildContactItem(IconData icon, String text, String url) {
+    return InkWell(
+      onTap: () {
+        launchUrl(Uri.parse(url));
+      },
+      child: Row(
+        children: [
+          Icon(
+            icon,
+            color: Colors.white,
+            size: 18,
+          ),
+          const SizedBox(width: 8),
+          Text(
+            text,
+            style: TextStyle(
+              color: Colors.white.withOpacity(0.8),
+              fontSize: 14,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+  
+  Widget _buildSocialIcon(IconData icon, String url) {
+    return InkWell(
+      onTap: () {
+        launchUrl(Uri.parse(url));
+      },
+      child: Container(
+        width: 36,
+        height: 36,
+        decoration: BoxDecoration(
+          color: Colors.white.withOpacity(0.1),
+          borderRadius: BorderRadius.circular(18),
+        ),
+        child: Icon(
+          icon,
+          color: Colors.white,
+          size: 18,
+        ),
+      ),
+    );
   }
 }
 
