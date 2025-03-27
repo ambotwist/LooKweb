@@ -164,23 +164,14 @@ class Footer extends StatelessWidget {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Row(
-                    children: [
-                      Image.asset(
-                        'assets/images/logo.png',
-                        height: 40,
-                      ),
-                      const SizedBox(width: 10),
-                      Text(
-                        'look',
-                        style: TextStyle(
-                          fontSize: 32,
-                          fontWeight: FontWeight.w700,
-                          fontFamily: 'Martina',
-                          color: Colors.white,
-                        ),
-                      ),
-                    ],
+                  Text(
+                    'look',
+                    style: TextStyle(
+                      fontSize: 32,
+                      fontWeight: FontWeight.w700,
+                      fontFamily: 'Martina',
+                      color: Colors.white,
+                    ),
                   ),
                   const SizedBox(height: 10),
                   Text(
