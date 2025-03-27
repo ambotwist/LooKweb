@@ -191,43 +191,19 @@ class Footer extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(height: 15),
-                  Text(
-                    'Download our app',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 14,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
                   const SizedBox(height: 10),
-                  Row(
-                    children: [
-                      InkWell(
-                        onTap: () {
-                          launchUrl(Uri.parse('https://apps.apple.com/app/lookapp'));
-                        },
-                        child: SizedBox(
-                          height: 40,
-                          child: SvgPicture.asset(
-                            'assets/icons/Download_on_the_app_store.svg',
-                            colorFilter: const ColorFilter.mode(Colors.white, BlendMode.srcIn),
-                          ),
-                        ),
+                  ElevatedButton(
+                    onPressed: () {
+                      launchUrl(Uri.parse('https://apps.apple.com/app/lookapp'));
+                    },
+                    child: const Text(
+                      'Download the App',
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 14,
+                        fontWeight: FontWeight.bold,
                       ),
-                      const SizedBox(width: 10),
-                      InkWell(
-                        onTap: () {
-                          launchUrl(Uri.parse('https://play.google.com/store/apps/details?id=com.lookapp'));
-                        },
-                        child: SizedBox(
-                          height: 40,
-                          child: Image.asset(
-                            'assets/icons/get_it_on_google_play.png',
-                            color: Colors.white,
-                          ),
-                        ),
-                      ),
-                    ],
+                    ),
                   ),
                 ],
               ),
@@ -332,7 +308,7 @@ class Footer extends StatelessWidget {
           
           // Copyright
           Text(
-            '© ${DateTime.now().year} LooK App. All rights reserved.',
+            '© ${DateTime.now().year} look App. All rights reserved.',
             style: TextStyle(
               color: Colors.white.withOpacity(0.8),
               fontSize: 14,

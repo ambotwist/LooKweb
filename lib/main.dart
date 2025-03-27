@@ -85,11 +85,12 @@ class _HomePageState extends State<HomePage> {
     ];
 
     return Scaffold(
+      backgroundColor: AppTheme.lightTheme.colorScheme.onPrimary,
       endDrawer: AppBarDrawer(
           menuItems: menuItems, onPressedCallbacks: onPressedCallbacks),
       body: SingleChildScrollView(
         controller: _scrollController,
-        physics: const ClampingScrollPhysics(), // Prevents bouncing effect
+        physics: const AlwaysScrollableScrollPhysics(), // Changed from ClampingScrollPhysics to fix trackpad gesture issues
         child: Column(
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.stretch,
