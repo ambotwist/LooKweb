@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:website/theme/app_theme.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 
 class ContactSection extends StatefulWidget {
   const ContactSection({super.key});
@@ -41,9 +40,10 @@ class _ContactSectionState extends State<ContactSection> {
               mainAxisSize: MainAxisSize.min,
               children: [
                 Text(
-                  'Contact Us',
-                  style:
-                      Theme.of(context).textTheme.responsiveHeadlineLarge(context),
+                  'Get in touch',
+                  style: Theme.of(context)
+                      .textTheme
+                      .responsiveHeadlineLarge(context),
                   textAlign: TextAlign.center,
                 ),
                 const SizedBox(height: 40),
@@ -100,40 +100,6 @@ ${_messageController.text}
     return params.entries
         .map((e) => '${Uri.encodeComponent(e.key)}=${Uri.encodeComponent(e.value)}')
         .join('&');
-  }
-
-  Widget _buildClickableContactInfo(BuildContext context, IconData icon,
-      String title, String detail, String url) {
-    return InkWell(
-      onTap: () => _launchUrl(url),
-      borderRadius: BorderRadius.circular(8),
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Icon(
-              icon,
-              size: 30,
-              color: Theme.of(context).colorScheme.primary,
-            ),
-            const SizedBox(height: 8),
-            Text(
-              title,
-              style: Theme.of(context).textTheme.titleMedium,
-            ),
-            const SizedBox(height: 4),
-            Text(
-              detail,
-              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                    decoration: TextDecoration.underline,
-                    color: Theme.of(context).colorScheme.primary,
-                  ),
-            ),
-          ],
-        ),
-      ),
-    );
   }
 
   Future<void> _launchUrl(String urlString) async {
@@ -200,7 +166,7 @@ class Footer extends StatelessWidget {
               ),
               
               // Links section on larger screens
-              if (MediaQuery.of(context).size.width >= 768)
+              if (MediaQuery.of(context).size.width >= 800)
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -251,7 +217,7 @@ class Footer extends StatelessWidget {
           ),
           
           // Footer links for mobile screens
-          if (MediaQuery.of(context).size.width < 768) ...[
+          if (MediaQuery.of(context).size.width < 800) ...[
             const SizedBox(height: 30),
             Column(
               children: [
