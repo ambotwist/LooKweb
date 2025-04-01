@@ -21,7 +21,7 @@ class _ForBrandsSectionState extends State<ForBrandsSection> {
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
-      color: Theme.of(context).colorScheme.background,
+      color: Theme.of(context).colorScheme.surface,
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 100.0, horizontal: 40.0),
         child: Column(

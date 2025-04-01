@@ -302,7 +302,7 @@ class Footer extends StatelessWidget {
               ),
             ),
           ),
-        )).toList(),
+        )),
       ],
     );
   }

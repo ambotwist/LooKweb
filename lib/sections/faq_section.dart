@@ -45,13 +45,13 @@ class _FAQSectionState extends State<FAQSection> {
                   _buildFaqItem(
                     context,
                     'How does look work?',
-                    _buildRichText(context, "look is a gamified fashion shopping app that helps you discover clothes effortlessly. You can swipe through AI-driven recommendations, search for specific styles using natural language (e.g., \"blue top for a semi-formal party\"), and purchase directly from partnered stores."),
+                    _buildRichText(context, "look is an AI fashion shopping app that helps you discover clothes effortlessly. By swiping on pieces look learns from your preferences and recommends items that you'll love. You can adjust the AI to find similar items or try something completely different!"),
                     0,
                   ),
                   _buildFaqItem(
                     context,
                     'How does look recommend products?',
-                    _buildRichText(context, "look uses AI to analyze your preferences based on swipes and searches, continuously refining recommendations to match your style. The more you interact with the app, the better it gets at curating your perfect wardrobe."),
+                    _buildRichText(context, "Using a state-of-the-art Machine Learning model, look continuously refines recommendations to match your style and goals. The more you interact with the app, the better it gets at curating your perfect wardrobe."),
                     1,
                   ),
                   _buildFaqItem(
