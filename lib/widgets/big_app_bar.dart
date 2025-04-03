@@ -15,9 +15,10 @@ class BigAppBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      backgroundColor: Colors.white,
+      backgroundColor: Colors.transparent,
+      elevation: 0,
       toolbarHeight: 80,
-      surfaceTintColor: Colors.white,
+      surfaceTintColor: Colors.transparent,
       actions: [
         SizedBox(
           width: 150,
@@ -26,7 +27,7 @@ class BigAppBar extends StatelessWidget {
             child: Text(
               'look',
               style: TextStyle(
-                color: AppTheme.lightTheme.colorScheme.primary,
+                color: Colors.black,
                 fontSize: 42,
                 fontWeight: FontWeight.w700,
                 fontFamily: 'Martina',

@@ -15,7 +15,10 @@ class SmallAppBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      backgroundColor: AppTheme.lightTheme.colorScheme.primary,
+      backgroundColor: Colors.transparent,
+      elevation: 0,
+      surfaceTintColor: Colors.transparent,
+      shadowColor: Colors.transparent,
       centerTitle: false,
       toolbarHeight: 80,
       title: Padding(
@@ -23,7 +26,7 @@ class SmallAppBar extends StatelessWidget {
         child: Text(
           'look',
           style: TextStyle(
-            color: AppTheme.lightTheme.colorScheme.onPrimary,
+            color: Colors.black,
             fontSize: 42,
             fontWeight: FontWeight.w700,
             fontFamily: 'Martina',

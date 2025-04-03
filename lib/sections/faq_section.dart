@@ -12,7 +12,7 @@ class FAQSection extends StatefulWidget {
 class _FAQSectionState extends State<FAQSection> {
   // Controllers for each expansion tile
   final List<ExpansionTileController> _controllers = List.generate(
-    6, // Number of FAQ items
+    8, // Number of FAQ items
     (_) => ExpansionTileController(),
   );
 
@@ -56,27 +56,39 @@ class _FAQSectionState extends State<FAQSection> {
                   ),
                   _buildFaqItem(
                     context,
+                    'How do you choose brands?',
+                    _buildRichText(context, "We carefully select brands based on ethical sourcing, fair labor, and environmental responsibility."),
+                    2,
+                  ),
+                  _buildFaqItem(
+                    context,
+                    'Why shop through Look?',
+                    _buildRichText(context, "By shopping here, you support brands that make fashion better for people and the planet."),
+                    3,
+                  ),
+                  _buildFaqItem(
+                    context,
                     'Are there any fees?',
                     _buildRichText(context, "The app is completely free with no commission fees. The prices listed reflect the store's online prices and all discounts are automatically shown to you and applied at checkout, therefore you know that you're getting the best deal."),
-                    2,
+                    4,
                   ),
                   _buildFaqItem(
                     context,
                     'Who ships the items?',
                     _buildRichText(context, "The corresponding store ships the items directly to you so there's no middleman and it ensures the best possible shipping experience."),
-                    3,
+                    5,
                   ),
                   _buildFaqItem(
                     context,
                     'Can I return items?',
                     _buildRichText(context, 'You can return items to the store you purchased them from, according to the store\'s return policy.'),
-                    4,
+                    6,
                   ),
                   _buildFaqItem(
                     context,
                     'How long does it take to get my order?',
                     _buildRichText(context, 'Items are shipped directly by the store and the delivery time is dependent on the store\'s shipping time. Estimated delivery times are displayed on the product detail page.'),
-                    5,
+                    7,
                   ),
                 ],
               ),

@@ -16,7 +16,7 @@ class HamburgerMenu extends StatelessWidget {
     return IconButton(
       icon: Icon(
         Icons.menu,
-        color: AppTheme.lightTheme.colorScheme.onPrimary,
+        color: Colors.black,
         size: 28,
       ),
       onPressed: () {

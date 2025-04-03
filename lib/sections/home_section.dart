@@ -4,6 +4,10 @@ import 'package:website/theme/app_theme.dart';
 import 'package:website/widgets/big_app_bar.dart';
 import 'package:website/widgets/small_app_bar.dart';
 
+double getFullScreenSectionHeight(BuildContext context) {
+  return MediaQuery.of(context).size.height;
+}
+
 double getResponsiveFontSize(
   BuildContext context, {
   required double baseSize,
@@ -68,76 +72,110 @@ class _HomeSectionState extends State<HomeSection> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: double.infinity,
-      color: AppTheme.lightTheme.colorScheme.onPrimary,
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          // App bar at the top
-          AppBar(
-              menuItems: widget.menuItems,
-              onPressedCallbacks: widget.onPressedCallbacks),
-          // Main content
-          LayoutBuilder(builder: (context, constraints) {
-            // Mobile layout
-            if (constraints.maxWidth < 600) {
-              return Column(
-                mainAxisSize: MainAxisSize.min,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(
-                        top: 60.0, left: 20.0, right: 20.0),
-                    child: MobileHomePageTitleSection(),
-                  ),
-                  HomePageImageSection(),
-                  // Scroll indicator with fade effect - only on mobile
-                  AnimatedOpacity(
-                    opacity: _scrollIndicatorOpacity,
-                    duration: const Duration(milliseconds: 300),
-                    child: Column(
-                      children: [
-                        Text(
-                          'Scroll down to learn more',
-                          style: TextStyle(
-                            fontSize: getResponsiveFontSize(
-                              context,
-                              baseSize: 24,
-                              minSize: 18,
-                              maxSize: 24,
-                            ),
-                            fontWeight: FontWeight.w300,
-                            height: 1.2,
-                            color: Colors.grey.shade800,
-                          ),
-                        ),
-                        Icon(
-                          Icons.keyboard_arrow_down_rounded,
-                          size: 40,
-                          color: Colors.grey.shade800,
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              );
-            }
-
-            // Desktop/tablet layout - without scroll indicator
+    final bool isMobile = MediaQuery.of(context).size.width < 600;
+    
+    Widget content = Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        // App bar at the top
+        AppBar(
+            menuItems: widget.menuItems,
+            onPressedCallbacks: widget.onPressedCallbacks),
+        // Main content
+        LayoutBuilder(builder: (context, constraints) {
+          // Mobile layout
+          if (constraints.maxWidth < 600) {
             return Column(
-              mainAxisSize: MainAxisSize.max,
-              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Padding(
-                  padding: const EdgeInsets.only(top: 100.0, left: 40.0),
-                  child: HomePageTitleSection(),
+                  padding: const EdgeInsets.only(
+                      top: 60.0, left: 20.0, right: 20.0),
+                  child: MobileHomePageTitleSection(),
                 ),
                 HomePageImageSection(),
+                // Scroll indicator with fade effect - only on mobile
+                AnimatedOpacity(
+                  opacity: _scrollIndicatorOpacity,
+                  duration: const Duration(milliseconds: 300),
+                  child: Column(
+                    children: [
+                      Text(
+                        'Scroll down to learn more',
+                        style: TextStyle(
+                          fontSize: getResponsiveFontSize(
+                            context,
+                            baseSize: 24,
+                            minSize: 18,
+                            maxSize: 24,
+                          ),
+                          fontWeight: FontWeight.w300,
+                          height: 1.2,
+                          color: Colors.grey.shade800,
+                        ),
+                      ),
+                      Icon(
+                        Icons.keyboard_arrow_down_rounded,
+                        size: 40,
+                        color: Colors.grey.shade800,
+                      ),
+                    ],
+                  ),
+                ),
               ],
             );
-          }),
-        ],
+          }
+
+          // Desktop/tablet layout - without scroll indicator
+          return Column(
+            mainAxisSize: MainAxisSize.max,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(top: 60.0, left: 40.0),
+                child: HomePageTitleSection(),
+              ),
+              HomePageImageSection(),
+            ],
+          );
+        }),
+      ],
+    );
+
+    if (isMobile) {
+      return Container(
+        width: double.infinity,
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage('assets/images/home_background.jpg'),
+            fit: BoxFit.cover,
+            alignment: Alignment.topCenter,
+          ),
+        ),
+        child: Container(
+          width: double.infinity,
+          color: Colors.white.withOpacity(0.75),
+          child: content,
+        ),
+      );
+    }
+
+    return Container(
+      width: double.infinity,
+      height: getFullScreenSectionHeight(context),
+      decoration: BoxDecoration(
+        image: DecorationImage(
+          image: AssetImage('assets/images/home_background.jpg'),
+          fit: BoxFit.cover,
+          alignment: Alignment.topCenter,
+        ),
+      ),
+      child: Container(
+        width: double.infinity,
+        height: getFullScreenSectionHeight(context),
+        color: Colors.white.withOpacity(0.75),
+        child: content,
       ),
     );
   }
@@ -202,30 +240,32 @@ class MobileHomePageTitleSection extends StatelessWidget {
           ),
         ),
         const SizedBox(height: 40),
-        RichText(
-          textAlign: TextAlign.center,
-          text: TextSpan(
-            text: 'Fashion tailored ',
-            style: TextStyle(
-              fontFamily: 'Museum',
-              fontSize: getResponsiveFontSize(
-                context,
-                baseSize: 42,
-                minSize: 32,
-                maxSize: 42,
-              ),
-              height: 1.1,
+        Text(
+          'Style that cares.',
+          style: TextStyle(
+            fontFamily: 'Canela',
+            fontSize: getResponsiveFontSize(
+              context,
+              baseSize: 42,
+              minSize: 32,
+              maxSize: 42,
             ),
-            children: <TextSpan>[
-              TextSpan(
-                text: 'uniquely',
-                style: TextStyle(),
-              ),
-              TextSpan(
-                text: ' to you',
-                style: TextStyle(),
-              ),
-            ],
+            fontWeight: FontWeight.w500,
+            height: 1.5,
+          ),
+        ),
+        Text(
+          'Fashion that lasts.',
+          style: TextStyle(
+            fontFamily: 'Canela',
+            fontSize: getResponsiveFontSize(
+              context,
+              baseSize: 42,
+              minSize: 32,
+              maxSize: 42,
+            ),
+            fontWeight: FontWeight.w500,
+            height: 1.5,
           ),
         ),
         const SizedBox(height: 30),
@@ -287,34 +327,37 @@ class HomePageTitleSection extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          RichText(
-            text: TextSpan(
-              text: 'Fashion tailored ',
-              style: TextStyle(
-                fontFamily: 'Museum',
-                fontSize: getResponsiveFontSize(
-                  context,
-                  baseSize: 42,
-                  minSize: 40,
-                  maxSize: 48,
-                ),
-                height: 1.1,
+          Text(
+            'Style that cares.',
+            style: TextStyle(
+              fontFamily: 'Canela',
+              fontWeight: FontWeight.w500,
+              fontSize: getResponsiveFontSize(
+                context,
+                baseSize: 48,
+                minSize: 44,
+                maxSize: 52,
               ),
-              children: <TextSpan>[
-                TextSpan(
-                  text: 'uniquely',
-                  style: TextStyle(),
-                ),
-                TextSpan(
-                  text: ' to you',
-                  style: TextStyle(),
-                ),
-              ],
+              height: 1.3,
+            ),
+          ),
+          Text(
+            'Fashion that lasts.',
+            style: TextStyle(
+              fontFamily: 'Canela',
+              fontWeight: FontWeight.w500,
+              fontSize: getResponsiveFontSize(
+                context,
+                baseSize: 48,
+                minSize: 44,
+                maxSize: 52,
+              ),
+              height: 1.3,
             ),
           ),
           const SizedBox(height: 30),
           Text(
-            'Find clothing tailored to you instantly with our AI-powered App that learns from your style.',
+            'Discover sustainable fashion, curated just for you, instantly with our AI-powered app.',
             style: TextStyle(
               fontSize: getResponsiveFontSize(
                 context,
@@ -322,7 +365,7 @@ class HomePageTitleSection extends StatelessWidget {
                 minSize: 24,
                 maxSize: 32,
               ),
-              fontWeight: FontWeight.w300,
+              fontWeight: FontWeight.w400,
               height: 1.2,
             ),
           ),
@@ -370,11 +413,11 @@ class HomePageImageSection extends StatelessWidget {
     // Keep original behavior for desktop/tablet
     return Container(
       constraints: BoxConstraints(
-        minHeight: 500,
+        minHeight: 400,
         maxHeight: 750,
       ),
       child: SizedBox(
-          height: MediaQuery.of(context).size.height * 0.55,
+          height: MediaQuery.of(context).size.height * 0.525,
           child: Image.asset(
             'assets/images/homepage_image_row.png',
             fit: BoxFit.fitHeight,

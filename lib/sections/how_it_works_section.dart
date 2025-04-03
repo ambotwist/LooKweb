@@ -9,75 +9,93 @@ class HowItWorksSection extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
-      color: AppTheme.lightTheme.colorScheme.primary,
-      child: Center(
-        child: ConstrainedBox(
-          constraints: BoxConstraints(
-            maxWidth: 1200,
-          ),
-          child: MediaQuery.of(context).size.width > 700
-              ? Padding(
-                padding: const EdgeInsets.symmetric(vertical: 60.0),
-                child: Column(
-                    children: [
-                      Text(
-                        'How It Works',
-                  style: AppTheme.lightTheme.textTheme.howItWorkTitle(context),
-                ),
-                const SizedBox(height: 40),
-                SizedBox(
-                  width: MediaQuery.of(context).size.width * 0.5,
-                  child: Text(
-                    'Our Machine Learning algorithm will learn from your style and tailor recommendations to your tastes.',              
-                    style: TextStyle(
-                      color: AppTheme.lightTheme.colorScheme.onPrimary,
-                      fontSize: getResponsiveFontSize(context, baseSize: 30, minSize: 22, maxSize: 30),
-                      fontWeight: FontWeight.w200,
-                      fontFamily: 'Museum',
-                    ),
-                    textAlign: TextAlign.center,
-                  ),
-                ),
-                const SizedBox(height: 80),
-                const StepRow(
-                  stepNumber: 1,
-                  stepText: 'Personalize',
-                  stepExplanation: 'Take a quick quiz to let us know your style and preferences 💫',
-                  stepImagePath: 'assets/images/onboarding_example.png',
-                ),
-                const SizedBox(height: 60),
-                const StepRow(
-                  stepNumber: 2,
-                  stepText: 'Discover',
-                  stepExplanation: 'Like what you see?\nSwipe right to like 💚\n\nNot your style?\nSwipe left to pass ❌',
-                  stepImagePath: 'assets/images/swipe_example.png',
-                ),
-                const SizedBox(height: 60),
-                const StepRow(
-                  stepNumber: 3,
-                  stepText: 'Shop',
-                  stepExplanation: 'Found something you fancy? 😍\nSwipe up to favorite or order it via our direct checkout!',
-                  stepImagePath: 'assets/images/favorite&checkout.png',
-                ),
-                            ],
+      decoration: BoxDecoration(
+        image: DecorationImage(
+          image: AssetImage('assets/images/green-leaves-pattern-illustration.jpg'),
+          fit: BoxFit.cover,
+          repeat: ImageRepeat.repeatY,
+        ),
+      ),
+      child: Container(
+        width: double.infinity,
+        color: Colors.black.withOpacity(0.8),
+        child: Center(
+          child: ConstrainedBox(
+            constraints: BoxConstraints(
+              maxWidth: 1200,
+            ),
+            child: MediaQuery.of(context).size.width > 700
+                ? Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 60.0),
+                    child: Column(
+                      children: [
+                        Text(
+                          'How It Works',
+                          style: AppTheme.lightTheme.textTheme.howItWorkTitle(context),
+                        ),
+                        const SizedBox(height: 40),
+                        SizedBox(
+                          width: MediaQuery.of(context).size.width * 0.5,
+                          child: Text(
+                            'Our Machine Learning algorithm will learn from your style and tailor recommendations to your tastes.',
+                            style: TextStyle(
+                              color: AppTheme.lightTheme.colorScheme.onPrimary,
+                              fontSize: getResponsiveFontSize(
+                                context,
+                                baseSize: 30,
+                                minSize: 22,
+                                maxSize: 30,
+                              ),
+                              fontWeight: FontWeight.w200,
+                              fontFamily: 'Museum',
+                            ),
+                            textAlign: TextAlign.center,
                           ),
-              )
-          : Padding(
-            padding: const EdgeInsets.symmetric(vertical: 40.0),
-            child: Column(
-                children: [
-                  Text(
-                    'How It Works',
-                    style: AppTheme.lightTheme.textTheme.howItWorkTitle(context),
+                        ),
+                        const SizedBox(height: 80),
+                        const StepRow(
+                          stepNumber: 1,
+                          stepText: 'Personalize',
+                          stepExplanation:
+                              'Take a quick quiz to let us know your style and preferences 💫',
+                          stepImagePath: 'assets/images/onboarding_example.png',
+                        ),
+                        const SizedBox(height: 60),
+                        const StepRow(
+                          stepNumber: 2,
+                          stepText: 'Discover',
+                          stepExplanation:
+                              'Like what you see?\nSwipe right to like 💚\n\nNot your style?\nSwipe left to pass ❌',
+                          stepImagePath: 'assets/images/swipe_example.png',
+                        ),
+                        const SizedBox(height: 60),
+                        const StepRow(
+                          stepNumber: 3,
+                          stepText: 'Shop',
+                          stepExplanation:
+                              'Found something you fancy? 😍\nSwipe up to favorite or order it via our direct checkout!',
+                          stepImagePath: 'assets/images/favorite&checkout.png',
+                        ),
+                      ],
+                    ),
+                  )
+                : Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 40.0),
+                    child: Column(
+                      children: [
+                        Text(
+                          'How It Works',
+                          style: AppTheme.lightTheme.textTheme.howItWorkTitle(context),
+                        ),
+                        const SizedBox(height: 60),
+                        const MobileOnboarding(),
+                        _mobileDivider(),
+                        const MobileSwipe(),
+                        _mobileDivider(),
+                        const MobileShop(),
+                      ],
+                    ),
                   ),
-                  const SizedBox(height: 60),
-                  const MobileOnboarding(),
-                  _mobileDivider(),
-                  const MobileSwipe(),
-                  _mobileDivider(),
-                  const MobileShop(),
-                ],
-              ),
           ),
         ),
       ),

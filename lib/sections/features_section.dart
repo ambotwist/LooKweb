@@ -29,7 +29,7 @@ class FeaturesSection extends StatelessWidget {
                 TextSpan(
                   text: 'SmartSearch',
                   style: TextStyle(
-                    color: const Color.fromARGB(255, 255, 0, 85),
+                    color: AppTheme.lightTheme.colorScheme.secondary,
                   ),
                 ),
                 TextSpan(

@@ -76,6 +76,8 @@ flutter:
     - assets/images/search.png
     - assets/images/features.png
     - assets/images/favorite&checkout.png
+    - assets/images/home_background.jpg
+    - assets/images/green-leaves-pattern-illustration.jpg
     - assets/icons/Download_on_the_app_store.svg
     - assets/icons/get_it_on_google_play.png
 
@@ -136,6 +138,121 @@ flutter:
       fonts:
         - asset: assets/fonts/Martina/TestMartinaPlantijn-Bold.otf
           weight: 700
+
+    - family: Garamond
+      fonts:
+        - asset: assets/fonts/EB_Garamond/static/EBGaramond-Regular.ttf
+          weight: 400
+        - asset: assets/fonts/EB_Garamond/static/EBGaramond-Italic.ttf
+          weight: 400
+          style: italic
+        - asset: assets/fonts/EB_Garamond/static/EBGaramond-Medium.ttf
+          weight: 500
+        - asset: assets/fonts/EB_Garamond/static/EBGaramond-MediumItalic.ttf
+          weight: 500
+          style: italic
+        - asset: assets/fonts/EB_Garamond/static/EBGaramond-SemiBold.ttf
+          weight: 600
+        - asset: assets/fonts/EB_Garamond/static/EBGaramond-SemiBoldItalic.ttf
+          weight: 600
+          style: italic
+        - asset: assets/fonts/EB_Garamond/static/EBGaramond-Bold.ttf
+          weight: 700
+        - asset: assets/fonts/EB_Garamond/static/EBGaramond-BoldItalic.ttf
+          weight: 700
+          style: italic
+
+    - family: Canela
+      fonts:
+        - asset: assets/fonts/Canela_Collection/Canela Family/Canela-Thin-Trial.otf
+          weight: 100
+        - asset: assets/fonts/Canela_Collection/Canela Family/Canela-ThinItalic-Trial.otf
+          weight: 100
+          style: italic
+        - asset: assets/fonts/Canela_Collection/Canela Family/Canela-Light-Trial.otf
+          weight: 300
+        - asset: assets/fonts/Canela_Collection/Canela Family/Canela-LightItalic-Trial.otf
+          weight: 300
+          style: italic
+        - asset: assets/fonts/Canela_Collection/Canela Family/Canela-Regular-Trial.otf
+          weight: 400
+        - asset: assets/fonts/Canela_Collection/Canela Family/Canela-RegularItalic-Trial.otf
+          weight: 400
+          style: italic
+        - asset: assets/fonts/Canela_Collection/Canela Family/Canela-Medium-Trial.otf
+          weight: 500
+        - asset: assets/fonts/Canela_Collection/Canela Family/Canela-MediumItalic-Trial.otf
+          weight: 500
+          style: italic
+        - asset: assets/fonts/Canela_Collection/Canela Family/Canela-Bold-Trial.otf
+          weight: 700
+        - asset: assets/fonts/Canela_Collection/Canela Family/Canela-BoldItalic-Trial.otf
+          weight: 700
+          style: italic
+        - asset: assets/fonts/Canela_Collection/Canela Family/Canela-Black-Trial.otf
+          weight: 900
+        - asset: assets/fonts/Canela_Collection/Canela Family/Canela-BlackItalic-Trial.otf
+          weight: 900
+          style: italic
+
+    - family: Moulin
+      fonts:
+        - asset: assets/fonts/Moulin_Family/Moulin-Thin-Trial.otf
+          weight: 100
+        - asset: assets/fonts/Moulin_Family/Moulin-ThinItalic-Trial.otf
+          weight: 100
+          style: italic
+        - asset: assets/fonts/Moulin_Family/Moulin-Light-Trial.otf
+          weight: 300
+        - asset: assets/fonts/Moulin_Family/Moulin-LightItalic-Trial.otf
+          weight: 300
+          style: italic
+        - asset: assets/fonts/Moulin_Family/Moulin-Regular-Trial.otf
+          weight: 400
+        - asset: assets/fonts/Moulin_Family/Moulin-RegularItalic-Trial.otf
+          weight: 400
+          style: italic
+        - asset: assets/fonts/Moulin_Family/Moulin-Medium-Trial.otf
+          weight: 500
+        - asset: assets/fonts/Moulin_Family/Moulin-MediumItalic-Trial.otf
+          weight: 500
+          style: italic
+        - asset: assets/fonts/Moulin_Family/Moulin-Bold-Trial.otf
+          weight: 700
+        - asset: assets/fonts/Moulin_Family/Moulin-BoldItalic-Trial.otf
+          weight: 700
+          style: italic
+        - asset: assets/fonts/Moulin_Family/Moulin-Black-Trial.otf
+          weight: 800
+        - asset: assets/fonts/Moulin_Family/Moulin-BlackItalic-Trial.otf
+          weight: 800
+          style: italic
+        - asset: assets/fonts/Moulin_Family/Moulin-Super-Trial.otf
+          weight: 900
+        - asset: assets/fonts/Moulin_Family/Moulin-SuperItalic-Trial.otf
+          weight: 900
+          style: italic
+
+    - family: Outfit
+      fonts:
+        - asset: assets/fonts/Outfit/static/Outfit-Thin.ttf
+          weight: 100
+        - asset: assets/fonts/Outfit/static/Outfit-ExtraLight.ttf
+          weight: 200
+        - asset: assets/fonts/Outfit/static/Outfit-Light.ttf
+          weight: 300
+        - asset: assets/fonts/Outfit/static/Outfit-Regular.ttf
+          weight: 400
+        - asset: assets/fonts/Outfit/static/Outfit-Medium.ttf
+          weight: 500
+        - asset: assets/fonts/Outfit/static/Outfit-SemiBold.ttf
+          weight: 600
+        - asset: assets/fonts/Outfit/static/Outfit-Bold.ttf
+          weight: 700
+        - asset: assets/fonts/Outfit/static/Outfit-ExtraBold.ttf
+          weight: 800
+        - asset: assets/fonts/Outfit/static/Outfit-Black.ttf
+          weight: 900
   #   - family: Trajan Pro
   #     fonts:
   #       - asset: fonts/TrajanPro.ttf
