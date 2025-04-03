@@ -76,6 +76,9 @@ class HowItWorksSection extends StatelessWidget {
                               'Found something you fancy? 😍\nSwipe up to favorite or order it via our direct checkout!',
                           stepImagePath: 'assets/images/favorite&checkout.png',
                         ),
+                        const SizedBox(height: 80),
+                        // SmartSearch Feature
+                        _buildSmartSearchFeature(context),
                       ],
                     ),
                   )
@@ -93,6 +96,9 @@ class HowItWorksSection extends StatelessWidget {
                         const MobileSwipe(),
                         _mobileDivider(),
                         const MobileShop(),
+                        _mobileDivider(),
+                        // SmartSearch Feature for mobile
+                        _buildMobileSmartSearchFeature(context),
                       ],
                     ),
                   ),
@@ -107,6 +113,106 @@ class HowItWorksSection extends StatelessWidget {
                   padding: const EdgeInsets.symmetric(horizontal: 30.0, vertical: 30.0),
                   child: Divider(color: AppTheme.lightTheme.colorScheme.onPrimary),
                 );
+  }
+
+  // New method to build SmartSearch feature for desktop/tablet
+  Widget _buildSmartSearchFeature(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        RichText(
+          textAlign: TextAlign.center,
+          text: TextSpan(
+            text: 'Looking for something specific?\nTry our ',
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: getResponsiveFontSize(
+                context,
+                baseSize: 30,
+                minSize: 26,
+                maxSize: 30,
+              ),
+              fontWeight: FontWeight.w700,
+              fontFamily: 'Satoshi',
+            ),
+            children: <TextSpan>[
+              TextSpan(
+                text: 'SmartSearch',
+                style: TextStyle(
+                  color: AppTheme.lightTheme.colorScheme.secondary,
+                ),
+              ),
+              const TextSpan(
+                text: '.',
+              ),
+            ],
+          ),
+        ),
+        const SizedBox(height: 40),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 40.0),
+          child: ConstrainedBox(
+            constraints: const BoxConstraints(
+              maxWidth: 1000,
+            ),
+            child: Image.asset(
+              'assets/images/smartsearch_example.png',
+              fit: BoxFit.contain,
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  // New method to build SmartSearch feature for mobile
+  Widget _buildMobileSmartSearchFeature(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 20.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          RichText(
+            textAlign: TextAlign.center,
+            text: TextSpan(
+              text: 'Looking for something specific?\nTry our ',
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: getResponsiveFontSize(
+                  context,
+                  baseSize: 24,
+                  minSize: 20,
+                  maxSize: 24,
+                ),
+                fontWeight: FontWeight.w700,
+                fontFamily: 'Satoshi',
+              ),
+              children: <TextSpan>[
+                TextSpan(
+                  text: 'SmartSearch',
+                  style: TextStyle(
+                    color: AppTheme.lightTheme.colorScheme.secondary,
+                  ),
+                ),
+                const TextSpan(
+                  text: '.',
+                ),
+              ],
+            ),
+          ),
+          const SizedBox(height: 30),
+          MediaQuery.of(context).size.width > 600
+              ? Image.asset(
+                  'assets/images/smartsearch_example_small.png',
+                  fit: BoxFit.contain,
+                )
+              : Image.asset(
+                  'assets/images/smartsearch_example_tiny.png',
+                  fit: BoxFit.contain,
+                ),
+        ],
+      ),
+    );
   }
 }
 

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:website/theme/app_theme.dart';
 import 'package:website/widgets/hamburger_menu.dart';
 
 class SmallAppBar extends StatelessWidget {

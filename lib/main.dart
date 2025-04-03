@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:website/sections/contact_section.dart';
 import 'package:website/sections/faq_section.dart';
-import 'package:website/sections/features_section.dart';
 import 'package:website/sections/for_brands_section.dart';
 import 'package:website/sections/home_section.dart';
 import 'package:website/sections/how_it_works_section.dart';
+import 'package:website/sections/sustainability_section.dart';
 import 'package:website/widgets/app_bar_drawer.dart';
 import 'theme/app_theme.dart';
 
@@ -54,7 +54,7 @@ class _HomePageState extends State<HomePage> {
     // Define menu items and callbacks
     final List<String> menuItems = [
       'How It Works',
-      'Features',
+      'Sustainability',
       'FAQ',
       'For Brands',
       'Contact'
@@ -63,7 +63,7 @@ class _HomePageState extends State<HomePage> {
     // Create callbacks to scroll to each section
     final List<VoidCallback> onPressedCallbacks = [
       () => _scrollToSection(1), // How It Works (index 1)
-      () => _scrollToSection(2), // Features (index 2)
+      () => _scrollToSection(2), // Sustainability (index 2)
       () => _scrollToSection(3), // FAQ (index 3)
       () => _scrollToSection(4), // For Brands (index 4)
       () => _scrollToSection(5), // Contact (index 5)
@@ -78,7 +78,7 @@ class _HomePageState extends State<HomePage> {
         scrollController: _scrollController,
       ),
       HowItWorksSection(key: _sectionKeys[1]),
-      FeaturesSection(key: _sectionKeys[2]),
+      SustainabilitySection(key: _sectionKeys[2]),
       FAQSection(key: _sectionKeys[3]),
       ForBrandsSection(key: _sectionKeys[4]),
       ContactSection(key: _sectionKeys[5]),
